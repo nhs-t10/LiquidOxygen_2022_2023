@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.auxilary.buildhistory.BuildHistory;
+//import org.firstinspires.ftc.teamcode.auxilary.buildhistory.BuildHistory;
 import org.firstinspires.ftc.teamcode.auxilary.integratedasync.PriorityAsyncOpmodeComponent;
 import org.firstinspires.ftc.teamcode.managers.feature.FeatureManager;
 import org.firstinspires.ftc.teamcode.managers.input.InputManager;
@@ -206,7 +206,7 @@ public class PrestonIsAGiraffeBoyTeleop extends OpMode {
         telemetry.addData("NeckTowerTicks", hands.getMotorPosition("NeckMotor"));
         telemetry.addData("NeckTowerTarTicks", hands.getMotorTargetPosition("NeckMotor"));
         telemetry.addData("NeckTowerPower", hands.getMotorPower("NeckMotor"));
-        telemetry.addData("Build Name", BuildHistory.buildName);
+        //telemetry.addData("Build Name", BuildHistory.buildName);
         telemetry.update();
 
     }
