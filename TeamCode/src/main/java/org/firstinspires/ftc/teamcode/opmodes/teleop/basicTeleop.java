@@ -40,6 +40,6 @@ public class basicTeleop extends OpMode {
 
     @Override
     public void loop() {
-        driver.driveOmni(input.getInputVariable("Y"),input.getInputVariable("X"),input.getInputVariable("R"));
+        driver.driveBlue(input.getInputVariable("Y"),input.getInputVariable("Y"),input.getInputVariable("Y"),input.getInputVariable("Y"));
     }
 }
