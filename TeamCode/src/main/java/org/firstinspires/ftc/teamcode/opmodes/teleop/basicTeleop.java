@@ -22,6 +22,7 @@ import org.firstinspires.ftc.teamcode.managers.movement.MovementManager;
 public class basicTeleop extends OpMode {
     public MovementManager driver;
     public InputManager input;
+    public int i;
     @Override
     public void init() {
         DcMotor fl = hardwareMap.get(DcMotor.class, "fl");
@@ -32,14 +33,26 @@ public class basicTeleop extends OpMode {
 
         input = new InputManager(gamepad1, gamepad2);
 
-        input.registerInput("X", new JoystickNode("left_stick_x"));
-        input.registerInput("Y", new JoystickNode("left_stick_y"));
-        input.registerInput("R", new JoystickNode("right_stick_x"));
-
+        input.registerInput("leftstickx", new JoystickNode("leftstickx"));
+        input.registerInput("leftsticky", new JoystickNode("leftsticky"));
+        input.registerInput("rightstickx", new JoystickNode("rightstickx"));
+        input.registerInput("dpadup", new ButtonNode("dpadup"));
+        input.registerInput("dpaddown", new ButtonNode("dpaddown"));
+        input.registerInput("dpadleft", new ButtonNode("dpadleft"));
+        input.registerInput("dpadright", new ButtonNode("dpadright"));
+        int i = 1;
     }
 
     @Override
     public void loop() {
-        driver.driveOmni(input.getInputVariable("X"),input.getInputVariable("Y"),input.getInputVariable("R"));
+        if (input.getBool("dpadup")) {
+            driver.driveOmni(1,0,0);
+        } else if (input.getBool("dpaddown")) {
+            driver.driveOmni(-1,0,0);
+        } else if (input.getBool("dpadleft")) {
+            driver.driveOmni(0,-1,0);
+        } else if (input.getBool("dpaddown")) {
+            driver.driveOmni(0,1,0);
+        }
     }
 }

@@ -142,10 +142,10 @@ public class InputManager extends FeatureManager {
             case "options": return new OptionsButtonHandle(gamepad);
             case "touchpad": return new TouchpadButtonHandle(gamepad);
             case "ps": return new PsButtonHandle(gamepad);
-            case "left_stick_x": return new LeftStickXButtonHandle(gamepad);
-            case "left_stick_y": return new LeftStickYButtonHandle(gamepad);
-            case "right_stick_x": return new RightStickXButtonHandle(gamepad);
-            case "right_stick_y": return new RightStickYButtonHandle(gamepad);
+            case "leftstickx": return new LeftStickXButtonHandle(gamepad);
+            case "leftsticky": return new LeftStickYButtonHandle(gamepad);
+            case "rightstickx": return new RightStickXButtonHandle(gamepad);
+            case "rightsticky": return new RightStickYButtonHandle(gamepad);
             case "lefttrigger": return new LeftTriggerButtonHandle(gamepad);
             case "righttrigger": return new RightTriggerButtonHandle(gamepad);
             case "gamepad2dpadup": return new DpadUpButtonHandle(gamepad2);
