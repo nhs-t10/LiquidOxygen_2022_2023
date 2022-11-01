@@ -4,17 +4,9 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.auxilary.FileSaver;
-import org.firstinspires.ftc.teamcode.managers.feature.FeatureManager;
-import org.firstinspires.ftc.teamcode.managers.feature.robotconfiguration.RobotConfiguration;
 import org.firstinspires.ftc.teamcode.managers.input.InputManager;
 import org.firstinspires.ftc.teamcode.managers.input.nodes.ButtonNode;
-import org.firstinspires.ftc.teamcode.managers.input.nodes.IfNode;
 import org.firstinspires.ftc.teamcode.managers.input.nodes.JoystickNode;
-import org.firstinspires.ftc.teamcode.managers.input.nodes.MultiInputNode;
-import org.firstinspires.ftc.teamcode.managers.input.nodes.MultiplyNode;
-import org.firstinspires.ftc.teamcode.managers.input.nodes.StaticValueNode;
-import org.firstinspires.ftc.teamcode.managers.input.nodes.ToggleNode;
 import org.firstinspires.ftc.teamcode.managers.movement.MovementManager;
 
 
@@ -22,7 +14,7 @@ import org.firstinspires.ftc.teamcode.managers.movement.MovementManager;
 public class basicTeleop extends OpMode {
     public MovementManager driver;
     public InputManager input;
-    public int i;
+    public double i;
     @Override
     public void init() {
         DcMotor fl = hardwareMap.get(DcMotor.class, "fl");
@@ -40,19 +32,50 @@ public class basicTeleop extends OpMode {
         input.registerInput("dpaddown", new ButtonNode("dpaddown"));
         input.registerInput("dpadleft", new ButtonNode("dpadleft"));
         input.registerInput("dpadright", new ButtonNode("dpadright"));
-        int i = 1;
+        input.registerInput("a", new ButtonNode("a"));
+        input.registerInput("b", new ButtonNode("b"));
+        input.registerInput("x", new ButtonNode("x"));
+        input.registerInput("y", new ButtonNode("y"));
+        i = 0.5;
     }
-
+    public float squareWSign(float input) {
+        if (input>=0) {
+            return input * input;
+        } else {
+            return input * input * -1;
+        }
+    }
     @Override
     public void loop() {
+        driver.driveBlue(-(float)(i * squareWSign(input.getFloat("leftsticky")) + squareWSign(input.getFloat("leftstickx"))),
+                (float)(i * squareWSign(input.getFloat("leftsticky")) - squareWSign(input.getFloat("leftstickx"))),
+                (float)(i * squareWSign(input.getFloat("leftsticky")) - squareWSign(input.getFloat("leftstickx"))),
+                -(float)(i * squareWSign(input.getFloat("leftsticky")) + squareWSign(input.getFloat("leftstickx"))));
         if (input.getBool("dpadup")) {
-            driver.driveOmni(1,0,0);
+            driver.driveBlue(-(float)i,(float)i,(float)i,-(float)i);
         } else if (input.getBool("dpaddown")) {
-            driver.driveOmni(-1,0,0);
+            driver.driveBlue((float)i,-(float)i,-(float)i,(float)i);
+        } else if (input.getBool("x")) {
+            driver.driveBlue((float)i,(float)i,(float)i,(float)i);
+        } else if (input.getBool("b")) {
+            driver.driveBlue(-(float)i,-(float)i,-(float)i,-(float)i);
         } else if (input.getBool("dpadleft")) {
-            driver.driveOmni(0,-1,0);
-        } else if (input.getBool("dpaddown")) {
-            driver.driveOmni(0,1,0);
+            driver.driveBlue((float)i, (float)i, -(float)i, -(float)i);
+        } else if (input.getBool("dpadright"))  {
+            driver.driveBlue(-(float)i, -(float)i, (float)i, (float)i);
+        } else {
+            driver.driveBlue(0,0,0,0);
+    }
+
+        if (input.getBool("y") & i<1) {
+            i += 0.001;
+            telemetry.addData("Speed", i);
+            telemetry.update();
+        } else if (input.getBool("a") & i>0) {
+            i -= 0.001;
+            telemetry.addData("Speed", i);
+            telemetry.update();
         }
+
     }
 }
