@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.managers.CV;
 
 import org.firstinspires.ftc.teamcode.auxilary.clocktower.Clocktower;
 import org.firstinspires.ftc.teamcode.auxilary.clocktower.ClocktowerCodes;
-import org.firstinspires.ftc.teamcode.managers.feature.FeatureManager;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -116,3 +115,4 @@ public class FancyPantsEdgeDetectionPipeline extends PipelineThatExposesSomeAnal
         return largeBlobCenterX / (double)inputWidth;
     }
 }
+
