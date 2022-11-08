@@ -2,10 +2,11 @@ $
     ignorewarning_american_m_unit: true
 $
 #one:
-    driveOmni(1, 0, 0), after 12in goto end;
+    driveRaw(0.5, 0.5,-0.5,0.5), after 2s goto end;
 
 
 
 
 #end:
     log("i got to the end!")
+    driveRaw(0,0,0,0)
