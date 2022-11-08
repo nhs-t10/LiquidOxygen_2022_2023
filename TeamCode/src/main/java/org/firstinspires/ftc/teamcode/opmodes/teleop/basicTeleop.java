@@ -63,7 +63,7 @@ public class basicTeleop extends OpMode {
     @Override
     public void loop() {
         hands.setServoPosition("leftArm", (input.getFloat("rightsticky")+1)/2);
-        hands.setServoPosition("rightArm", -(input.getFloat("rightsticky")+1)/2);
+        hands.setServoPosition("rightArm", Math.abs((input.getFloat("rightsticky")+1)/2-1));
         driver.driveBlue(-(float)(i * squareWSign(input.getFloat("leftsticky")) + squareWSign(input.getFloat("leftstickx"))),
                 (float)(i * squareWSign(input.getFloat("leftsticky")) - squareWSign(input.getFloat("leftstickx"))),
                 (float)(i * squareWSign(input.getFloat("leftsticky")) - squareWSign(input.getFloat("leftstickx"))),
