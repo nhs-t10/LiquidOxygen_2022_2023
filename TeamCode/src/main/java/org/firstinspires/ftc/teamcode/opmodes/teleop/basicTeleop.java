@@ -4,10 +4,10 @@ import static org.firstinspires.ftc.teamcode.managers.manipulation.ManipulationM
 import static org.firstinspires.ftc.teamcode.managers.manipulation.ManipulationManager.motor;
 import static org.firstinspires.ftc.teamcode.managers.manipulation.ManipulationManager.servo;
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.teamcode.loader.AbstractOpModeExtension;
 import org.firstinspires.ftc.teamcode.managers.input.InputManager;
 import org.firstinspires.ftc.teamcode.managers.input.nodes.ButtonNode;
 import org.firstinspires.ftc.teamcode.managers.input.nodes.JoystickNode;
@@ -16,13 +16,15 @@ import org.firstinspires.ftc.teamcode.managers.movement.MovementManager;
 
 
 @TeleOp
-public class basicTeleop extends OpMode {
+public class basicTeleop extends AbstractOpModeExtension {
     public MovementManager driver;
     public InputManager input;
     public ManipulationManager hands;
     public double i;
     @Override
     public void init() {
+        super.init();
+
         DcMotor fl = hardwareMap.get(DcMotor.class, "fl");
         DcMotor fr = hardwareMap.get(DcMotor.class, "fr");
         DcMotor br = hardwareMap.get(DcMotor.class, "br");
