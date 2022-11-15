@@ -21,6 +21,8 @@
 
 package org.firstinspires.ftc.teamcode.managers.CV;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -113,6 +115,17 @@ public class CVManager extends FeatureManager
                 }
             });
         }
+    }
+
+    public void stream() {
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        webcam.startStreaming(640,480,OpenCvCameraRotation.UPRIGHT);
+        /*Imgproc.rectangle(
+                input, // Buffer to draw on
+                region1_pointA, // First point which defines the rectangle
+                region1_pointB, // Second point which defines the rectangle
+                BLUE, // The color the rectangle is drawn in
+                2); // Thickness of the rectangle lines*/
     }
 
     public int getCVResult() {

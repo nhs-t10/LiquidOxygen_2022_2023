@@ -7,6 +7,7 @@ import static org.firstinspires.ftc.teamcode.managers.manipulation.ManipulationM
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.teamcode.managers.CV.CVManager;
 import org.firstinspires.ftc.teamcode.loader.AbstractOpModeExtension;
 import org.firstinspires.ftc.teamcode.managers.input.InputManager;
 import org.firstinspires.ftc.teamcode.managers.input.nodes.ButtonNode;
@@ -20,6 +21,7 @@ public class basicTeleop extends AbstractOpModeExtension {
     public MovementManager driver;
     public InputManager input;
     public ManipulationManager hands;
+    public CVManager cv;
     public double i;
     @Override
     public void init() {
@@ -36,6 +38,9 @@ public class basicTeleop extends AbstractOpModeExtension {
                 servo           ("leftArm", "rightArm"),
                 motor           ()
         );
+
+        cv = new CVManager((hardwareMap));
+        //cv.stream();
 
         driver = new MovementManager(fl, fr, br, bl);
 
@@ -86,7 +91,19 @@ public class basicTeleop extends AbstractOpModeExtension {
             driver.driveBlue(0,0,0,0);
     }
 
-        if (input.getBool("y") & i<1) {
+        if (input.getBool("a")) {
+            if (cv.getCVResult() == 0) {
+                telemetry.addData("Color", "red");
+                telemetry.update();
+            } else if (cv.getCVResult() == 1) {
+                telemetry.addData("Color", "green");
+                telemetry.update();
+            } else if (cv.getCVResult() == 2) {
+                telemetry.addData("Color", "blue");
+                telemetry.update();
+            }
+        }
+     /*   if (input.getBool("y") & i<1) {
             i += 0.001;
             telemetry.addData("Speed", i);
             telemetry.update();
@@ -94,7 +111,7 @@ public class basicTeleop extends AbstractOpModeExtension {
             i -= 0.001;
             telemetry.addData("Speed", i);
             telemetry.update();
-        }
+        }*/
 
     }
 }

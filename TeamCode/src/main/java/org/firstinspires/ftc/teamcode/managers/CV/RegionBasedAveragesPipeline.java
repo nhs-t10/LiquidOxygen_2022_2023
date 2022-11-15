@@ -37,7 +37,7 @@ public class RegionBasedAveragesPipeline extends PipelineThatExposesSomeAnalysis
     /*
      * The core values which define the location and size of the sample regions
      */
-    static final Point REGION_TOPLEFT_ANCHOR_POINT = new Point(109, 98);
+    static final Point REGION_TOPLEFT_ANCHOR_POINT = new Point(300, 200);
     static final int REGION_WIDTH = 20;
     static final int REGION_HEIGHT = 20;
 
@@ -65,6 +65,8 @@ public class RegionBasedAveragesPipeline extends PipelineThatExposesSomeAnalysis
             REGION_TOPLEFT_ANCHOR_POINT.x + REGION_WIDTH,
             REGION_TOPLEFT_ANCHOR_POINT.y + REGION_HEIGHT);
     Scalar BLUE = new Scalar(0,0,255);
+    Scalar GREEN = new Scalar(0,255,0);
+    Scalar RED = new Scalar(255,0,0);
 
     /*
      * Working variables
@@ -157,12 +159,7 @@ public class RegionBasedAveragesPipeline extends PipelineThatExposesSomeAnalysis
          * Draw a rectangle showing sample region 1 on the screen.
          * Simply a visual aid. Serves no functional purpose.
          */
-        Imgproc.rectangle(
-                input, // Buffer to draw on
-                region1_pointA, // First point which defines the rectangle
-                region1_pointB, // Second point which defines the rectangle
-                BLUE, // The color the rectangle is drawn in
-                2); // Thickness of the rectangle lines
+
 
         /*
          * Find the max of the 3 averages
@@ -177,7 +174,12 @@ public class RegionBasedAveragesPipeline extends PipelineThatExposesSomeAnalysis
         if (max == avg1) // Was it from region 1?
         {
             result = endResult.Blue; // Record our analysis
-
+            Imgproc.rectangle(
+                    input, // Buffer to draw on
+                    region1_pointA, // First point which defines the rectangle
+                    region1_pointB, // Second point which defines the rectangle
+                    BLUE, // The color the rectangle is drawn in
+                    2); // Thickness of the rectangle lines
             /*
              * Draw a solid rectangle on top of the chosen region.
              * Simply a visual aid. Serves no functional purpose.
@@ -185,7 +187,12 @@ public class RegionBasedAveragesPipeline extends PipelineThatExposesSomeAnalysis
         } else if (max == avg2) // Was it from region 2?
         {
             result = endResult.Green; // Record our analysis
-
+            Imgproc.rectangle(
+                    input, // Buffer to draw on
+                    region1_pointA, // First point which defines the rectangle
+                    region1_pointB, // Second point which defines the rectangle
+                    GREEN, // The color the rectangle is drawn in
+                    2); // Thickness of the rectangle lines
             /*
              * Draw a solid rectangle on top of the chosen region.
              * Simply a visual aid. Serves no functional purpose.
@@ -193,7 +200,12 @@ public class RegionBasedAveragesPipeline extends PipelineThatExposesSomeAnalysis
         } else if (max == avg3) // Was it from region 3?
         {
             result = endResult.Red; // Record our analysis
-
+            Imgproc.rectangle(
+                    input, // Buffer to draw on
+                    region1_pointA, // First point which defines the rectangle
+                    region1_pointB, // Second point which defines the rectangle
+                    RED, // The color the rectangle is drawn in
+                    2); // Thickness of the rectangle lines
 
 
             /*
