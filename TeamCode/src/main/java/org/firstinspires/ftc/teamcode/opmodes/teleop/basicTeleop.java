@@ -35,7 +35,7 @@ public class basicTeleop extends AbstractOpModeExtension {
         hands = new ManipulationManager(
                 hardwareMap,
                 crservo         (),
-                servo           ("leftArm", "rightArm"),
+                servo           (),
                 motor           ()
         );
 
