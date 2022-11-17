@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.teamcode.managers.manipulation.ManipulationM
 import static org.firstinspires.ftc.teamcode.managers.manipulation.ManipulationManager.motor;
 import static org.firstinspires.ftc.teamcode.managers.manipulation.ManipulationManager.servo;
 
+import com.qualcomm.hardware.motors.NeveRest40Gearmotor;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -22,6 +23,7 @@ public class basicTeleop extends AbstractOpModeExtension {
     public InputManager input;
     public ManipulationManager hands;
     public CVManager cv;
+    private double liftMotorHeight = 0;
     public double i;
     @Override
     public void init() {
@@ -35,8 +37,8 @@ public class basicTeleop extends AbstractOpModeExtension {
         hands = new ManipulationManager(
                 hardwareMap,
                 crservo         (),
-                servo           (),
-                motor           ()
+                servo           ("rightArm"),
+                motor           ("liftMotorR", "liftMotorL")
         );
 
         cv = new CVManager((hardwareMap));
@@ -58,6 +60,10 @@ public class basicTeleop extends AbstractOpModeExtension {
         input.registerInput("b", new ButtonNode("b"));
         input.registerInput("x", new ButtonNode("x"));
         input.registerInput("y", new ButtonNode("y"));
+        input.registerInput("leftbumper",new ButtonNode("leftbumper"));
+        input.registerInput("rightbumper",new ButtonNode("rightbumper"));
+        input.registerInput("righttrigger",new ButtonNode("righttrigger"));
+        input.registerInput("lefttrigger",new ButtonNode("lefttrigger"));
         i = 0.5;
     }
     public float squareWSign(float input) {
@@ -69,8 +75,7 @@ public class basicTeleop extends AbstractOpModeExtension {
     }
     @Override
     public void loop() {
-        hands.setServoPosition("leftArm", (input.getFloat("rightsticky")+1)/2);
-        hands.setServoPosition("rightArm", Math.abs((input.getFloat("rightsticky")+1)/2-1));
+        //hands.setServoPosition("leftArm", (input.getFloat("rightsticky")+1)/2);
         driver.driveBlue(-(float)(i * squareWSign(input.getFloat("leftsticky")) + squareWSign(input.getFloat("leftstickx"))),
                 (float)(i * squareWSign(input.getFloat("leftsticky")) - squareWSign(input.getFloat("leftstickx"))),
                 (float)(i * squareWSign(input.getFloat("leftsticky")) - squareWSign(input.getFloat("leftstickx"))),
@@ -89,20 +94,56 @@ public class basicTeleop extends AbstractOpModeExtension {
             driver.driveBlue(-(float)i, -(float)i, (float)i, (float)i);
         } else {
             driver.driveBlue(0,0,0,0);
-    }
+        }
 
         if (input.getBool("a")) {
-            if (cv.getCVResult() == 0) {
-                telemetry.addData("Color", "red");
-                telemetry.update();
-            } else if (cv.getCVResult() == 1) {
-                telemetry.addData("Color", "green");
-                telemetry.update();
-            } else if (cv.getCVResult() == 2) {
-                telemetry.addData("Color", "blue");
-                telemetry.update();
-            }
+            liftMotorHeight--;
+            hands.setServoPosition("liftMotorR", liftMotorHeight);
+            hands.setServoPosition("liftMotorL", liftMotorHeight);
+        } else if (input.getBool("y")) {
+            liftMotorHeight++;
+            hands.setServoPosition("liftMotorR", liftMotorHeight);
+            hands.setServoPosition("liftMotorL", liftMotorHeight);
         }
+        if(input.getBool("rightbumper")){
+            hands.setMotorPower("liftMotorR",.4);
+            hands.setMotorPower("liftMotorL",-.4);
+            System.out.println("up");
+        }
+        else if(input.getBool("leftbumper")){
+            hands.setMotorPower("liftMotorR", -.4);
+            hands.setMotorPower("liftMotorL", .4);
+            System.out.println("down");
+        }
+        else{
+            hands.setMotorPower("liftMotorR", 0);
+            hands.setMotorPower("liftMotorL", 0);
+        }
+
+        if(input.getBool("righttrigger")){
+            hands.setServoPosition("rightArm", 1);
+            telemetry.addData("right","right");
+            telemetry.update();
+        }
+        if(input.getBool("lefttrigger")){
+            hands.setServoPosition("rightArm", 0);
+            telemetry.addData("left","left");
+            telemetry.update();
+        }
+
+//
+//        if (input.getBool("a")) {
+//            if (cv.getCVResult() == 0) {
+//                telemetry.addData("Color", "red");
+//                telemetry.update();
+//            } else if (cv.getCVResult() == 1) {
+//                telemetry.addData("Color", "green");
+//                telemetry.update();
+//            } else if (cv.getCVResult() == 2) {
+//                telemetry.addData("Color", "blue");
+//                telemetry.update();
+//            }
+//        }
      /*   if (input.getBool("y") & i<1) {
             i += 0.001;
             telemetry.addData("Speed", i);
@@ -112,6 +153,12 @@ public class basicTeleop extends AbstractOpModeExtension {
             telemetry.addData("Speed", i);
             telemetry.update();
         }*/
+
+    }
+
+    public void resetLiftArms(String motorNameL, String motorNameR) {
+        hands.setServoPosition(motorNameL, 0);
+        hands.setServoPosition(motorNameR, 0);
 
     }
 }
