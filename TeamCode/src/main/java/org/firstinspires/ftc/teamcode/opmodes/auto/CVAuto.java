@@ -2,13 +2,13 @@
 
 package org.firstinspires.ftc.teamcode.opmodes.auto;
 
-import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
+import android.os.SystemClock;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
 
+import org.firstinspires.ftc.teamcode.loader.RobotDebugPrintStream;
 import org.firstinspires.ftc.teamcode.managers.CV.CVManager;
 import org.firstinspires.ftc.teamcode.managers.movement.MovementManager;
 import org.openftc.easyopencv.OpenCvWebcam;
@@ -22,44 +22,65 @@ public class CVAuto extends LinearOpMode {
     DcMotor br;//back right
     OpenCvWebcam wc;
 
+    /**
+     * Waits a desired number of milliseconds
+     * Thread.sleep does not work, use this instead
+     * @param milliseconds Number of milliseconds to sleep
+     */
+    public static void waitMs(long milliseconds) {
+        SystemClock.sleep(milliseconds);
+    }
+
     @Override
     public void runOpMode() throws InterruptedException {
+        System.setOut(new RobotDebugPrintStream(this.telemetry));
+        System.setErr(new RobotDebugPrintStream(this.telemetry));
+
         fl = hardwareMap.get(DcMotor.class, "fl");
         fr = hardwareMap.get(DcMotor.class, "fr");
         bl = hardwareMap.get(DcMotor.class, "bl");
         br = hardwareMap.get(DcMotor.class, "br");
 
-
         CVManager cv = new CVManager((hardwareMap));
-        //cv.stream();
 
         MovementManager driver = new MovementManager(fl, fr, br, bl);
 
         super.waitForStart();
 
-        if (cv.getCVResult()==0) {
+        int color=cv.getCVResult();
+        System.out.println(color);
+        if (color==0) { // RED
             //middle region
-            driver.driveBlue(.25f,.25f,.25f,.25f);
-            sleep(1000);
-            driver.driveBlue(0,0,0,0);
-        } else if (cv.getCVResult()==1) {
+            System.out.println("case 0");
+            driver.driveBlue(.5f, -.5f, -.5f, .5f);
+            waitMs(1000L);
+            driver.driveBlue(0, 0, 0, 0);
+
+
+        } else if (color==1) {
+
+            // GREEN
             //left region
-            driver.driveBlue(.25f,.25f,.25f,.25f);
-            sleep(1000);
-            driver.driveBlue(.25f,0,0,.25f);
-            sleep(1000);
-            driver.driveBlue(.25f,.25f,.25f,.25f);
-            sleep(1000);
-            driver.driveBlue(0,0,0,0);
+            System.out.println("case 1");
+            driver.driveBlue(.25f, .25f, .25f, .25f);
+            waitMs(700);
+            driver.driveBlue(.5f, -.5f, -.5f, .5f);
+            waitMs(1000);
+            driver.driveBlue(0, 0, 0, 0);
         } else {
-            //right region
-            driver.driveBlue(.25f,.25f,.25f,.25f);
-            sleep(1000);
-            driver.driveBlue(0,.25f,.25f,0);
-            sleep(1000);
-            driver.driveBlue(.25f,.25f,.25f,.25f);
-            sleep(1000);
-            driver.driveBlue(0,0,0,0);
+                System.out.println("default case");
+                //right region
+                driver.driveBlue(-.25f, -.25f, -.25f, -.25f);
+                waitMs(1200);
+                driver.driveBlue(.5f, -.5f, -.5f, .5f);
+                waitMs(800);
+                driver.driveBlue(.25f, .25f, .25f, .25f);
+                waitMs(1200);
+            driver.driveBlue(.5f, -.5f, -.5f, .5f);
+            waitMs(1000L);
+
+                driver.driveBlue(0, 0, 0, 0);
+
         }
     }
 

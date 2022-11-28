@@ -6,7 +6,6 @@ import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
-import org.openftc.easyopencv.OpenCvPipeline;
 
 /*
  * An example image processing pipeline to be run upon receipt of each frame from the camera.
@@ -72,7 +71,7 @@ public class RegionBasedAveragesPipeline extends PipelineThatExposesSomeAnalysis
      * Working variables
      */
     Mat region;
-    int avg1, avg2, avg3;
+    int blueAvg, greenAvg, redAvg;
 
     // Volatile since accessed by OpMode thread w/o synchronization
     private volatile endResult result = endResult.Red;
@@ -151,9 +150,9 @@ public class RegionBasedAveragesPipeline extends PipelineThatExposesSomeAnalysis
          * pixel value of the 3-channel image, and referenced the value
          * at index 2 here.
          */
-        avg1 = (int) Core.mean(region).val[0];
-        avg2 = (int) Core.mean(region).val[1];
-        avg3 = (int) Core.mean(region).val[2];
+        blueAvg = (int) Core.mean(region).val[0];
+        greenAvg = (int) Core.mean(region).val[1];
+        redAvg = (int) Core.mean(region).val[2];
 
         /*
          * Draw a rectangle showing sample region 1 on the screen.
@@ -164,14 +163,14 @@ public class RegionBasedAveragesPipeline extends PipelineThatExposesSomeAnalysis
         /*
          * Find the max of the 3 averages
          */
-        int maxOneTwo = Math.min(avg1, avg2);
-        int max = Math.min(maxOneTwo, avg3);
+        int maxOneTwo = Math.max(blueAvg, greenAvg);
+        int max = Math.max(maxOneTwo, redAvg);
 
         /*
          * Now that we found the max, we actually need to go and
          * figure out which sample region that value was from
          */
-        if (max == avg1) // Was it from region 1?
+        if (max == blueAvg) // Was it from region 1?
         {
             result = endResult.Blue; // Record our analysis
             Imgproc.rectangle(
@@ -184,7 +183,7 @@ public class RegionBasedAveragesPipeline extends PipelineThatExposesSomeAnalysis
              * Draw a solid rectangle on top of the chosen region.
              * Simply a visual aid. Serves no functional purpose.
              */
-        } else if (max == avg2) // Was it from region 2?
+        } else if (max == greenAvg) // Was it from region 2?
         {
             result = endResult.Green; // Record our analysis
             Imgproc.rectangle(
@@ -197,7 +196,7 @@ public class RegionBasedAveragesPipeline extends PipelineThatExposesSomeAnalysis
              * Draw a solid rectangle on top of the chosen region.
              * Simply a visual aid. Serves no functional purpose.
              */
-        } else if (max == avg3) // Was it from region 3?
+        } else if (max == redAvg) // Was it from region 3?
         {
             result = endResult.Red; // Record our analysis
             Imgproc.rectangle(
