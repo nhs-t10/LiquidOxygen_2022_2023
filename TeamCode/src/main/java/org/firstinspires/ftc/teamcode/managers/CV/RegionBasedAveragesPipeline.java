@@ -150,9 +150,9 @@ public class RegionBasedAveragesPipeline extends PipelineThatExposesSomeAnalysis
          * pixel value of the 3-channel image, and referenced the value
          * at index 2 here.
          */
-        blueAvg = (int) Core.mean(region).val[0];
+        blueAvg = (int) Core.mean(region).val[2];
         greenAvg = (int) Core.mean(region).val[1];
-        redAvg = (int) Core.mean(region).val[2];
+        redAvg = (int) Core.mean(region).val[0];
 
         /*
          * Draw a rectangle showing sample region 1 on the screen.

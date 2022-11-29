@@ -47,28 +47,30 @@ public class CVAuto extends LinearOpMode {
 
         super.waitForStart();
 
-        int color=cv.getCVResult();
-        System.out.println(color);
-        if (color==0) { // RED
-            //middle region
-            System.out.println("case 0");
-            driver.driveBlue(.5f, -.5f, -.5f, .5f);
-            waitMs(1000L);
-            driver.driveBlue(0, 0, 0, 0);
+        switch(cv.getCVResult()) {
+
+            case 0: { // RED
+                // left region
+                System.out.println("case 0, red, left region");
+                driver.driveBlue(.25f, .25f, .25f, .25f);
+                waitMs(700);
+                driver.driveBlue(.5f, -.5f, -.5f, .5f);
+                waitMs(1000);
+                driver.driveBlue(0, 0, 0, 0);
 
 
-        } else if (color==1) {
+            }
+            case 1: {
 
-            // GREEN
-            //left region
-            System.out.println("case 1");
-            driver.driveBlue(.25f, .25f, .25f, .25f);
-            waitMs(700);
-            driver.driveBlue(.5f, -.5f, -.5f, .5f);
-            waitMs(1000);
-            driver.driveBlue(0, 0, 0, 0);
-        } else {
-                System.out.println("default case");
+                // GREEN
+                //middle region
+                System.out.println("case 1, green, middle region");
+                driver.driveBlue(.5f, -.5f, -.5f, .5f);
+                waitMs(1000L);
+                driver.driveBlue(0, 0, 0, 0);
+            }
+            case 2: {
+                System.out.println("case 2, blue, right region"); //BLUE
                 //right region
                 driver.driveBlue(-.25f, -.25f, -.25f, -.25f);
                 waitMs(1200);
@@ -76,14 +78,13 @@ public class CVAuto extends LinearOpMode {
                 waitMs(800);
                 driver.driveBlue(.25f, .25f, .25f, .25f);
                 waitMs(1200);
-            driver.driveBlue(.5f, -.5f, -.5f, .5f);
-            waitMs(1000L);
+                driver.driveBlue(.5f, -.5f, -.5f, .5f);
+                waitMs(1000L);
 
                 driver.driveBlue(0, 0, 0, 0);
 
+            }
         }
     }
-
-
 }
 
