@@ -42,7 +42,6 @@ public class CVAutoRight extends LinearOpMode {
         br = hardwareMap.get(DcMotor.class, "br");
 
         CVManager cv = new CVManager((hardwareMap));
-
         MovementManager driver = new MovementManager(fl, fr, br, bl);
 
         super.waitForStart();
@@ -52,14 +51,12 @@ public class CVAutoRight extends LinearOpMode {
             case 0: { // RED
                 // left region
                 System.out.println("case 0, red, left region");
+                driver.driveBlue(.25f, -.25f, -.25f, .25f);
+                waitMs(1600);
                 driver.driveBlue(.25f, .25f, .25f, .25f);
-                waitMs(1400);
-                driver.driveBlue(.5f, -.5f, -.5f, .5f);
-                waitMs(800);
-                driver.driveBlue(-.25f, -.25f, -.25f, -.25f);
-                waitMs(1400);
-                driver.driveBlue(.5f, -.5f, -.5f, .5f);
-                waitMs(1000L);
+                waitMs(1300);
+                driver.driveBlue(.25f, -.25f, -.25f, .25f);
+                waitMs(1600L);
 
                 driver.driveBlue(0, 0, 0, 0);
                 break;
@@ -69,8 +66,8 @@ public class CVAutoRight extends LinearOpMode {
                 // GREEN
                 //middle region
                 System.out.println("case 1, green, middle region");
-                driver.driveBlue(.5f, -.5f, -.5f, .5f);
-                waitMs(1000L);
+                driver.driveBlue(.25f, -.25f, -.25f, .25f);
+                waitMs(2000L);
                 driver.driveBlue(0, 0, 0, 0);
                 break;
             }
@@ -78,9 +75,9 @@ public class CVAutoRight extends LinearOpMode {
                 System.out.println("case 2, blue, right region"); //BLUE
                 //right region
                 driver.driveBlue(-.25f, -.25f, -.25f, -.25f);
-                waitMs(600);
-                driver.driveBlue(.5f, -.5f, -.5f, .5f);
-                waitMs(1000);
+                waitMs(700);
+                driver.driveBlue(.25f, -.25f, -.25f, .25f);
+                waitMs(2800);
                 driver.driveBlue(0, 0, 0, 0);
 
                 break;
