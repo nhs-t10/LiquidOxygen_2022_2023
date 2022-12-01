@@ -92,7 +92,7 @@ public class basicTeleop extends AbstractOpModeExtension {
             driver.driveBlue((float)i, (float)i, -(float)i, -(float)i);
         } else if (input.getBool("dpadright"))  {
             driver.driveBlue(-(float)i, -(float)i, (float)i, (float)i);
-        } else {
+        } else if (input.getFloat("leftsticky")!=0 && input.getFloat("leftstickx")!=0){
             driver.driveBlue(0,0,0,0);
         }
 
