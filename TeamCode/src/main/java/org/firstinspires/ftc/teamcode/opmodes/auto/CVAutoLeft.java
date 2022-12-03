@@ -85,6 +85,8 @@ public class CVAutoLeft extends LinearOpMode {
 
             }
         }
+
+        cv.stopWebcam();
     }
 }
 

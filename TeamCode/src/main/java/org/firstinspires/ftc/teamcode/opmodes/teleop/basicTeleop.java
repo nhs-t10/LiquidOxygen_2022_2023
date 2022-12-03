@@ -41,9 +41,6 @@ public class basicTeleop extends AbstractOpModeExtension {
                 motor           ("liftMotorR", "liftMotorL")
         );
 
-        cv = new CVManager((hardwareMap));
-        //cv.stream();
-
         driver = new MovementManager(fl, fr, br, bl);
 
         input = new InputManager(gamepad1, gamepad2);

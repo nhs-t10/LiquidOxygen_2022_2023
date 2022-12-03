@@ -168,7 +168,7 @@ public class CVManager extends FeatureManager
              * the above "important note".
              */
             webcam.stopStreaming();
-            //webcam.closeCameraDevice();
+            webcam.closeCameraDevice();
 
         /*
          * For the purposes of this sample, throttle ourselves to 10Hz loop to avoid burning

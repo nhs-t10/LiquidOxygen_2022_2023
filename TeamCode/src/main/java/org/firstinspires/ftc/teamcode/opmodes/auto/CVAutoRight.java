@@ -84,6 +84,8 @@ public class CVAutoRight extends LinearOpMode {
 
             }
         }
+
+        cv.stopWebcam();
     }
 }
 
