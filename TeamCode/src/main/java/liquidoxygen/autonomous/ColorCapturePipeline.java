@@ -1,0 +1,53 @@
+package liquidoxygen.autonomous;
+
+import com.pocolifo.robobase.vision.AbstractResultCvPipeline;
+import lombok.RequiredArgsConstructor;
+import org.opencv.core.*;
+import org.opencv.imgproc.Imgproc;
+
+public class ColorCapturePipeline extends AbstractResultCvPipeline<DetectedColor> {
+	/**
+	 * The top left most point of the color capture region.
+	 */
+	private static final Point TOP_LEFT_POINT = new Point(300, 200);
+
+	/**
+	 * The bottom right most point of the color capture region.
+	 */
+	private static final Point BOTTOM_RIGHT_POINT = new Point(TOP_LEFT_POINT.x + 20, TOP_LEFT_POINT.y + 20);
+
+	/**
+	 * The color capture region.
+	 */
+	private static final Rect COLOR_CAPTURE_REGION = new Rect(TOP_LEFT_POINT, BOTTOM_RIGHT_POINT);
+
+	@Override
+	public Mat processFrame(Mat input) {
+		// Capture colors
+		Mat colorCapture = input.submat(COLOR_CAPTURE_REGION);
+
+		// Find averages
+		int redAvg = (int) Core.mean(colorCapture).val[0];
+		int greenAvg = (int) Core.mean(colorCapture).val[1];
+		int blueAvg = (int) Core.mean(colorCapture).val[2];
+
+		// Find the max of all the colors
+		int max = Math.max(Math.max(blueAvg, greenAvg), redAvg);
+
+		if (max == redAvg) {
+			// red
+			this.result = DetectedColor.RED;
+		} else if (max == greenAvg) {
+			// green
+			this.result = DetectedColor.GREEN;
+		} else {
+			// blue
+			this.result = DetectedColor.BLUE;
+		}
+
+		// Visual indicator
+		Imgproc.rectangle(input, TOP_LEFT_POINT, BOTTOM_RIGHT_POINT, this.result.color, 2);
+
+		return input;
+	}
+}

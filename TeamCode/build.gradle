@@ -10,86 +10,53 @@
 
 
 // Custom definitions may go here
-plugins {
-    id "com.github.node-gradle.node" version "3.0.1"
-    id "org.sonarqube" version "3.3"
-}
-
-apply plugin: 'jacoco'
 
 // Include common definitions from above.
+plugins {
+    id 'checkstyle'
+}
+
 apply from: '../build.common.gradle'
 apply from: '../build.dependencies.gradle'
 
-dependencies {
-    implementation project(':FtcRobotController')
-    annotationProcessor files('lib/OpModeAnnotationProcessor.jar')
-    implementation 'junit:junit:4.13.2'
-    testImplementation 'junit:junit:4.13.2'
-    implementation 'org.jetbrains:annotations-java5:23.0.0'
-}
-
-
-task autoautoCompiler(type: NodeTask) {
-    args = ["--build-history", "--agpbi"]
-    script = file("src/main/scripts/autoauto-compiler/index.js")
-}
-
-sonarqube {
-    properties {
-        property "sonar.projectKey", "nhs-t10_Robotics_2021_2022"
-        property "sonar.organization", "nhs-t10"
-        property "sonar.host.url", "https://sonarcloud.io"
-        property "sonar.exclusions", "**/unitTests/**"
-        property "sonar.java.coveragePlugin", "jacoco"
-        property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/coverage/test/debug/report.xml"
-    }
-}
-
 android {
-    androidResources {
-        noCompress 'tflite'
-    }
-    gradle.projectsEvaluated {
-        preBuild.dependsOn(autoautoCompiler)
-    }
-    buildTypes {
-        debug {
-            testCoverageEnabled = true
-        }
-    }
-    sourceSets {
-        test {
-            java.srcDir("gen/")
-            java.srcDir("src/test/java")
-        }
-        debug {
-            java.srcDir("gen/")
-            java.srcDir("src/test/java")
-        }
-        main {
-            java.srcDir("gen/")
+    namespace = 'org.firstinspires.ftc.teamcode'
 
-        }
-    }
-    jacoco {
-        version = '0.7.9'
-    }
-    testOptions {
-        unitTests.all {
-            reports {
-                junitXml.enabled = true
-            }
-            ignoreFailures = true
-        }
-    }
-    defaultConfig {
-        minSdkVersion 23
+    packagingOptions {
+        jniLibs.useLegacyPackaging true
     }
 }
 
-node {
-    download = true
-    version = "12.18.3"
-    distBaseUrl = "https://nodejs.org/dist"
+dependencies {
+    implementation 'org.openftc:easyopencv:1.5.1'
+//    implementation project(':FtcRobotController')
+
+    // KEEP compileOnly HERE! Yes, IntelliJ dislikes it, but IT IS REQUIRED!
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
 }
+
+task runCheckstyle(type: Checkstyle) {
+    group 'verification'
+
+    configFile file('checkstyle.xml')
+    source 'src/main/java'
+    ignoreFailures false
+
+    classpath = files()
+}
+
+android.applicationVariants.all { v ->
+    task "javadoc${v.name.capitalize()}"(type: Javadoc) {
+        group 'javadoc'
+        source = v.javaCompile.source
+
+        afterEvaluate {
+            classpath = files(v.javaCompile.classpath.files) + files("${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar")
+        }
+
+        destinationDir = file("javadocs-${v.name}")
+    }
+}
+
+preBuild.dependsOn(runCheckstyle)

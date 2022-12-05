@@ -1,1 +1,0 @@
-module.exports = require("../process-template/template-filename");
