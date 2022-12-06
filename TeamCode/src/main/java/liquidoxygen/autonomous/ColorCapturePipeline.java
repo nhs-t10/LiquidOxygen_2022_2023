@@ -9,6 +9,16 @@ import org.opencv.imgproc.Imgproc;
 
 public class ColorCapturePipeline extends AbstractResultCvPipeline<DetectedColor> {
 	/**
+	 * The width of the color capture region.
+	 */
+	private static final int REGION_WIDTH = 20;
+
+	/**
+	 * The height of the color capture region.
+	 */
+	private static final int REGION_HEIGHT = 20;
+
+	/**
 	 * The top left most point of the color capture region.
 	 */
 	private static final Point TOP_LEFT_POINT = new Point(300, 200);
@@ -16,7 +26,8 @@ public class ColorCapturePipeline extends AbstractResultCvPipeline<DetectedColor
 	/**
 	 * The bottom right most point of the color capture region.
 	 */
-	private static final Point BOTTOM_RIGHT_POINT = new Point(TOP_LEFT_POINT.x + 20, TOP_LEFT_POINT.y + 20);
+	private static final Point BOTTOM_RIGHT_POINT = new Point(TOP_LEFT_POINT.x + REGION_WIDTH,
+						TOP_LEFT_POINT.y + REGION_HEIGHT);
 
 	/**
 	 * The color capture region.

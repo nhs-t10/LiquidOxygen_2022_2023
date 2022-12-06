@@ -1,5 +1,6 @@
 package com.pocolifo.robobase;
 
+import com.pocolifo.robobase.motor.CarWheels;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -10,12 +11,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Robot {
 	/**
-	 * The width of the robot in real life, in centimeters.
+	 * <p>The width of the robot in real life, in centimeters.</p>
+	 *
+	 * <p>In this case, the width should be calculated by measuring the distance from the outside of  the left set of
+	 * wheels to the outside of the right set of wheels, assuming this {@link Robot} is using {@link CarWheels}.</p>
 	 */
 	public final double widthCm;
 
 	/**
-	 * The length of the robot in real life, in centimeters.
+	 * <p>The length of the robot in real life, in centimeters.</p>
+	 *
+	 * <p>This should be calculated by measuring the other side that isn't the height or the side which the width
+	 * was measured.</p>
 	 */
 	public final double lengthCm;
 
