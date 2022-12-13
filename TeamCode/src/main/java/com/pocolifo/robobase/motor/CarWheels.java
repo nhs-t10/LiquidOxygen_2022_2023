@@ -133,7 +133,7 @@ public class CarWheels implements AutoCloseable {
 	public void driveIndividually(double frontLeft, double frontRight, double backLeft, double backRight) {
 		this.frontLeft.drive(frontLeft);
 		this.frontRight.drive(-frontRight);
-		this.backLeft.drive(backLeft);
+		this.backLeft.drive(-backLeft);
 		this.backRight.drive(-backRight);
 	}
 

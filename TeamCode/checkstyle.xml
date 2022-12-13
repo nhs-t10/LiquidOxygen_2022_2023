@@ -128,7 +128,6 @@
         </module>
         <module name="SingleSpaceSeparator"/>
         <module name="GenericWhitespace"/>
-        <module name="CommentsIndentation"/>
 
         <module name="ArrayTypeStyle"/>
         <module name="DefaultComesLast">

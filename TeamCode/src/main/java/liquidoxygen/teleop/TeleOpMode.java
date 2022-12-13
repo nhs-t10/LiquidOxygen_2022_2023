@@ -28,26 +28,53 @@ public class TeleOpMode extends TeleOpOpMode {
 		System.out.println("All ready!");
 	}
 
-	private float squareWSign(float input) {
-		return input >= 0 ? input * input : -1 * input * input;
+	public double rightWheel(double x, double y) {
+		if (x == 0 && y == 0) {
+			return 0;
+		}
+
+		double r = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+		double t = Math.toDegrees(Math.asin(y / r));
+
+		if (x >= 0 && y >= 0) {
+			return r;
+		} else if (x <= 0 && y <= 0) {
+			return -r;
+		} else if (x < 0) {
+			return r * (t - 45) / 45;
+		} else {
+			return r * (t + 45) / 45;
+		}
+	}
+
+	public double leftWheel(double x, double y) {
+		if (x == 0 && y == 0) {
+			return 0;
+		}
+
+		double r = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+		double t = Math.toDegrees(Math.asin(y / r));
+
+		if (x <= 0 && y >= 0) {
+			return r;
+		} else if (x >= 0 && y <= 0) {
+			return -r;
+		} else if (x > 0) {
+			return r * (t - 45) / 45;
+		} else {
+			return r * (t + 45) / 45;
+		}
 	}
 
 	@Override
 	public void loop() {
 		// Gamepad controls
 		// Wheels
-		float squaredLeftStickX = squareWSign(this.gamepad1.left_stick_x);
-		float squaredLeftStickY = squareWSign(this.gamepad1.left_stick_y);
-
-		//		this.wheels.driveIndividually(0.15d, 0.15d, 0.15d, 0.15d);
-		//		this.wheels.setDriveTargetIndividually(100, 100, 100, 100);
-
-		// front left wheel
 		this.wheels.driveIndividually(
-							-(squaredLeftStickY + squaredLeftStickX),
-							 (squaredLeftStickY - squaredLeftStickX),
-							 (squaredLeftStickY - squaredLeftStickX),
-							-(squaredLeftStickY + squaredLeftStickX)
+							-leftWheel(this.gamepad1.left_stick_x, this.gamepad1.left_stick_y),
+							-rightWheel(this.gamepad1.left_stick_x, this.gamepad1.left_stick_y),
+							-leftWheel(this.gamepad1.left_stick_x, this.gamepad1.left_stick_y),
+							-rightWheel(this.gamepad1.left_stick_x, this.gamepad1.left_stick_y)
 		);
 
 		/*
