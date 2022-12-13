@@ -30,50 +30,55 @@
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.IrSeekerSensor;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-/**
- * Demonstrates empty OpMode
+/*
+ * This is an example LinearOpMode that shows how to use
+ * the Modern Robotics ITR Seeker
+ *
+ * The op mode assumes that the IR Seeker
+ * is configured with a name of "sensor_ir".
+ *
+ * Set the switch on the Modern Robotics IR beacon to 1200 at 180.  <br>
+ * Turn on the IR beacon.
+ * Make sure the side of the beacon with the LED on is facing the robot. <br>
+ *
+ * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
+ * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-@TeleOp(name = "Concept: NullOp", group = "Concept")
+@TeleOp(name = "Sensor: MR IR Seeker", group = "Sensor")
 @Disabled
-public class ConceptNullOp extends OpMode {
-
-  private ElapsedTime runtime = new ElapsedTime();
+public class SensorMRIrSeeker extends LinearOpMode {
 
   @Override
-  public void init() {
-    telemetry.addData("Status", "Initialized");
-  }
+  public void runOpMode() {
 
-  /*
-     * Code to run when the op mode is first enabled goes here
-     * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#start()
-     */
-  @Override
-  public void init_loop() {
-  }
+    IrSeekerSensor irSeeker;    // Hardware Device Object
 
-  /*
-   * This method will be called ONCE when start is pressed
-   * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#loop()
-   */
-  @Override
-  public void start() {
-    runtime.reset();
-  }
+    // get a reference to our GyroSensor object.
+    irSeeker = hardwareMap.get(IrSeekerSensor.class, "sensor_ir");
 
-  /*
-   * This method will be called repeatedly in a loop
-   * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#loop()
-   */
-  @Override
-  public void loop() {
-    telemetry.addData("Status", "Run Time: " + runtime.toString());
+    // wait for the start button to be pressed.
+    waitForStart();
+
+    while (opModeIsActive())  {
+
+      // Ensure we have a IR signal
+      if (irSeeker.signalDetected())
+      {
+        // Display angle and strength
+        telemetry.addData("Angle",    irSeeker.getAngle());
+        telemetry.addData("Strength", irSeeker.getStrength());
+      }
+      else
+      {
+        // Display loss of signal
+        telemetry.addData("Seeker", "Signal Lost");
+      }
+
+      telemetry.update();
+    }
   }
 }

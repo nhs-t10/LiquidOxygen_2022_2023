@@ -9,11 +9,12 @@ public class Shared {
 	public static final String AUTONOMOUS_NAME = "Example Autonomous Mode";
 	public static final String GROUP = "lo2";
 	public static final Robot ROBOT = new Robot(43, 29, 27, 9326, "Robot", true);
+	public static final int MOTOR_TICK_COUNT = 1120;
 
 	public static CarWheels createWheels(HardwareMap hardwareMap) {
 		return new CarWheels(
 			hardwareMap,
-			1120,
+			MOTOR_TICK_COUNT,
 			10,
 			ROBOT,
 			"Front Left Motor",

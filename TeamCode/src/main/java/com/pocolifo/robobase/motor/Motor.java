@@ -38,16 +38,30 @@ public class Motor implements AutoCloseable {
 	}
 
 	/**
-	 * Stop the movement of the motor.
-	 * This may be removed in a future release if {@link DcMotor#setPower(double)} has the same effect with encoders.
+	 * Starts moving the motor at a given speed.
 	 *
-	 * @deprecated
+	 * @param speed Determines the speed at which the motor should move.
 	 * @author youngermax
 	 */
-	@Deprecated
+	public void drive(double speed) {
+		if (speed == 0) {
+			this.stopMoving();
+			return;
+		}
+
+		this.motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+		this.motor.setPower(speed);
+		this.motor.setDirection(DcMotorSimple.Direction.FORWARD);
+	}
+
+	/**
+	 * Stop the movement of the motor.
+	 *
+	 * @author youngermax
+	 */
 	public void stopMoving() {
 		this.motor.setPower(0);
-		this.motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // TODO: test if this is necessary
+		this.motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 	}
 
 	/**

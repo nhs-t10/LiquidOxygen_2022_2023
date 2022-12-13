@@ -24,9 +24,9 @@ public class AutonomousMode extends AutonomousOpMode {
 		// MOVEMENT TEST
 		System.out.println("Moving the robot...");
 
-		this.wheels.drive(10.825, 1d);
-		this.wheels.rotateClockwise(90d, 1d);
-		this.wheels.drive(50d, 1d);
+		this.wheels.drive(10d, 0.15d);
+		// this.wheels.rotateClockwise(90d, 1d);
+		// this.wheels.drive(50d, 1d);
 
 		System.out.println("Reached destination! Waiting 3 seconds...");
 
@@ -34,9 +34,9 @@ public class AutonomousMode extends AutonomousOpMode {
 
 		System.out.println("Done waiting! Slowly moving the robot back...");
 
-		this.wheels.drive(-50d, 0.25d);
-		this.wheels.rotateCounterclockwise(90d, 0.25d);
-		this.wheels.drive(-10.825, 0.25d);
+		// this.wheels.drive(-50d, 0.25d);
+		// this.wheels.rotateCounterclockwise(90d, 0.25d);
+		// this.wheels.drive(-10.825, 0.25d);
 
 		System.out.println("Moved the robot back! Checking camera...");
 
@@ -57,10 +57,5 @@ public class AutonomousMode extends AutonomousOpMode {
 		}
 
 		System.out.printf("Detected color: %s%n", color.name());
-	}
-
-	@Override
-	public void stop() {
-		this.wheels.close();
 	}
 }

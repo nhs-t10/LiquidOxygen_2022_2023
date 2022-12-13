@@ -70,12 +70,8 @@ public class CarWheels implements AutoCloseable {
 		this.backLeft = backLeft;
 		this.backRight = backRight;
 
-		double halfWidth = this.robot.widthCm / 2;
-
-		// The law of cosines, calculate only once to save resources
-		// TODO: this equation implies that the robot is a perfect circle with the radius of half the width of the
-		//  robot, but this is not the case. Maybe adapt equation to that the robot is an ellipse?
-		this.oneDegreeRotDistCm = Math.sqrt((Math.pow(halfWidth, 2) * 2) - (2 * halfWidth) * halfWidth * Math.cos(1));
+		this.oneDegreeRotDistCm = (Math.PI * Math.sqrt(Math.pow(this.robot.lengthCm, 2)
+								+ Math.pow(this.robot.widthCm, 2))) / 360;
 	}
 
 	/**
@@ -126,19 +122,19 @@ public class CarWheels implements AutoCloseable {
 	}
 
 	/**
-	 * Sets the motor power of each wheel individually. Setting the motor power actually moves it in real life.
+	 * Sets the motor speed of each wheel individually. Setting the motor speed actually moves it in real life.
 	 *
-	 * @param frontLeft The power to set the front left wheel to.
-	 * @param frontRight The power to set the front right wheel to.
-	 * @param backLeft The power to set the back left wheel to.
-	 * @param backRight The power to set the back right wheel to.
+	 * @param frontLeft The speed to set the front left wheel to.
+	 * @param frontRight The speed to set the front right wheel to.
+	 * @param backLeft The speed to set the back left wheel to.
+	 * @param backRight The speed to set the back right wheel to.
 	 * @author youngermax
 	 */
 	public void driveIndividually(double frontLeft, double frontRight, double backLeft, double backRight) {
-		this.frontLeft.motor.setPower(frontLeft);
-		this.frontRight.motor.setPower(frontRight);
-		this.backLeft.motor.setPower(backLeft);
-		this.backRight.motor.setPower(backRight);
+		this.frontLeft.drive(frontLeft);
+		this.frontRight.drive(-frontRight);
+		this.backLeft.drive(backLeft);
+		this.backRight.drive(-backRight);
 	}
 
 	/**

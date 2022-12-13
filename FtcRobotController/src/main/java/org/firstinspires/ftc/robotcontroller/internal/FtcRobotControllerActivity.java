@@ -146,6 +146,7 @@ public class FtcRobotControllerActivity extends Activity
   protected RobotConfigFileManager cfgFileMgr;
 
   private OnBotJavaHelper onBotJavaHelper;
+
   protected ProgrammingModeManager programmingModeManager;
 
   protected UpdateUI.Callback callback;
@@ -305,9 +306,9 @@ public class FtcRobotControllerActivity extends Activity
     preferencesHelper.writeBooleanPrefIfDifferent(context.getString(R.string.pref_rc_connected), true);
     preferencesHelper.getSharedPreferences().registerOnSharedPreferenceChangeListener(sharedPreferencesListener);
 
-    // Check if this RC app is from a later FTC season that what was installed previously
+    // Check if this RC app is from a later FTC season than what was installed previously
     int ftcSeasonYearOfPreviouslyInstalledRc = preferencesHelper.readInt(getString(R.string.pref_ftc_season_year_of_current_rc), 0);
-    int ftcSeasonYearOfCurrentlyInstalledRc = AppUtil.getInstance().getFtcSeasonYear(YearMonth.now()).getValue();
+    int ftcSeasonYearOfCurrentlyInstalledRc = AppUtil.getInstance().getFtcSeasonYear(AppUtil.getInstance().getLocalSdkBuildMonth()).getValue();
     if (ftcSeasonYearOfCurrentlyInstalledRc > ftcSeasonYearOfPreviouslyInstalledRc) {
       preferencesHelper.writeIntPrefIfDifferent(getString(R.string.pref_ftc_season_year_of_current_rc), ftcSeasonYearOfCurrentlyInstalledRc);
       // Since it's a new FTC season, we should reset certain settings back to their default values.
@@ -316,6 +317,7 @@ public class FtcRobotControllerActivity extends Activity
       preferencesHelper.writeBooleanPrefIfDifferent(getString(R.string.pref_warn_about_mismatched_app_versions), true);
       preferencesHelper.writeBooleanPrefIfDifferent(getString(R.string.pref_warn_about_incorrect_clocks), true);
     }
+
     entireScreenLayout = (LinearLayout) findViewById(R.id.entire_screen);
     buttonMenu = (ImageButton) findViewById(R.id.menu_buttons);
     buttonMenu.setOnClickListener(new View.OnClickListener() {
@@ -341,6 +343,7 @@ public class FtcRobotControllerActivity extends Activity
 
     ExternalLibraries.getInstance().onCreate();
     onBotJavaHelper = new OnBotJavaHelperImpl();
+
     /*
      * Paranoia as the ClassManagerFactory requires EXTERNAL_STORAGE permissions
      * and we've seen on the DS where the finish() call above does not short-circuit
@@ -392,10 +395,9 @@ public class FtcRobotControllerActivity extends Activity
     readNetworkType();
     ServiceController.startService(FtcRobotControllerWatchdogService.class);
     bindToService();
-    logPackageVersions();
-    logDeviceSerialNumber();
-    AndroidBoard.getInstance().logAndroidBoardInfo();
+    RobotLog.logAppInfo();
     RobotLog.logDeviceInfo();
+    AndroidBoard.getInstance().logAndroidBoardInfo();
 
     if (preferencesHelper.readBoolean(getString(R.string.pref_wifi_automute), false)) {
       initWifiMute(true);
@@ -478,6 +480,7 @@ public class FtcRobotControllerActivity extends Activity
     if (preferencesHelper != null) preferencesHelper.getSharedPreferences().unregisterOnSharedPreferenceChangeListener(sharedPreferencesListener);
 
     RobotLog.cancelWriteLogcatToDisk();
+
     AnnotatedHooksClassFilter.getInstance().callOnDestroyMethods(this);
   }
 
@@ -495,32 +498,9 @@ public class FtcRobotControllerActivity extends Activity
     }
   }
 
-  protected void logPackageVersions() {
-    RobotLog.logBuildConfig(com.qualcomm.ftcrobotcontroller.BuildConfig.class);
-    RobotLog.logBuildConfig(com.qualcomm.robotcore.BuildConfig.class);
-    RobotLog.logBuildConfig(com.qualcomm.hardware.BuildConfig.class);
-    RobotLog.logBuildConfig(com.qualcomm.ftccommon.BuildConfig.class);
-    RobotLog.logBuildConfig(com.google.blocks.BuildConfig.class);
-    RobotLog.logBuildConfig(org.firstinspires.inspection.BuildConfig.class);
-  }
-
-  protected void logDeviceSerialNumber() {
-    RobotLog.ii(TAG, "Android device serial number: " + Device.getSerialNumberOrUnknown());
-  }
-
   protected void readNetworkType() {
-
-    // The code here used to defer to the value found in a configuration file
-    // to configure the network type. If the file was absent, then it initialized
-    // it with a default.
-    //
-    // However, bugs have been reported with that approach (empty config files, specifically).
-    // Moreover, the non-Wifi-Direct networking is end-of-life, so the simplest and most robust
-    // (e.g.: no one can screw things up by messing with the contents of the config file) fix is
-    // to do away with configuration file entirely.
-    //
     // Control hubs are always running the access point model.  Everything else, for the time
-    // being always runs the wifi direct model.
+    // being always runs the Wi-Fi Direct model.
     if (Device.isRevControlHub() == true) {
       networkType = NetworkType.RCWIRELESSAP;
     } else {
@@ -690,6 +670,7 @@ public class FtcRobotControllerActivity extends Activity
     updateUI.setControllerService(controllerService);
 
     controllerService.setOnBotJavaHelper(onBotJavaHelper);
+
     updateUIAndRequestRobotSetup();
     programmingModeManager.setState(new FtcRobotControllerServiceState() {
       @NonNull
@@ -756,6 +737,7 @@ public class FtcRobotControllerActivity extends Activity
 
     passReceivedUsbAttachmentsToEventLoop();
     AndroidBoard.showErrorIfUnknownControlHub();
+
     AnnotatedHooksClassFilter.getInstance().callOnCreateEventLoopMethods(this, eventLoop);
   }
 
@@ -787,7 +769,7 @@ public class FtcRobotControllerActivity extends Activity
   private void checkPreferredChannel() {
     // For P2P network, check to see what preferred channel is.
     if (networkType ==  NetworkType.WIFIDIRECT) {
-      int prefChannel = preferencesHelper.readInt(getString(com.qualcomm.ftccommon.R.string.pref_wifip2p_channel), -1);
+      int prefChannel = preferencesHelper.readInt(getString(R.string.pref_wifip2p_channel), -1);
       if (prefChannel == -1) {
         prefChannel = 0;
         RobotLog.vv(TAG, "pref_wifip2p_channel: No preferred channel defined. Will use a default value of %d", prefChannel);
