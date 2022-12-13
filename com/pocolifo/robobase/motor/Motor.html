@@ -27,8 +27,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":42};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"],32:["t6","Deprecated Methods"]};
+var data = {"i0":10,"i1":10,"i2":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -215,7 +215,7 @@ implements java.lang.AutoCloseable</pre>
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t6" class="tableTab"><span><a href="javascript:show(32);">Deprecated Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
@@ -230,9 +230,16 @@ implements java.lang.AutoCloseable</pre>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#drive(double)">drive</a></span>&#8203;(double&nbsp;speed)</code></th>
+<td class="colLast">
+<div class="block">Starts moving the motor at a given speed.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stopMoving()">stopMoving</a></span>()</code></th>
 <td class="colLast">
-<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
+<div class="block">Stop the movement of the motor.</div>
 </td>
 </tr>
 </table>
@@ -316,17 +323,28 @@ implements java.lang.AutoCloseable</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a id="drive(double)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>drive</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;drive&#8203;(double&nbsp;speed)</pre>
+<div class="block">Starts moving the motor at a given speed.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>speed</code> - Determines the speed at which the motor should move.</dd>
+</dl>
+</li>
+</ul>
 <a id="stopMoving()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>stopMoving</h4>
-<pre class="methodSignature">@Deprecated
-public&nbsp;void&nbsp;stopMoving()</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block">Stop the movement of the motor.
- This may be removed in a future release if <code>DcMotorSimple.setPower(double)</code> has the same effect with encoders.</div>
+<pre class="methodSignature">public&nbsp;void&nbsp;stopMoving()</pre>
+<div class="block">Stop the movement of the motor.</div>
 </li>
 </ul>
 <a id="close()">
