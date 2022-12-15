@@ -208,8 +208,6 @@ public class CarWheels implements AutoCloseable {
 			&& this.backRight.motor.isBusy()) { }
 
 		// Stop driving
-		// TODO: fix these deprecations by checking if `this.motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);` is
-		//  necessary in `stopMoving`
 		this.frontLeft.stopMoving();
 		this.frontRight.stopMoving();
 		this.backLeft.stopMoving();
