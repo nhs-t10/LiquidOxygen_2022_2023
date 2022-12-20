@@ -51,7 +51,7 @@ public class Webcam implements AutoCloseable {
 	 * @throws RuntimeException If there was an error while opening the camera.
 	 * @author youngermax
 	 */
-	public void open() throws RuntimeException {
+	public void open(AbstractResultCvPipeline<?> pipeline) throws RuntimeException {
 		// Yes, this is equivalent to R.id.cameraMonitorViewId, but it doesn't explicitly require the
 		// `FtcRobotController` package, so use this.
 		int cameraMonitorView = this.hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId",
@@ -59,6 +59,7 @@ public class Webcam implements AutoCloseable {
 
 		this.webcam = OpenCvCameraFactory.getInstance().createWebcam(this.webcamDevice, cameraMonitorView);
 		this.webcam.setMillisecondsPermissionTimeout(2500);
+		this.setPipeline(pipeline);
 		this.webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
 			@Override
 			public void onOpened() { }
