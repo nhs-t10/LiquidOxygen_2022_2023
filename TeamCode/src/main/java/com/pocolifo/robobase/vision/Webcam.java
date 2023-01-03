@@ -1,10 +1,16 @@
 package com.pocolifo.robobase.vision;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import android.os.SystemClock;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.openftc.easyopencv.*;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvCameraRotation;
+import org.openftc.easyopencv.OpenCvWebcam;
 
 /**
  * Abstracts away certain parts of {@link OpenCvCamera}.
@@ -45,7 +51,7 @@ public class Webcam implements AutoCloseable {
 
 	/**
 	 * Opens the camera. For this to be of any use, call {@link Webcam#setPipeline(AbstractResultCvPipeline)}.
-	 * Pipelines allow data from the camera to be processed.
+	 * Pipelines allow data from the camera to be processed. This is a <strong>blocking method</strong>.
 	 * <strong>WHEN YOU'RE DONE WITH THE WEBCAM, CLOSE IT!</strong>
 	 *
 	 * @throws RuntimeException If there was an error while opening the camera.
@@ -57,18 +63,27 @@ public class Webcam implements AutoCloseable {
 		int cameraMonitorView = this.hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId",
 							"id", hardwareMap.appContext.getPackageName());
 
+		// TODO: replace this with object lock
+		AtomicBoolean ready = new AtomicBoolean(false);
 		this.webcam = OpenCvCameraFactory.getInstance().createWebcam(this.webcamDevice, cameraMonitorView);
 		this.webcam.setMillisecondsPermissionTimeout(2500);
-		this.setPipeline(pipeline);
 		this.webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
 			@Override
-			public void onOpened() { }
+			public void onOpened() {
+				Webcam.this.setPipeline(pipeline);
+				ready.set(true);
+			}
 
 			@Override
 			public void onError(int errorCode) {
 				throw new RuntimeException("Could not open the camera! Error code: " + errorCode);
 			}
 		});
+
+		while (!ready.get()) {
+			// wait a little so that the comp doesn't burn out
+			SystemClock.sleep(250L);
+		}
 	}
 
 	/**
@@ -104,6 +119,7 @@ public class Webcam implements AutoCloseable {
 	public void close() throws Exception {
 		this.clearPipeline();
 		this.webcam.closeCameraDevice();
+
 		this.webcamDevice.close();
 	}
 }

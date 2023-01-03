@@ -28,8 +28,6 @@ android {
 }
 
 dependencies {
-    implementation 'org.openftc:easyopencv:1.5.1'
-
     // This is REQUIRED! Phones will not be able to connect if this dependency is not included!
     implementation project(':FtcRobotController')
 

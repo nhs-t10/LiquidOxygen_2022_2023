@@ -49,7 +49,40 @@ public class CarWheels implements AutoCloseable {
 	private final double oneDegreeRotDistCm;
 
 	/**
+	 * The {@link Wheel} used for encoder-related calculations.
+	 */
+	private final Wheel specialWheel;
+
+	/**
 	 * Instantiate {@link CarWheels}.
+	 *
+	 * @param robot The associated {@link Robot} that has these {@link CarWheels}.
+	 * @param frontLeft The {@link Wheel} associated with the front left motor, if looking from the back of the robot
+	 *                  and in the same direction of the robot.
+	 * @param frontRight The {@link Wheel} associated with the front right motor, if looking from the back of the robot
+	 *                   and in the same direction of the robot.
+	 * @param backLeft The {@link Wheel} associated with the back left motor, if looking from the back of the robot
+	 *                 and in the same direction of the robot.
+	 * @param backRight The {@link Wheel} associated with the back right motor, if looking from the back of the robot
+	 *                  and in the same direction of the robot.
+	 * @param specialWheel The wheel that is used for encoder-related calculations.
+	 * @author youngermax
+	 */
+	public CarWheels(Robot robot, Wheel frontLeft, Wheel frontRight, Wheel backLeft, Wheel backRight,
+					 Wheel specialWheel) {
+		this.robot = robot;
+		this.frontLeft = frontLeft;
+		this.frontRight = frontRight;
+		this.backLeft = backLeft;
+		this.backRight = backRight;
+		this.specialWheel = specialWheel;
+
+		this.oneDegreeRotDistCm = (Math.PI * Math.sqrt(Math.pow(this.robot.lengthCm, 2)
+			+ Math.pow(this.robot.widthCm, 2))) / 360;
+	}
+
+	/**
+	 * Instantiate {@link CarWheels}. The {@code specialWheel} is used for encoder-related calculations.
 	 *
 	 * @param robot The associated {@link Robot} that has these {@link CarWheels}.
 	 * @param frontLeft The {@link Wheel} associated with the front left motor, if looking from the back of the robot
@@ -64,14 +97,7 @@ public class CarWheels implements AutoCloseable {
 	 * @author youngermax
 	 */
 	public CarWheels(Robot robot, Wheel frontLeft, Wheel frontRight, Wheel backLeft, Wheel backRight) {
-		this.robot = robot;
-		this.frontLeft = frontLeft;
-		this.frontRight = frontRight;
-		this.backLeft = backLeft;
-		this.backRight = backRight;
-
-		this.oneDegreeRotDistCm = (Math.PI * Math.sqrt(Math.pow(this.robot.lengthCm, 2)
-								+ Math.pow(this.robot.widthCm, 2))) / 360;
+		this(robot, frontLeft, frontRight, backLeft, backRight, frontLeft);
 	}
 
 	/**
@@ -203,9 +229,8 @@ public class CarWheels implements AutoCloseable {
 	 * @author youngermax
 	 */
 	private void waitForWheelsThenStop() {
-		// Wait for motors to stop moving
-		while (this.frontLeft.motor.isBusy() && this.frontRight.motor.isBusy() && this.backLeft.motor.isBusy()
-			&& this.backRight.motor.isBusy()) { }
+		// Wait for the SPECIAL WHEEL to stop moving
+		while (this.frontLeft.motor.isBusy()) { }
 
 		// Stop driving
 		this.frontLeft.stopMoving();
