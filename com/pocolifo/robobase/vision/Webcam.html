@@ -332,7 +332,7 @@ implements java.lang.AutoCloseable</pre>
 <pre class="methodSignature">public&nbsp;void&nbsp;open&#8203;(<a href="AbstractResultCvPipeline.html" title="class in com.pocolifo.robobase.vision">AbstractResultCvPipeline</a>&lt;?&gt;&nbsp;pipeline)
           throws java.lang.RuntimeException</pre>
 <div class="block">Opens the camera. For this to be of any use, call <a href="#setPipeline(com.pocolifo.robobase.vision.AbstractResultCvPipeline)"><code>setPipeline(AbstractResultCvPipeline)</code></a>.
- Pipelines allow data from the camera to be processed.
+ Pipelines allow data from the camera to be processed. This is a <strong>blocking method</strong>.
  <strong>WHEN YOU'RE DONE WITH THE WEBCAM, CLOSE IT!</strong></div>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
