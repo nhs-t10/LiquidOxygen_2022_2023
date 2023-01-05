@@ -10,7 +10,7 @@ public class GamepadCarWheels {
 	private final Gamepad gamepad;
 
 	/**
-	 * Calculate the power to set the right set of wheel motors
+	 * Calculate the power to set the right set of wheel motors.
 	 *
 	 * @param x The joystick's x value
 	 * @param y The joystick's y value
@@ -37,7 +37,7 @@ public class GamepadCarWheels {
 	}
 
 	/**
-	 * Calculate the power to set the left set of wheel motors
+	 * Calculate the power to set the left set of wheel motors.
 	 *
 	 * @param x The joystick's x value
 	 * @param y The joystick's y value
@@ -66,10 +66,10 @@ public class GamepadCarWheels {
 	public void update() {
 		// Drive the wheels to match the controller input
 		this.wheels.driveIndividually(
-			-calculateLeftWheelPower(this.gamepad.left_stick_x, this.gamepad.left_stick_y),
-			-calculateRightWheelPower(this.gamepad.left_stick_x, this.gamepad.left_stick_y),
-			-calculateLeftWheelPower(this.gamepad.left_stick_x, this.gamepad.left_stick_y),
-			-calculateRightWheelPower(this.gamepad.left_stick_x, this.gamepad.left_stick_y)
+							-calculateLeftWheelPower(this.gamepad.left_stick_x, this.gamepad.left_stick_y),
+							-calculateRightWheelPower(this.gamepad.left_stick_x, this.gamepad.left_stick_y),
+							-calculateLeftWheelPower(this.gamepad.left_stick_x, this.gamepad.left_stick_y),
+							-calculateRightWheelPower(this.gamepad.left_stick_x, this.gamepad.left_stick_y)
 		);
 
 		// Omni-drive

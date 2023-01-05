@@ -2,7 +2,6 @@ package liquidoxygen.teleop;
 
 import com.pocolifo.robobase.bootstrap.TeleOpOpMode;
 import com.pocolifo.robobase.control.GamepadCarWheels;
-import com.pocolifo.robobase.motor.CarWheels;
 import com.pocolifo.robobase.motor.Motor;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
