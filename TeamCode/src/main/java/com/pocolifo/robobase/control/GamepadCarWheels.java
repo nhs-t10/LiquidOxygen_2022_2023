@@ -74,4 +74,8 @@ public class GamepadCarWheels {
 
 		// Omni-drive
 	}
+
+	public void close() {
+		this.wheels.close();
+	}
 }
