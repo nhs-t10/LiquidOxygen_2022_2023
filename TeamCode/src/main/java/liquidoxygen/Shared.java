@@ -20,7 +20,8 @@ public class Shared {
 			"Front Left Motor",
 			"Front Right Motor",
 			"Back Left Motor",
-			"Back Right Motor"
+			"Back Right Motor",
+			"Front Left Motor" // this is the motor that has the encoder connector
 		);
 	}
 }
