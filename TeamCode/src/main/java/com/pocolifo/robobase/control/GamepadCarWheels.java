@@ -63,13 +63,13 @@ public class GamepadCarWheels {
 		}
 	}
 
-	public void update() {
+	public void update(float v,float h,float r) {
 		// Drive the wheels to match the controller input
 		this.wheels.driveIndividually(
-							-calculateLeftWheelPower(this.gamepad.left_stick_x, this.gamepad.left_stick_y),
-							-calculateRightWheelPower(this.gamepad.left_stick_x, this.gamepad.left_stick_y),
-							-calculateLeftWheelPower(this.gamepad.left_stick_x, this.gamepad.left_stick_y),
-							-calculateRightWheelPower(this.gamepad.left_stick_x, this.gamepad.left_stick_y)
+			Math.max(-1,Math.min(1,r+h-v)),
+			Math.max(-1,Math.min(1,r+h+v)),
+			Math.max(-1,Math.min(1,v+h-r)),
+			Math.max(-1,Math.min(1,h-v-r))
 		);
 
 		// Omni-drive
