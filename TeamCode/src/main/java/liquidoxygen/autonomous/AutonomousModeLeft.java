@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import liquidoxygen.Shared;
 
 @Autonomous(name = Shared.AUTONOMOUS_NAME, group = Shared.GROUP, preselectTeleOp = Shared.TELEOP_NAME)
-public class AutonomousMode extends AutonomousOpMode {
+public class AutonomousModeLeft extends AutonomousOpMode {
 	private CarWheels wheels;
 	private Webcam webcam;
 
