@@ -221,16 +221,6 @@ implements java.lang.AutoCloseable</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.pocolifo.robobase.Robot,com.pocolifo.robobase.motor.Wheel,com.pocolifo.robobase.motor.Wheel,com.pocolifo.robobase.motor.Wheel,com.pocolifo.robobase.motor.Wheel)">CarWheels</a></span>&#8203;(<a href="../Robot.html" title="class in com.pocolifo.robobase">Robot</a>&nbsp;robot,
-         <a href="Wheel.html" title="class in com.pocolifo.robobase.motor">Wheel</a>&nbsp;frontLeft,
-         <a href="Wheel.html" title="class in com.pocolifo.robobase.motor">Wheel</a>&nbsp;frontRight,
-         <a href="Wheel.html" title="class in com.pocolifo.robobase.motor">Wheel</a>&nbsp;backLeft,
-         <a href="Wheel.html" title="class in com.pocolifo.robobase.motor">Wheel</a>&nbsp;backRight)</code></th>
-<td class="colLast">
-<div class="block">Instantiate <a href="CarWheels.html" title="class in com.pocolifo.robobase.motor"><code>CarWheels</code></a>.</div>
-</td>
-</tr>
-<tr class="rowColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.pocolifo.robobase.Robot,com.pocolifo.robobase.motor.Wheel,com.pocolifo.robobase.motor.Wheel,com.pocolifo.robobase.motor.Wheel,com.pocolifo.robobase.motor.Wheel,com.pocolifo.robobase.motor.Wheel)">CarWheels</a></span>&#8203;(<a href="../Robot.html" title="class in com.pocolifo.robobase">Robot</a>&nbsp;robot,
          <a href="Wheel.html" title="class in com.pocolifo.robobase.motor">Wheel</a>&nbsp;frontLeft,
          <a href="Wheel.html" title="class in com.pocolifo.robobase.motor">Wheel</a>&nbsp;frontRight,
@@ -241,15 +231,16 @@ implements java.lang.AutoCloseable</pre>
 <div class="block">Instantiate <a href="CarWheels.html" title="class in com.pocolifo.robobase.motor"><code>CarWheels</code></a>.</div>
 </td>
 </tr>
-<tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.qualcomm.robotcore.hardware.HardwareMap,int,double,com.pocolifo.robobase.Robot,java.lang.String,java.lang.String,java.lang.String,java.lang.String)">CarWheels</a></span>&#8203;(com.qualcomm.robotcore.hardware.HardwareMap&nbsp;hardwareMap,
+<tr class="rowColor">
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.qualcomm.robotcore.hardware.HardwareMap,int,double,com.pocolifo.robobase.Robot,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)">CarWheels</a></span>&#8203;(com.qualcomm.robotcore.hardware.HardwareMap&nbsp;hardwareMap,
          int&nbsp;motorTickCount,
          double&nbsp;wheelDiameterCm,
          <a href="../Robot.html" title="class in com.pocolifo.robobase">Robot</a>&nbsp;robot,
          java.lang.String&nbsp;frontLeft,
          java.lang.String&nbsp;frontRight,
          java.lang.String&nbsp;backLeft,
-         java.lang.String&nbsp;backRight)</code></th>
+         java.lang.String&nbsp;backRight,
+         java.lang.String&nbsp;specialWheel)</code></th>
 <td class="colLast">
 <div class="block">Quickly instantiate <a href="CarWheels.html" title="class in com.pocolifo.robobase.motor"><code>CarWheels</code></a>.</div>
 </td>
@@ -323,12 +314,9 @@ implements java.lang.AutoCloseable</pre>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDriveTargetIndividually(double,double,double,double)">setDriveTargetIndividually</a></span>&#8203;(double&nbsp;frontLeftCm,
-                          double&nbsp;frontRightCm,
-                          double&nbsp;backLeftCm,
-                          double&nbsp;backRightCm)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDriveTarget(double)">setDriveTarget</a></span>&#8203;(double&nbsp;centimeters)</code></th>
 <td class="colLast">
-<div class="block">Sets the motor target of each wheel individually.</div>
+<div class="block">Sets the motor target of the special wheel.</div>
 </td>
 </tr>
 </table>
@@ -431,7 +419,7 @@ implements java.lang.AutoCloseable</pre>
                  <a href="Wheel.html" title="class in com.pocolifo.robobase.motor">Wheel</a>&nbsp;backLeft,
                  <a href="Wheel.html" title="class in com.pocolifo.robobase.motor">Wheel</a>&nbsp;backRight,
                  <a href="Wheel.html" title="class in com.pocolifo.robobase.motor">Wheel</a>&nbsp;specialWheel)</pre>
-<div class="block">Instantiate <a href="CarWheels.html" title="class in com.pocolifo.robobase.motor"><code>CarWheels</code></a>.</div>
+<div class="block">Instantiate <a href="CarWheels.html" title="class in com.pocolifo.robobase.motor"><code>CarWheels</code></a>. The <code>specialWheel</code> is used for encoder-related calculations.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>robot</code> - The associated <a href="../Robot.html" title="class in com.pocolifo.robobase"><code>Robot</code></a> that has these <a href="CarWheels.html" title="class in com.pocolifo.robobase.motor"><code>CarWheels</code></a>.</dd>
@@ -447,35 +435,7 @@ implements java.lang.AutoCloseable</pre>
 </dl>
 </li>
 </ul>
-<a id="&lt;init&gt;(com.pocolifo.robobase.Robot,com.pocolifo.robobase.motor.Wheel,com.pocolifo.robobase.motor.Wheel,com.pocolifo.robobase.motor.Wheel,com.pocolifo.robobase.motor.Wheel)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>CarWheels</h4>
-<pre>public&nbsp;CarWheels&#8203;(<a href="../Robot.html" title="class in com.pocolifo.robobase">Robot</a>&nbsp;robot,
-                 <a href="Wheel.html" title="class in com.pocolifo.robobase.motor">Wheel</a>&nbsp;frontLeft,
-                 <a href="Wheel.html" title="class in com.pocolifo.robobase.motor">Wheel</a>&nbsp;frontRight,
-                 <a href="Wheel.html" title="class in com.pocolifo.robobase.motor">Wheel</a>&nbsp;backLeft,
-                 <a href="Wheel.html" title="class in com.pocolifo.robobase.motor">Wheel</a>&nbsp;backRight)</pre>
-<div class="block">Instantiate <a href="CarWheels.html" title="class in com.pocolifo.robobase.motor"><code>CarWheels</code></a>. The <code>specialWheel</code> is used for encoder-related calculations.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>robot</code> - The associated <a href="../Robot.html" title="class in com.pocolifo.robobase"><code>Robot</code></a> that has these <a href="CarWheels.html" title="class in com.pocolifo.robobase.motor"><code>CarWheels</code></a>.</dd>
-<dd><code>frontLeft</code> - The <a href="Wheel.html" title="class in com.pocolifo.robobase.motor"><code>Wheel</code></a> associated with the front left motor, if looking from the back of the robot
-                  and in the same direction of the robot.</dd>
-<dd><code>frontRight</code> - The <a href="Wheel.html" title="class in com.pocolifo.robobase.motor"><code>Wheel</code></a> associated with the front right motor, if looking from the back of the robot
-                   and in the same direction of the robot.</dd>
-<dd><code>backLeft</code> - The <a href="Wheel.html" title="class in com.pocolifo.robobase.motor"><code>Wheel</code></a> associated with the back left motor, if looking from the back of the robot
-                 and in the same direction of the robot.</dd>
-<dd><code>backRight</code> - The <a href="Wheel.html" title="class in com.pocolifo.robobase.motor"><code>Wheel</code></a> associated with the back right motor, if looking from the back of the robot
-                  and in the same direction of the robot.</dd>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="#%3Cinit%3E(com.qualcomm.robotcore.hardware.HardwareMap,int,double,com.pocolifo.robobase.Robot,java.lang.String,java.lang.String,java.lang.String,java.lang.String)"><code>CarWheels(HardwareMap, int, double, Robot, String, String, String, String)</code></a></dd>
-</dl>
-</li>
-</ul>
-<a id="&lt;init&gt;(com.qualcomm.robotcore.hardware.HardwareMap,int,double,com.pocolifo.robobase.Robot,java.lang.String,java.lang.String,java.lang.String,java.lang.String)">
+<a id="&lt;init&gt;(com.qualcomm.robotcore.hardware.HardwareMap,int,double,com.pocolifo.robobase.Robot,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -488,7 +448,8 @@ implements java.lang.AutoCloseable</pre>
                  java.lang.String&nbsp;frontLeft,
                  java.lang.String&nbsp;frontRight,
                  java.lang.String&nbsp;backLeft,
-                 java.lang.String&nbsp;backRight)</pre>
+                 java.lang.String&nbsp;backRight,
+                 java.lang.String&nbsp;specialWheel)</pre>
 <div class="block">Quickly instantiate <a href="CarWheels.html" title="class in com.pocolifo.robobase.motor"><code>CarWheels</code></a>.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -504,8 +465,10 @@ implements java.lang.AutoCloseable</pre>
                  of the robot.</dd>
 <dd><code>backRight</code> - The name of the back right motor, if looking from the back of the robot and in the same
                   direction of the robot.</dd>
+<dd><code>specialWheel</code> - The wheel that <strong>has the encoder connector connected to it and the Control Hub.
+                     The connector is mandatory because it's how we know how far the robot has traveled!</strong></dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="#%3Cinit%3E(com.pocolifo.robobase.Robot,com.pocolifo.robobase.motor.Wheel,com.pocolifo.robobase.motor.Wheel,com.pocolifo.robobase.motor.Wheel,com.pocolifo.robobase.motor.Wheel)"><code>CarWheels(Robot, Wheel, Wheel, Wheel, Wheel)</code></a></dd>
+<dd><a href="#%3Cinit%3E(com.pocolifo.robobase.Robot,com.pocolifo.robobase.motor.Wheel,com.pocolifo.robobase.motor.Wheel,com.pocolifo.robobase.motor.Wheel,com.pocolifo.robobase.motor.Wheel,com.pocolifo.robobase.motor.Wheel)"><code>CarWheels(Robot, Wheel, Wheel, Wheel, Wheel, Wheel)</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -558,23 +521,17 @@ implements java.lang.AutoCloseable</pre>
 </dl>
 </li>
 </ul>
-<a id="setDriveTargetIndividually(double,double,double,double)">
+<a id="setDriveTarget(double)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>setDriveTargetIndividually</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setDriveTargetIndividually&#8203;(double&nbsp;frontLeftCm,
-                                       double&nbsp;frontRightCm,
-                                       double&nbsp;backLeftCm,
-                                       double&nbsp;backRightCm)</pre>
-<div class="block">Sets the motor target of each wheel individually.</div>
+<h4>setDriveTarget</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setDriveTarget&#8203;(double&nbsp;centimeters)</pre>
+<div class="block">Sets the motor target of the special wheel. Use this to specify how far the car should go.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>frontLeftCm</code> - The target to set the front left wheel to, in centimeters.</dd>
-<dd><code>frontRightCm</code> - The target to set the front right wheel to, in centimeters.</dd>
-<dd><code>backLeftCm</code> - The target to set the back left wheel to, in centimeters.</dd>
-<dd><code>backRightCm</code> - The target to set the back right wheel to, in centimeters.</dd>
+<dd><code>centimeters</code> - The target to set the special wheel to, in centimeters.</dd>
 </dl>
 </li>
 </ul>
