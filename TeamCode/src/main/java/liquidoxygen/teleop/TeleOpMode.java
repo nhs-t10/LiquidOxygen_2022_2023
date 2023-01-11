@@ -38,7 +38,7 @@ public class TeleOpMode extends TeleOpOpMode {
 	public void loop() {
 		// Gamepad controls
 		// Wheels
-		this.wheels.update(this.gamepad1.left_stick_y,this.gamepad1.left_stick_x,this.gamepad1.right_stick_x);
+		this.wheels.update(this.gamepad1.left_stick_y, this.gamepad1.left_stick_x, this.gamepad1.right_stick_x);
 
 		// Lift
 		if (this.gamepad1.right_bumper) {
