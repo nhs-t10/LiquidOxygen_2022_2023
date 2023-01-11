@@ -54,7 +54,7 @@ public class CarWheels implements AutoCloseable {
 	private final Wheel specialWheel;
 
 	/**
-	 * Instantiate {@link CarWheels}.
+	 * Instantiate {@link CarWheels}. The {@code specialWheel} is used for encoder-related calculations.
 	 *
 	 * @param robot The associated {@link Robot} that has these {@link CarWheels}.
 	 * @param frontLeft The {@link Wheel} associated with the front left motor, if looking from the back of the robot
@@ -82,25 +82,6 @@ public class CarWheels implements AutoCloseable {
 	}
 
 	/**
-	 * Instantiate {@link CarWheels}. The {@code specialWheel} is used for encoder-related calculations.
-	 *
-	 * @param robot The associated {@link Robot} that has these {@link CarWheels}.
-	 * @param frontLeft The {@link Wheel} associated with the front left motor, if looking from the back of the robot
-	 *                  and in the same direction of the robot.
-	 * @param frontRight The {@link Wheel} associated with the front right motor, if looking from the back of the robot
-	 *                   and in the same direction of the robot.
-	 * @param backLeft The {@link Wheel} associated with the back left motor, if looking from the back of the robot
-	 *                 and in the same direction of the robot.
-	 * @param backRight The {@link Wheel} associated with the back right motor, if looking from the back of the robot
-	 *                  and in the same direction of the robot.
-	 * @see CarWheels#CarWheels(HardwareMap, int, double, Robot, String, String, String, String)
-	 * @author youngermax
-	 */
-	public CarWheels(Robot robot, Wheel frontLeft, Wheel frontRight, Wheel backLeft, Wheel backRight) {
-		this(robot, frontLeft, frontRight, backLeft, backRight, frontLeft);
-	}
-
-	/**
 	 * Quickly instantiate {@link CarWheels}.
 	 *
 	 * @param hardwareMap The {@link HardwareMap} which contains the motors.
@@ -115,17 +96,20 @@ public class CarWheels implements AutoCloseable {
 	 *                 of the robot.
 	 * @param backRight The name of the back right motor, if looking from the back of the robot and in the same
 	 *                  direction of the robot.
-	 * @see CarWheels#CarWheels(Robot, Wheel, Wheel, Wheel, Wheel)
+	 * @param specialWheel The wheel that <strong>has the encoder connector connected to it and the Control Hub.
+	 *                     The connector is mandatory because it's how we know how far the robot has traveled!</strong>
+	 * @see CarWheels#CarWheels(Robot, Wheel, Wheel, Wheel, Wheel, Wheel)
 	 * @author youngermax
 	 */
 	public CarWheels(HardwareMap hardwareMap, int motorTickCount, double wheelDiameterCm, Robot robot, String frontLeft,
-					 String frontRight, String backLeft, String backRight) {
+					 String frontRight, String backLeft, String backRight, String specialWheel) {
 		this(
 				robot,
 				new Wheel(hardwareMap.dcMotor.get(frontLeft), motorTickCount, wheelDiameterCm),
 				new Wheel(hardwareMap.dcMotor.get(frontRight), motorTickCount, wheelDiameterCm),
 				new Wheel(hardwareMap.dcMotor.get(backLeft), motorTickCount, wheelDiameterCm),
-				new Wheel(hardwareMap.dcMotor.get(backRight), motorTickCount, wheelDiameterCm)
+				new Wheel(hardwareMap.dcMotor.get(backRight), motorTickCount, wheelDiameterCm),
+				new Wheel(hardwareMap.dcMotor.get(specialWheel), motorTickCount, wheelDiameterCm)
 		);
 	}
 
@@ -142,7 +126,7 @@ public class CarWheels implements AutoCloseable {
 	public void drive(double centimeters, double power) {
 		assert (centimeters > 0 && power > 0) || (0 > centimeters && 0 > power);
 
-		this.setDriveTargetIndividually(centimeters, centimeters, centimeters, centimeters);
+		this.setDriveTarget(centimeters);
 		this.driveIndividually(power, power, power, power);
 		this.waitForWheelsThenStop();
 	}
@@ -164,20 +148,13 @@ public class CarWheels implements AutoCloseable {
 	}
 
 	/**
-	 * Sets the motor target of each wheel individually.
+	 * Sets the motor target of the special wheel. Use this to specify how far the car should go.
 	 *
-	 * @param frontLeftCm The target to set the front left wheel to, in centimeters.
-	 * @param frontRightCm The target to set the front right wheel to, in centimeters.
-	 * @param backLeftCm The target to set the back left wheel to, in centimeters.
-	 * @param backRightCm The target to set the back right wheel to, in centimeters.
+	 * @param centimeters The target to set the special wheel to, in centimeters.
 	 * @author youngermax
 	 */
-	public void setDriveTargetIndividually(double frontLeftCm, double frontRightCm, double backLeftCm,
-										   double backRightCm) {
-		this.frontLeft.setDriveTarget(frontLeftCm);
-		this.frontRight.setDriveTarget(frontRightCm);
-		this.backLeft.setDriveTarget(backLeftCm);
-		this.backRight.setDriveTarget(backRightCm);
+	public void setDriveTarget(double centimeters) {
+		this.specialWheel.setDriveTarget(centimeters);
 	}
 
 	/**
@@ -191,7 +168,7 @@ public class CarWheels implements AutoCloseable {
 	public void rotate(double degrees, double power) {
 		double rotDistCm = this.oneDegreeRotDistCm * degrees;
 
-		this.setDriveTargetIndividually(rotDistCm, -rotDistCm, rotDistCm, -rotDistCm);
+		this.setDriveTarget(rotDistCm);
 		this.driveIndividually(power, -power, power, -power);
 		this.waitForWheelsThenStop();
 	}
@@ -230,7 +207,7 @@ public class CarWheels implements AutoCloseable {
 	 */
 	private void waitForWheelsThenStop() {
 		// Wait for the SPECIAL WHEEL to stop moving
-		while (this.frontLeft.motor.isBusy()) { }
+		while (this.specialWheel.motor.isBusy()) { }
 
 		// Stop driving
 		this.frontLeft.stopMoving();
