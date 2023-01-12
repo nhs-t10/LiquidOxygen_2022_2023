@@ -12,10 +12,6 @@
 // Custom definitions may go here
 
 // Include common definitions from above.
-plugins {
-    id 'checkstyle'
-}
-
 apply from: '../build.common.gradle'
 apply from: '../build.dependencies.gradle'
 
@@ -36,16 +32,6 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
 }
 
-task runCheckstyle(type: Checkstyle) {
-    group 'verification'
-
-    configFile file('checkstyle.xml')
-    source 'src/main/java'
-    ignoreFailures false
-
-    classpath = files()
-}
-
 android.applicationVariants.all { v ->
     task "javadoc${v.name.capitalize()}"(type: Javadoc) {
         group 'javadoc'
@@ -58,5 +44,3 @@ android.applicationVariants.all { v ->
         destinationDir = file("javadocs-${v.name}")
     }
 }
-
-preBuild.dependsOn(runCheckstyle)

@@ -1,16 +1,10 @@
-
-
 package liquidoxygen.autonomous;
 
 import android.os.SystemClock;
-
 import com.pocolifo.robobase.motor.CarWheels;
 import com.pocolifo.robobase.vision.Webcam;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-
-import org.openftc.easyopencv.OpenCvWebcam;
 
 @Autonomous
 public class PlanBAutoLeft extends LinearOpMode {
@@ -18,8 +12,9 @@ public class PlanBAutoLeft extends LinearOpMode {
 	private Webcam webcam;
 
 	/**
-	 * Waits a desired number of milliseconds
-	 * Thread.sleep does not work, use this instead
+	 * Waits a desired number of milliseconds.
+	 * Thread.sleep does not work, use this instead.
+	 *
 	 * @param milliseconds Number of milliseconds to sleep
 	 */
 	public static void waitMs(long milliseconds) {
@@ -28,13 +23,11 @@ public class PlanBAutoLeft extends LinearOpMode {
 
 	@Override
 	public void runOpMode() throws InterruptedException {
-
-
 		super.waitForStart();
+		DetectedColor detectedColor = (DetectedColor) webcam.getPipeline().getResult();
 
-		switch (webcam.getPipeline().getResult()) {
-
-			case 0: { // RED
+		switch (detectedColor) {
+			case RED: // RED
 				// left region
 				System.out.println("case 0, red, left region");
 				wheels.driveIndividually(.25f, .25f, .25f, .25f);
@@ -44,10 +37,8 @@ public class PlanBAutoLeft extends LinearOpMode {
 				wheels.driveIndividually(0, 0, 0, 0);
 
 				break;
-			}
 
-
-			case 1: {
+			case GREEN:
 				// GREEN
 				//middle region
 				System.out.println("case 1, green, middle region");
@@ -55,8 +46,8 @@ public class PlanBAutoLeft extends LinearOpMode {
 				waitMs(2000L);
 				wheels.driveIndividually(0, 0, 0, 0);
 				break;
-			}
-			case 2: {
+
+			case BLUE:
 				System.out.println("case 2, blue, right region"); //BLUE
 				//right region
 				wheels.driveIndividually(.25f, -.25f, -.25f, .25f);
@@ -68,8 +59,6 @@ public class PlanBAutoLeft extends LinearOpMode {
 
 				wheels.driveIndividually(0, 0, 0, 0);
 				break;
-
-			}
 		}
 
 		try {

@@ -65,7 +65,7 @@ public class GamepadCarWheels {
 
 	public void update(float v, float h, float r) {
 		// Drive the wheels to match the controller input
-		Float[] vals = new Float[] {r + h - v, r + h + v, h - v - r, h + v - r};
+		float[] vals = new float[] {v - h - r, v + r + h, v - r + h, v + r - h};
 		boolean norm = false;
 		float tonorm = 0;
 
@@ -82,7 +82,7 @@ public class GamepadCarWheels {
 			}
 		}
 
-		this.wheels.driveIndividually(vals[0], vals[1], vals[2], vals[3]);
+		this.wheels.driveIndividually(-vals[0], vals[1], -vals[2], vals[3]);
 
 		// Omni-drive
 	}

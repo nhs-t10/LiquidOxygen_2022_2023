@@ -8,20 +8,11 @@ import liquidoxygen.Shared;
 
 @Autonomous
 public class TestAutoMode extends AutonomousOpMode {
-	private Wheel frontRightMotor;
-	private Wheel frontLeftMotor;
-	private Wheel backRightMotor;
-	private Wheel backLeftMotor;
 	private CarWheels wheels;
 
 	@Override
 	public void initialize() {
-		frontRightMotor = new Wheel(this.hardwareMap.dcMotor.get("Front Right Motor"), 1120, 10d);
-		frontLeftMotor = new Wheel(this.hardwareMap.dcMotor.get("Front Left Motor"), 1120, 10d);
-		backRightMotor = new Wheel(this.hardwareMap.dcMotor.get("Back Right Motor"), 1120, 10d);
-		backLeftMotor = new Wheel(this.hardwareMap.dcMotor.get("Back Left Motor"), 1120, 10d);
-
-		wheels = new CarWheels(Shared.ROBOT, frontLeftMotor, frontRightMotor, backLeftMotor, backRightMotor);
+		this.wheels = Shared.createWheels(this.hardwareMap);
 	}
 
 	@Override
@@ -38,11 +29,11 @@ public class TestAutoMode extends AutonomousOpMode {
 
 		// wheels.drive(100d, 0.2d);
 
-		wheels.driveIndividually(0.3d, 0.3d, 0.3d, 0.3d);
+		this.wheels.driveIndividually(0.3d, 0.3d, 0.3d, 0.3d);
 
 		sleep(2500L);
 
-		wheels.driveIndividually(0, 0, 0, 0);
+		this.wheels.driveIndividually(0, 0, 0, 0);
 
 		System.out.println("All done!");
 	}

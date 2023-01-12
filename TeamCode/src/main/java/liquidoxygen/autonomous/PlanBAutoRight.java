@@ -1,5 +1,3 @@
-
-
 package liquidoxygen.autonomous;
 
 import android.os.SystemClock;
@@ -28,13 +26,11 @@ public class PlanBAutoRight extends LinearOpMode {
 
 	@Override
 	public void runOpMode() throws InterruptedException {
-
-
 		super.waitForStart();
+		DetectedColor detectedColor = (DetectedColor) webcam.getPipeline().getResult();
 
-		switch (webcam.getPipeline().getResult()) {
-
-			case 0: { // RED
+		switch (detectedColor) {
+			case RED: // RED
 				// left region
 				System.out.println("case 0, red, left region");
 				wheels.driveIndividually(.25f, -.25f, -.25f, .25f);
@@ -46,8 +42,8 @@ public class PlanBAutoRight extends LinearOpMode {
 
 				wheels.driveIndividually(0, 0, 0, 0);
 				break;
-			}
-			case 1: {
+
+			case GREEN:
 
 				// GREEN
 				//middle region
@@ -56,8 +52,8 @@ public class PlanBAutoRight extends LinearOpMode {
 				waitMs(2000L);
 				wheels.driveIndividually(0, 0, 0, 0);
 				break;
-			}
-			case 2: {
+
+			case BLUE:
 				System.out.println("case 2, blue, right region"); //BLUE
 				//right region
 				wheels.driveIndividually(-.25f, -.25f, -.25f, -.25f);
@@ -67,8 +63,6 @@ public class PlanBAutoRight extends LinearOpMode {
 				wheels.driveIndividually(0, 0, 0, 0);
 
 				break;
-
-			}
 		}
 
 		try {
