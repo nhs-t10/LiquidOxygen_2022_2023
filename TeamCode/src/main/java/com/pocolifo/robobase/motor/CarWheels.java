@@ -211,11 +211,17 @@ public class CarWheels implements AutoCloseable {
 	 */
 	private void waitForWheelsThenStop() {
 		// Wait for the SPECIAL WHEEL to stop moving
-		System.out.println("difjapoisdjf09SEJFPOIJDSfpoij = " + this.specialWheel.motor.getCurrentPosition());
+		System.out.println("position = " + this.specialWheel.motor.getCurrentPosition());
 		System.out.println("PRE LOOP");
 
-		while (this.specialWheel.targetPosition > this.specialWheel.motor.getCurrentPosition()) {
-			System.out.printf("tp %d pos %d%n", this.specialWheel.targetPosition, this.specialWheel.motor.getCurrentPosition());
+		if (this.specialWheel.targetPosition >= 0) {
+			while (this.specialWheel.targetPosition > this.specialWheel.motor.getCurrentPosition()) {
+				System.out.printf("tp %d pos %d%n", this.specialWheel.targetPosition, this.specialWheel.motor.getCurrentPosition());
+			}
+		} else {
+			while (this.specialWheel.targetPosition < this.specialWheel.motor.getCurrentPosition()) {
+				System.out.printf("tp %d pos %d%n", this.specialWheel.targetPosition, this.specialWheel.motor.getCurrentPosition());
+			}
 		}
 
 		// Stop driving
