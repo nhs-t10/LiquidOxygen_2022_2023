@@ -232,6 +232,42 @@ public class CarWheels implements AutoCloseable {
 	}
 
 	/**
+	 * Drive the robot with omni-drive. Omni-drive allows the robot to move horizontally without rotating, drive
+	 * diagonally, and drive and rotate the robot normally.
+	 *
+	 * @param verticalPower The power at which to move the robot forward and backward. Inclusive from -1.0 to 1.0.
+	 * @param horizontalPower The power at which to move the robot left and right. Inclusive from -1.0 to 1.0.
+	 * @param rotationalPower The power at which to rotate the robot. Inclusive from -1.0 (rotate counterclockwise) to 1.0
+	 *                        (clockwise).
+	 */
+	public void driveOmni(float verticalPower, float horizontalPower, float rotationalPower) {
+		// Drive the wheels to match the controller input
+		// TODO: Add explanation here -- even I don't know how this works
+		float[] vals = new float[] {
+			verticalPower - horizontalPower - rotationalPower,
+			verticalPower + rotationalPower + horizontalPower,
+			verticalPower - rotationalPower + horizontalPower,
+			verticalPower + rotationalPower - horizontalPower
+		};
+
+		// Normalize values if needed
+		float max = 0;
+
+		for (float value : vals) {
+			max = Math.max(Math.abs(value), max);
+		}
+
+		// Normalize only if the max value in the array has a greater distance from zero than 1
+		if (max > 1) {
+			for (int i = 0; vals.length > i; i++) {
+				vals[i] /= max;
+			}
+		}
+
+		this.driveIndividually(-vals[0], vals[1], -vals[2], vals[3]);
+	}
+
+	/**
 	 * Closes the internal motors. <strong>THIS SHOULD BE CALLED WHEN THE MOTORS ARE DONE BEING USED!</strong>
 	 *
 	 * @author youngermax

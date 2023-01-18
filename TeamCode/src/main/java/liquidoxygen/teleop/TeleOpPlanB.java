@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import liquidoxygen.Shared;
 
-@TeleOp(name = Shared.TELEOP_NAME, group = Shared.GROUP)
+@TeleOp(name = "Tele Op (Plan B)", group = Shared.GROUP)
 public class TeleOpPlanB extends TeleOpOpMode {
 	private GamepadCarWheels wheels;
 	private Motor rightLiftMotor;
@@ -38,7 +38,8 @@ public class TeleOpPlanB extends TeleOpOpMode {
 	public void loop() {
 		// Gamepad controls
 		// Wheels
-		this.wheels.driveOmni(this.gamepad1.left_stick_y, this.gamepad1.left_stick_x, this.gamepad1.right_stick_x);
+		this.wheels.update();
+
 		//Button
 		if (this.gamepad1.a) {
 			this.rightLiftMotor.drive(0.8);
@@ -46,7 +47,6 @@ public class TeleOpPlanB extends TeleOpOpMode {
 			try {
 				wait(250);
 			} catch (InterruptedException e) {}
-			this.wheels.driveOmni(1,0,0);
 			try {
 				wait(250);
 			} catch (InterruptedException e) {}

@@ -12,7 +12,11 @@ public abstract class AbstractCameraWheelsAutoMode extends AutonomousOpMode {
 
 	@Override
 	public void initialize() {
-		System.out.printf("Please wait! (%s)%n", this.getClass().getCanonicalName());
+		for (int i = 0; 50 > i; i++) {
+			System.out.print("PLEASE WAIT! ");
+		}
+
+		System.out.println();
 
 		this.wheels = Shared.createWheels(this.hardwareMap);
 		this.webcam = new Webcam(this.hardwareMap, "Webcam");
