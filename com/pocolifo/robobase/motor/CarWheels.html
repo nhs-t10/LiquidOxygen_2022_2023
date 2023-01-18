@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -290,13 +290,22 @@ implements java.lang.AutoCloseable</pre>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#driveOmni(float,float,float)">driveOmni</a></span>&#8203;(float&nbsp;verticalPower,
+         float&nbsp;horizontalPower,
+         float&nbsp;rotationalPower)</code></th>
+<td class="colLast">
+<div class="block">Drive the robot with omni-drive.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rotate(double,double)">rotate</a></span>&#8203;(double&nbsp;degrees,
       double&nbsp;power)</code></th>
 <td class="colLast">
 <div class="block">Rotates the robot.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rotateClockwise(double,double)">rotateClockwise</a></span>&#8203;(double&nbsp;degrees,
                double&nbsp;power)</code></th>
@@ -304,7 +313,7 @@ implements java.lang.AutoCloseable</pre>
 <div class="block">Rotates the robot clockwise.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rotateCounterclockwise(double,double)">rotateCounterclockwise</a></span>&#8203;(double&nbsp;degrees,
                       double&nbsp;power)</code></th>
@@ -312,7 +321,7 @@ implements java.lang.AutoCloseable</pre>
 <div class="block">Rotates the robot counterclockwise.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDriveTarget(double)">setDriveTarget</a></span>&#8203;(double&nbsp;centimeters)</code></th>
 <td class="colLast">
@@ -587,6 +596,26 @@ implements java.lang.AutoCloseable</pre>
               This should be negative to rotate counterclockwise, and positive to rotate clockwise.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="#rotate(double,double)"><code>rotate(double, double)</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="driveOmni(float,float,float)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>driveOmni</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;driveOmni&#8203;(float&nbsp;verticalPower,
+                      float&nbsp;horizontalPower,
+                      float&nbsp;rotationalPower)</pre>
+<div class="block">Drive the robot with omni-drive. Omni-drive allows the robot to move horizontally without rotating, drive
+ diagonally, and drive and rotate the robot normally.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>verticalPower</code> - The power at which to move the robot forward and backward. Inclusive from -1.0 to 1.0.</dd>
+<dd><code>horizontalPower</code> - The power at which to move the robot left and right. Inclusive from -1.0 to 1.0.</dd>
+<dd><code>rotationalPower</code> - The power at which to rotate the robot. Inclusive from -1.0 (rotate counterclockwise) to 1.0
+                        (clockwise).</dd>
 </dl>
 </li>
 </ul>
