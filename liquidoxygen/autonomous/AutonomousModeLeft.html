@@ -132,7 +132,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li><a href="../../com/pocolifo/robobase/bootstrap/AutonomousOpMode.html" title="class in com.pocolifo.robobase.bootstrap">com.pocolifo.robobase.bootstrap.AutonomousOpMode</a></li>
 <li>
 <ul class="inheritance">
+<li><a href="AbstractCameraWheelsAutoMode.html" title="class in liquidoxygen.autonomous">liquidoxygen.autonomous.AbstractCameraWheelsAutoMode</a></li>
+<li>
+<ul class="inheritance">
 <li>liquidoxygen.autonomous.AutonomousModeLeft</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -146,11 +151,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <hr>
-<pre>@Autonomous(name="Example Autonomous Mode",
+<pre>@Autonomous(name="Autonomous Left (Plan A)",
             group="lo2",
             preselectTeleOp="Example TeleOp Mode")
 public class <span class="typeNameLabel">AutonomousModeLeft</span>
-extends <a href="../../com/pocolifo/robobase/bootstrap/AutonomousOpMode.html" title="class in com.pocolifo.robobase.bootstrap">AutonomousOpMode</a></pre>
+extends <a href="AbstractCameraWheelsAutoMode.html" title="class in liquidoxygen.autonomous">AbstractCameraWheelsAutoMode</a></pre>
 </li>
 </ul>
 </div>
@@ -205,6 +210,13 @@ extends <a href="../../com/pocolifo/robobase/bootstrap/AutonomousOpMode.html" ti
 </tr>
 </table>
 <ul class="blockList">
+<li class="blockList"><a id="fields.inherited.from.class.liquidoxygen.autonomous.AbstractCameraWheelsAutoMode">
+<!--   -->
+</a>
+<h3>Fields inherited from class&nbsp;liquidoxygen.autonomous.<a href="AbstractCameraWheelsAutoMode.html" title="class in liquidoxygen.autonomous">AbstractCameraWheelsAutoMode</a></h3>
+<code><a href="AbstractCameraWheelsAutoMode.html#webcam">webcam</a>, <a href="AbstractCameraWheelsAutoMode.html#wheels">wheels</a></code></li>
+</ul>
+<ul class="blockList">
 <li class="blockList"><a id="fields.inherited.from.class.com.qualcomm.robotcore.eventloop.opmode.OpMode">
 <!--   -->
 </a>
@@ -251,29 +263,32 @@ extends <a href="../../com/pocolifo/robobase/bootstrap/AutonomousOpMode.html" ti
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#initialize()">initialize</a></span>()</code></th>
-<td class="colLast">
-<div class="block">The initialization method for Autonomous.</div>
-</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#moveLeftSide()">moveLeftSide</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#requestOpModeStop()">requestOpModeStop</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#moveMiddle()">moveMiddle</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#run()">run</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Run the Autonomous code (i.e.</div>
-</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#moveRightSide()">moveRightSide</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stop()">stop</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#requestOpModeStop()">requestOpModeStop</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
+<ul class="blockList">
+<li class="blockList"><a id="methods.inherited.from.class.liquidoxygen.autonomous.AbstractCameraWheelsAutoMode">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;liquidoxygen.autonomous.<a href="AbstractCameraWheelsAutoMode.html" title="class in liquidoxygen.autonomous">AbstractCameraWheelsAutoMode</a></h3>
+<code><a href="AbstractCameraWheelsAutoMode.html#initialize()">initialize</a>, <a href="AbstractCameraWheelsAutoMode.html#run()">run</a>, <a href="AbstractCameraWheelsAutoMode.html#stop()">stop</a></code></li>
+</ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.com.pocolifo.robobase.bootstrap.AutonomousOpMode">
 <!--   -->
@@ -407,49 +422,42 @@ public&nbsp;int msStuckDetectStop</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="initialize()">
+<a id="moveLeftSide()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>initialize</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;initialize()</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../com/pocolifo/robobase/bootstrap/AutonomousOpMode.html#initialize()">AutonomousOpMode</a></code></span></div>
-<div class="block">The initialization method for Autonomous.
- The reason for having a separate initialize method is so that you have to override it. This also
- eliminates errors occurring if <code>super.init()</code> isn't called.</div>
+<h4>moveLeftSide</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;moveLeftSide()</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../com/pocolifo/robobase/bootstrap/AutonomousOpMode.html#initialize()">initialize</a></code>&nbsp;in class&nbsp;<code><a href="../../com/pocolifo/robobase/bootstrap/AutonomousOpMode.html" title="class in com.pocolifo.robobase.bootstrap">AutonomousOpMode</a></code></dd>
+<dd><code><a href="AbstractCameraWheelsAutoMode.html#moveLeftSide()">moveLeftSide</a></code>&nbsp;in class&nbsp;<code><a href="AbstractCameraWheelsAutoMode.html" title="class in liquidoxygen.autonomous">AbstractCameraWheelsAutoMode</a></code></dd>
 </dl>
 </li>
 </ul>
-<a id="run()">
+<a id="moveMiddle()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>run</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;run()</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../com/pocolifo/robobase/bootstrap/AutonomousOpMode.html#run()">AutonomousOpMode</a></code></span></div>
-<div class="block">Run the Autonomous code (i.e. move the robot or complete another action).
- The reason for having a separate run/start method is so that you have to override it.</div>
+<h4>moveMiddle</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;moveMiddle()</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../com/pocolifo/robobase/bootstrap/AutonomousOpMode.html#run()">run</a></code>&nbsp;in class&nbsp;<code><a href="../../com/pocolifo/robobase/bootstrap/AutonomousOpMode.html" title="class in com.pocolifo.robobase.bootstrap">AutonomousOpMode</a></code></dd>
+<dd><code><a href="AbstractCameraWheelsAutoMode.html#moveMiddle()">moveMiddle</a></code>&nbsp;in class&nbsp;<code><a href="AbstractCameraWheelsAutoMode.html" title="class in liquidoxygen.autonomous">AbstractCameraWheelsAutoMode</a></code></dd>
 </dl>
 </li>
 </ul>
-<a id="stop()">
+<a id="moveRightSide()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>stop</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;stop()</pre>
+<h4>moveRightSide</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;moveRightSide()</pre>
 <dl>
-<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code>stop</code>&nbsp;in class&nbsp;<code>com.qualcomm.robotcore.eventloop.opmode.OpMode</code></dd>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="AbstractCameraWheelsAutoMode.html#moveRightSide()">moveRightSide</a></code>&nbsp;in class&nbsp;<code><a href="AbstractCameraWheelsAutoMode.html" title="class in liquidoxygen.autonomous">AbstractCameraWheelsAutoMode</a></code></dd>
 </dl>
 </li>
 </ul>
