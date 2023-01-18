@@ -1,9 +1,10 @@
 package liquidoxygen.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import liquidoxygen.BuildProperties;
 import liquidoxygen.Shared;
 
-@Autonomous(name = "Autonomous Left (Plan A)", group = Shared.GROUP, preselectTeleOp = Shared.TELEOP_NAME)
+@Autonomous(name = "Autonomous (Plan A) " + BuildProperties.VERSION, group = Shared.GROUP, preselectTeleOp = Shared.TELEOP_NAME)
 public class AutonomousModeLeft extends AbstractCameraWheelsAutoMode {
 	@Override
 	public void moveLeftSide() {
