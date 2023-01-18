@@ -119,7 +119,5 @@ public class Webcam implements AutoCloseable {
 	public void close() throws Exception {
 		this.clearPipeline();
 		this.webcam.closeCameraDevice();
-
-		this.webcamDevice.close();
 	}
 }

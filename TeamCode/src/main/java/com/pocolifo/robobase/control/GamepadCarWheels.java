@@ -82,7 +82,7 @@ public class GamepadCarWheels {
 			}
 		}
 
-		this.wheels.driveIndividually(-vals[0], vals[1], -vals[2], vals[3]);
+		this.wheels.driveIndividually(-vals[0], -vals[1], -vals[2], -vals[3]);
 
 		// Omni-drive
 	}

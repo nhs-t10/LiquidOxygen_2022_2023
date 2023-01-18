@@ -3,6 +3,9 @@ package com.pocolifo.robobase.motor;
 import com.pocolifo.robobase.Robot;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import java.sql.SQLOutput;
+import java.util.PrimitiveIterator;
+
 /**
  * Contains functions to move the robot very intuitively. Intended for use in Autonomous. The wheels must be organized
  * just like a car; this means all wheels are parallel, two on each side of the robot.
@@ -124,10 +127,11 @@ public class CarWheels implements AutoCloseable {
 	 * @author youngermax
 	 */
 	public void drive(double centimeters, double power) {
-		assert (centimeters > 0 && power > 0) || (0 > centimeters && 0 > power);
-
+		System.out.println("TARGET");
 		this.setDriveTarget(centimeters);
-		this.driveIndividually(power, power, power, power);
+		System.out.println("DRIVE");
+		this.driveIndividually(power, -power, power, -power);
+		System.out.println("WAIT");
 		this.waitForWheelsThenStop();
 	}
 
@@ -207,7 +211,12 @@ public class CarWheels implements AutoCloseable {
 	 */
 	private void waitForWheelsThenStop() {
 		// Wait for the SPECIAL WHEEL to stop moving
-		while (this.specialWheel.motor.isBusy()) { }
+		System.out.println("difjapoisdjf09SEJFPOIJDSfpoij = " + this.specialWheel.motor.getCurrentPosition());
+		System.out.println("PRE LOOP");
+
+		while (this.specialWheel.targetPosition > this.specialWheel.motor.getCurrentPosition()) {
+			System.out.printf("tp %d pos %d%n", this.specialWheel.targetPosition, this.specialWheel.motor.getCurrentPosition());
+		}
 
 		// Stop driving
 		this.frontLeft.stopMoving();

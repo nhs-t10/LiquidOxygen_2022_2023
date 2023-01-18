@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import liquidoxygen.Shared;
 
-@TeleOp(name = Shared.TELEOP_NAME, group = Shared.GROUP)
+@TeleOp(name = "Tele Op (Plan A)", group = Shared.GROUP)
 public class TeleOpMode extends TeleOpOpMode {
 	private GamepadCarWheels wheels;
 	private Wheel liftMotor;

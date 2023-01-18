@@ -1,6 +1,7 @@
 package com.pocolifo.robobase.motor;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import lombok.Getter;
 
 /**
  * Represents a single wheel on the robot.
@@ -18,6 +19,11 @@ public class Wheel extends Motor {
 	 * The circumference of this wheel, in centimeters.
 	 */
 	public final double circumferenceCm;
+
+	/**
+	 * The target encoder position
+	 */
+	public int targetPosition;
 
 	/**
 	 * Instantiate a {@link Wheel}.
@@ -44,7 +50,7 @@ public class Wheel extends Motor {
 		double rotations = centimeters / this.circumferenceCm;
 		int encoderTarget = (int) rotations * this.tickCount;
 
-		this.motor.setTargetPosition(this.motor.getTargetPosition() + encoderTarget);
-		this.motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+		this.targetPosition += encoderTarget;
+		this.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 	}
 }

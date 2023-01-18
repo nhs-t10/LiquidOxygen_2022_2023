@@ -11,6 +11,13 @@ public class Shared {
 	public static final Robot ROBOT = new Robot(43, 29, 27, 9326, "Robot", true);
 	public static final int MOTOR_TICK_COUNT = 1120;
 
+	/*
+	Cycles per revolution (motor shaft): 7
+	Cycles per revolution (output shaft): 280
+	Countable events per revolution (motor shaft): 28
+	Countable events per revolution (output shaft): 1,120
+	 */
+
 	public static CarWheels createWheels(HardwareMap hardwareMap) {
 		return new CarWheels(
 			hardwareMap,
