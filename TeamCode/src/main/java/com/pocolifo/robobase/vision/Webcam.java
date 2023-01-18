@@ -54,6 +54,7 @@ public class Webcam implements AutoCloseable {
 	 * Pipelines allow data from the camera to be processed. This is a <strong>blocking method</strong>.
 	 * <strong>WHEN YOU'RE DONE WITH THE WEBCAM, CLOSE IT!</strong>
 	 *
+	 * @param pipeline The initial pipeline which will process camera input.
 	 * @throws RuntimeException If there was an error while opening the camera.
 	 * @author youngermax
 	 */
