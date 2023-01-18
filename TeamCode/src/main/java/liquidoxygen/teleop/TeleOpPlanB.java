@@ -38,7 +38,7 @@ public class TeleOpPlanB extends TeleOpOpMode {
 	public void loop() {
 		// Gamepad controls
 		// Wheels
-		this.wheels.update(this.gamepad1.left_stick_y, this.gamepad1.left_stick_x, this.gamepad1.right_stick_x);
+		this.wheels.driveOmni(this.gamepad1.left_stick_y, this.gamepad1.left_stick_x, this.gamepad1.right_stick_x);
 		//Button
 		if (this.gamepad1.a) {
 			this.rightLiftMotor.drive(0.8);
@@ -46,7 +46,7 @@ public class TeleOpPlanB extends TeleOpOpMode {
 			try {
 				wait(250);
 			} catch (InterruptedException e) {}
-			this.wheels.update(1,0,0);
+			this.wheels.driveOmni(1,0,0);
 			try {
 				wait(250);
 			} catch (InterruptedException e) {}

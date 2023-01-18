@@ -63,28 +63,40 @@ public class GamepadCarWheels {
 		}
 	}
 
-	public void update(float v, float h, float r) {
+	/**
+	 * Drive the robot with omni-drive. Omni-drive allows the robot to move horizontally without rotating, drive
+	 * diagonally, and drive and rotate the robot normally.
+	 *
+	 * @param verticalPower The power at which to move the robot forward and backward. Inclusive from -1.0 to 1.0.
+	 * @param horizontalPower The power at which to move the robot left and right. Inclusive from -1.0 to 1.0.
+	 * @param rotationalPower The power at which to rotate the robot. Inclusive from -1.0 (rotate counterclockwise) to 1.0
+	 *                        (clockwise).
+	 */
+	public void driveOmni(float verticalPower, float horizontalPower, float rotationalPower) {
 		// Drive the wheels to match the controller input
-		float[] vals = new float[] {v - h - r, v + r + h, v - r + h, v + r - h};
-		boolean norm = false;
-		float tonorm = 0;
+		// TODO: Add explanation here -- even I don't know how this works
+		float[] vals = new float[] {
+			verticalPower - horizontalPower - rotationalPower,
+			verticalPower + rotationalPower + horizontalPower,
+			verticalPower - rotationalPower + horizontalPower,
+			verticalPower + rotationalPower - horizontalPower
+		};
 
-		for (int i = 0; i < 4; i++) {
-			if ((vals[i] > 1 && vals[i] > tonorm) || (vals[i] < -1 && vals[i] < -tonorm)) {
-				norm = true;
-				tonorm = Math.abs(vals[i]);
-			}
+		// Normalize values if needed
+		float max = 0;
+
+		for (float value : vals) {
+			max = Math.max(Math.abs(value), max);
 		}
 
-		if (norm) {
-			for (int i = 0; i < 4; i++) {
-				vals[i] /= tonorm;
+		// Normalize only if the max value in the array has a greater distance from zero than 1
+		if (max > 1) {
+			for (int i = 0; vals.length > i; i++) {
+				vals[i] /= max;
 			}
 		}
 
 		this.wheels.driveIndividually(-vals[0], -vals[1], -vals[2], -vals[3]);
-
-		// Omni-drive
 	}
 
 	public void close() {
