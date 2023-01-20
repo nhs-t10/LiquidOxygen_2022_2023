@@ -13,8 +13,6 @@ public class TeleOpMode extends TeleOpOpMode {
 	private GamepadCarWheels wheels;
 	private Wheel liftMotor;
 	private Servo grabberServo;
-	private boolean isGrabbing;
-	private boolean aWasDownLast;
 
 	@Override
 	public void initialize() {
@@ -42,17 +40,13 @@ public class TeleOpMode extends TeleOpOpMode {
 		}
 
 		// Grabber
-		if (this.gamepad1.a && this.aWasDownLast) {
-			if (this.isGrabbing) {
-				this.grabberServo.setPosition(1);
-			} else {
-				this.grabberServo.setPosition(0);
-			}
-
-			this.isGrabbing = !this.isGrabbing;
+		if (this.gamepad1.dpad_left) {
+			this.grabberServo.getController().pwmEnable();
+			this.grabberServo.setPosition(1);
+		} else if (this.gamepad1.dpad_right) {
+			this.grabberServo.setPosition(0);
+			this.grabberServo.getController().pwmDisable();
 		}
-
-		this.aWasDownLast = this.gamepad1.a;
 	}
 
 	@Override
