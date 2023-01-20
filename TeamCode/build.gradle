@@ -51,7 +51,7 @@ String executeCommand(String... args) {
 
 String getLatestGitHash() { return executeCommand('git', 'rev-parse', '--short', 'HEAD') }
 int getGitCommitCount() { return executeCommand('git', 'log', '--oneline').count("\n") }
-String getGitBranch() { return executeCommand('git', 'branch', '--show-current') }
+String getGitBranch() { return executeCommand('git', 'rev-parse', '--abbrev-ref', 'HEAD') }
 
 version "2.${getGitCommitCount()}+${getLatestGitHash()}@${getGitBranch()}-${System.currentTimeMillis()}"
 
