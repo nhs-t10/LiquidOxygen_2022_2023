@@ -4,8 +4,11 @@ import com.pocolifo.robobase.motor.CarWheels;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Utility class which implements Omni-Drive.
+ */
 @RequiredArgsConstructor
-public class GamepadCarWheels {
+public class GamepadCarWheels implements AutoCloseable {
 	private final CarWheels wheels;
 	private final Gamepad gamepad;
 
@@ -63,10 +66,22 @@ public class GamepadCarWheels {
 		}
 	}
 
+	/**
+	 * <p>Must be called every loop iteration to update the movement of the wheels.
+	 * Movement is based upon gamepad input.</p>
+	 *
+	 * <p><strong>Controls</strong>
+	 * Left stick - movement: forward, backward, left and right without turning
+	 * Right tick - rotation: clockwise and counterclockwise</p>
+	 */
 	public void update() {
 		this.wheels.driveOmni(this.gamepad.left_stick_y, this.gamepad.left_stick_x, this.gamepad.right_stick_x);
 	}
 
+	/**
+	 * Cleans up this {@link GamepadCarWheels} instance. <strong>This should be called when this instance is no longer
+	 * in use!</strong>
+	 */
 	public void close() {
 		this.wheels.close();
 	}
