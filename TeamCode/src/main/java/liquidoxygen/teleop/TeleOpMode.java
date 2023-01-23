@@ -13,6 +13,7 @@ public class TeleOpMode extends TeleOpOpMode {
 	private GamepadCarWheels wheels;
 	private Wheel liftMotor;
 	private Servo grabberServo;
+	private long lastPressed;
 
 	@Override
 	public void initialize() {
@@ -32,20 +33,35 @@ public class TeleOpMode extends TeleOpOpMode {
 
 		// Lift
 		if (this.gamepad1.dpad_up) {
-			this.liftMotor.drive(0.5);
+			this.liftMotor.drive(1);
 		} else if (this.gamepad1.dpad_down) {
-			this.liftMotor.drive(-0.5);
+			this.liftMotor.drive(-1);
 		} else {
 			this.liftMotor.drive(0);
 		}
 
 		// Grabber
-		if (this.gamepad1.dpad_left) {
-			this.grabberServo.getController().pwmEnable();
-			this.grabberServo.setPosition(1);
-		} else if (this.gamepad1.dpad_right) {
-			this.grabberServo.setPosition(0);
-			this.grabberServo.getController().pwmDisable();
+		// Allow control of the grabber once every 500ms so the servo doesn't get overloaded
+		if (System.currentTimeMillis() - this.lastPressed > 500) {
+			if (this.gamepad1.a) {
+				// Open the grabber up
+				// Turn the power back on (see below if case)
+				this.grabberServo.getController().pwmEnable();
+				this.grabberServo.setPosition(1);
+
+				// Reset the pressed time
+				this.lastPressed = System.currentTimeMillis();
+			} else if (this.gamepad1.b) {
+				// Close it up
+				this.grabberServo.setPosition(0);
+
+				// Turn the power of the grabber OFF.
+				// This allows the servo to claw to fully retract.
+				this.grabberServo.getController().pwmDisable();
+
+				// Reset the pressed time
+				this.lastPressed = System.currentTimeMillis();
+			}
 		}
 	}
 
