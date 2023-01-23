@@ -55,17 +55,19 @@ String getGitBranch() { return executeCommand('git', 'rev-parse', '--abbrev-ref'
 
 version "2.${getGitCommitCount()}+${getLatestGitHash()}@${getGitBranch()}-${System.currentTimeMillis()}"
 
-android.applicationVariants.all { v ->
+android.applicationVariants.configureEach { v ->
     tasks.create("javadoc${v.name.capitalize()}", Javadoc) {
         group 'javadoc'
-        source = v.javaCompile.source
-        title "RoboBase & TeamCode"
+        title "RoboBase"
+        destinationDir = file("javadocs-${v.name}")
+
+        source = v.javaCompile.source.findAll {
+            it.getAbsolutePath().contains("robobase")
+        }
 
         afterEvaluate {
             classpath = files(v.javaCompile.classpath.files) + files("${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar")
         }
-
-        destinationDir = file("javadocs-${v.name}")
     }
 }
 
