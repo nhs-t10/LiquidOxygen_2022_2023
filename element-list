@@ -3,7 +3,3 @@ com.pocolifo.robobase.bootstrap
 com.pocolifo.robobase.control
 com.pocolifo.robobase.motor
 com.pocolifo.robobase.vision
-liquidoxygen
-liquidoxygen.autonomous
-liquidoxygen.teleop
-org.firstinspires.ftc.teamcode
