@@ -14,6 +14,8 @@ public class TeleOpMode extends TeleOpOpMode {
 	private Wheel liftMotor;
 	private Servo grabberServo;
 	private long lastPressed;
+	private long xtime;
+	private boolean x;
 
 	@Override
 	public void initialize() {
@@ -21,6 +23,8 @@ public class TeleOpMode extends TeleOpOpMode {
 		this.liftMotor = new Wheel(this.hardwareMap.dcMotor.get("Lift"), 288, 5.5);
 		this.liftMotor.motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 		this.grabberServo = this.hardwareMap.servo.get("Grabber");
+		lastPressed = System.currentTimeMillis();
+		xtime = System.currentTimeMillis();
 
 		System.out.println("Successfully initialized.");
 	}
@@ -29,7 +33,12 @@ public class TeleOpMode extends TeleOpOpMode {
 	public void loop() {
 		// Gamepad controls
 		// Wheels
-		this.wheels.update();
+		x = x ^ (this.gamepad1.x && System.currentTimeMillis()-xtime>=1000);
+		xtime=(this.gamepad1.x && System.currentTimeMillis()-xtime>=1000)?System.currentTimeMillis():xtime;
+
+		//x=this.gamepad1.x
+
+		this.wheels.update(x);
 
 		// Lift
 		if (this.gamepad1.dpad_up) {
