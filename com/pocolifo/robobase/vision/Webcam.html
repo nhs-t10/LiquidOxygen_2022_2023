@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -197,6 +197,11 @@ implements java.lang.AutoCloseable</pre>
 <div class="block">Initializes a <a href="Webcam.html" title="class in com.pocolifo.robobase.vision"><code>Webcam</code></a>.</div>
 </td>
 </tr>
+<tr class="rowColor">
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.qualcomm.robotcore.hardware.HardwareMap,org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName)">Webcam</a></span>&#8203;(com.qualcomm.robotcore.hardware.HardwareMap&nbsp;hardwareMap,
+      org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName&nbsp;webcamDevice)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
 </table>
 </li>
 </ul>
@@ -230,13 +235,20 @@ implements java.lang.AutoCloseable</pre>
 </td>
 </tr>
 <tr id="i2" class="altColor">
+<td class="colFirst"><code><a href="AbstractResultCvPipeline.html" title="class in com.pocolifo.robobase.vision">AbstractResultCvPipeline</a>&lt;?&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPipeline()">getPipeline</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Gets the current active pipeline of the webcam.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#open(com.pocolifo.robobase.vision.AbstractResultCvPipeline)">open</a></span>&#8203;(<a href="AbstractResultCvPipeline.html" title="class in com.pocolifo.robobase.vision">AbstractResultCvPipeline</a>&lt;?&gt;&nbsp;pipeline)</code></th>
 <td class="colLast">
 <div class="block">Opens the camera.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPipeline(com.pocolifo.robobase.vision.AbstractResultCvPipeline)">setPipeline</a></span>&#8203;(<a href="AbstractResultCvPipeline.html" title="class in com.pocolifo.robobase.vision">AbstractResultCvPipeline</a>&lt;?&gt;&nbsp;pipeline)</code></th>
 <td class="colLast">
@@ -297,6 +309,16 @@ implements java.lang.AutoCloseable</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
+<a id="&lt;init&gt;(com.qualcomm.robotcore.hardware.HardwareMap,org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>Webcam</h4>
+<pre>public&nbsp;Webcam&#8203;(com.qualcomm.robotcore.hardware.HardwareMap&nbsp;hardwareMap,
+              org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName&nbsp;webcamDevice)</pre>
+</li>
+</ul>
 <a id="&lt;init&gt;(com.qualcomm.robotcore.hardware.HardwareMap,java.lang.String)">
 <!--   -->
 </a>
@@ -364,6 +386,20 @@ implements java.lang.AutoCloseable</pre>
 <h4>clearPipeline</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;clearPipeline()</pre>
 <div class="block">Unsets the webcam pipeline; no data will be able to be processed since there is no pipeline active.</div>
+</li>
+</ul>
+<a id="getPipeline()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getPipeline</h4>
+<pre class="methodSignature">public&nbsp;<a href="AbstractResultCvPipeline.html" title="class in com.pocolifo.robobase.vision">AbstractResultCvPipeline</a>&lt;?&gt;&nbsp;getPipeline()</pre>
+<div class="block">Gets the current active pipeline of the webcam.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The current active pipeline.</dd>
+</dl>
 </li>
 </ul>
 <a id="close()">
