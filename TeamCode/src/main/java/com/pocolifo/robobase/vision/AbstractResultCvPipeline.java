@@ -1,6 +1,5 @@
 package com.pocolifo.robobase.vision;
 
-import lombok.Getter;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 /**
@@ -13,5 +12,14 @@ public abstract class AbstractResultCvPipeline<T> extends OpenCvPipeline {
 	/**
 	 * The result of the webcam processor.
 	 */
-	@Getter protected T result;
+	protected T result;
+
+	/**
+	 * Get the current result of the pipeline.
+	 *
+	 * @return The result of the pipeline.
+	 */
+	public T getResult() {
+		return result;
+	}
 }

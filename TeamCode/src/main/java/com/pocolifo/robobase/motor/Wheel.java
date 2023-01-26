@@ -1,7 +1,6 @@
 package com.pocolifo.robobase.motor;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import lombok.Getter;
 
 /**
  * Represents a single wheel on the robot.

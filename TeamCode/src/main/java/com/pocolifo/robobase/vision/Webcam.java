@@ -4,8 +4,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.os.SystemClock;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -17,7 +15,6 @@ import org.openftc.easyopencv.OpenCvWebcam;
  *
  * @author youngermax
  */
-@RequiredArgsConstructor
 public class Webcam implements AutoCloseable {
 	/**
 	 * The {@link HardwareMap} associated with this webcam.
@@ -37,7 +34,12 @@ public class Webcam implements AutoCloseable {
 	/**
 	 * The current pipeline that this webcam is using.
 	 */
-	@Getter private AbstractResultCvPipeline<?> pipeline;
+	private AbstractResultCvPipeline<?> pipeline;
+
+	public Webcam(HardwareMap hardwareMap, WebcamName webcamDevice) {
+		this.hardwareMap = hardwareMap;
+		this.webcamDevice = webcamDevice;
+	}
 
 	/**
 	 * Initializes a {@link Webcam}.
@@ -108,6 +110,15 @@ public class Webcam implements AutoCloseable {
 		this.pipeline = null;
 		this.webcam.setPipeline(null);
 		this.webcam.stopStreaming();
+	}
+
+	/**
+	 * Gets the current active pipeline of the webcam.
+	 *
+	 * @return The current active pipeline.
+	 */
+	public AbstractResultCvPipeline<?> getPipeline() {
+		return pipeline;
 	}
 
 	/**
