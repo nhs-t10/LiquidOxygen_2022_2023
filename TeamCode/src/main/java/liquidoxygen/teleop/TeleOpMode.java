@@ -15,7 +15,7 @@ public class TeleOpMode extends TeleOpOpMode {
 	private Servo grabberServo;
 	private long lastPressed;
 	private long xtime;
-	private boolean x;
+	private boolean x = true;
 
 	@Override
 	public void initialize() {
