@@ -31,10 +31,6 @@ android {
 dependencies {
     // This is REQUIRED! Phones will not be able to connect if this dependency is not included!
     implementation project(':FtcRobotController')
-
-    // KEEP compileOnly HERE! Yes, IntelliJ dislikes it, but IT IS REQUIRED!
-    compileOnly 'org.projectlombok:lombok:1.18.24'
-    annotationProcessor 'org.projectlombok:lombok:1.18.24'
 }
 
 // Set version

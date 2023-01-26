@@ -1,14 +1,12 @@
 package com.pocolifo.robobase;
 
 import com.pocolifo.robobase.motor.CarWheels;
-import lombok.RequiredArgsConstructor;
 
 /**
  * Data and other information about the robot. This should be kept as accurate and up-to-date as possible!
  *
  * @author youngermax
  */
-@RequiredArgsConstructor
 public class Robot {
 	/**
 	 * <p>The width of the robot in real life, in centimeters.</p>
@@ -57,5 +55,14 @@ public class Robot {
 	public boolean doesPassDimensionInspection() {
 		// 45.72 is equivalent to 18 inches, the requirements for a robot
 		return 45.72 >= widthCm && 45.72 >= lengthCm && 45.72 >= heightCm;
+	}
+
+	public Robot(double widthCm, double lengthCm, double heightCm, int teamNumber, String robotName, boolean hasWarningSticker) {
+		this.widthCm = widthCm;
+		this.lengthCm = lengthCm;
+		this.heightCm = heightCm;
+		this.teamNumber = teamNumber;
+		this.robotName = robotName;
+		this.hasWarningSticker = hasWarningSticker;
 	}
 }

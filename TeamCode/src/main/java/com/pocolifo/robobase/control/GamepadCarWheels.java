@@ -2,15 +2,24 @@ package com.pocolifo.robobase.control;
 
 import com.pocolifo.robobase.motor.CarWheels;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import lombok.RequiredArgsConstructor;
 
 /**
  * Utility class which implements Omni-Drive.
  */
-@RequiredArgsConstructor
 public class GamepadCarWheels implements AutoCloseable {
 	private final CarWheels wheels;
 	private final Gamepad gamepad;
+
+	/**
+	 * Create a {@link GamepadCarWheels}.
+	 *
+	 * @param wheels The {@link CarWheels} that the {@link GamepadCarWheels} should use.
+	 * @param gamepad The {@link Gamepad} that the {@link GamepadCarWheels} should use.
+	 */
+	public GamepadCarWheels(CarWheels wheels, Gamepad gamepad) {
+		this.wheels = wheels;
+		this.gamepad = gamepad;
+	}
 
 	/**
 	 * Calculate the power to set the right set of wheel motors.

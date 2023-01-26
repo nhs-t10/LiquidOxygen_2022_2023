@@ -5,7 +5,6 @@ import com.pocolifo.robobase.motor.CarWheels;
 import com.pocolifo.robobase.vision.Webcam;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import liquidoxygen.Shared;
-import lombok.SneakyThrows;
 
 @Autonomous(name = Shared.AUTONOMOUS_NAME, group = Shared.GROUP, preselectTeleOp = Shared.TELEOP_NAME)
 public class AutonomousMode extends AutonomousOpMode {
