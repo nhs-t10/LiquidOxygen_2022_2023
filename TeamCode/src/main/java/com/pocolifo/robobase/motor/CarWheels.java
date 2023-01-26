@@ -215,12 +215,12 @@ public class CarWheels implements AutoCloseable {
 		System.out.println("PRE LOOP");
 
 		if (this.specialWheel.targetPosition >= 0) {
-			while (this.specialWheel.targetPosition > this.specialWheel.motor.getCurrentPosition()) {
-				System.out.printf("tp %d pos %d%n", this.specialWheel.targetPosition, this.specialWheel.motor.getCurrentPosition());
+			while (this.specialWheel.targetPosition > -this.specialWheel.motor.getCurrentPosition()) {
+				System.out.printf("tp %d pos %d%n", this.specialWheel.targetPosition, -this.specialWheel.motor.getCurrentPosition());
 			}
 		} else {
-			while (this.specialWheel.targetPosition < this.specialWheel.motor.getCurrentPosition()) {
-				System.out.printf("tp %d pos %d%n", this.specialWheel.targetPosition, this.specialWheel.motor.getCurrentPosition());
+			while (this.specialWheel.targetPosition < -this.specialWheel.motor.getCurrentPosition()) {
+				System.out.printf("tp %d pos %d%n", this.specialWheel.targetPosition, -this.specialWheel.motor.getCurrentPosition());
 			}
 		}
 

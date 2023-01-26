@@ -27,13 +27,13 @@ public class TestAutoMode extends AutonomousOpMode {
 		sleep(1000L);
 		System.out.println("DRIVE!!");
 
-		// wheels.drive(100d, 0.2d);
+		wheels.drive(100d, 0.2d);
 
-		this.wheels.driveIndividually(0.3d, 0.3d, 0.3d, 0.3d);
+		/*this.wheels.driveIndividually(0.3d, 0.3d, 0.3d, 0.3d);
 
 		sleep(2500L);
 
-		this.wheels.driveIndividually(0, 0, 0, 0);
+		this.wheels.driveIndividually(0, 0, 0, 0);*/
 
 		System.out.println("All done!");
 	}
