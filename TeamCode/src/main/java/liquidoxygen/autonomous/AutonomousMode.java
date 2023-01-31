@@ -2,20 +2,28 @@ package liquidoxygen.autonomous;
 
 import com.pocolifo.robobase.bootstrap.AutonomousOpMode;
 import com.pocolifo.robobase.motor.CarWheels;
+import com.pocolifo.robobase.motor.Wheel;
 import com.pocolifo.robobase.vision.Webcam;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import liquidoxygen.Shared;
 
 @Autonomous(name = Shared.AUTONOMOUS_NAME, group = Shared.GROUP, preselectTeleOp = Shared.TELEOP_NAME)
 public class AutonomousMode extends AutonomousOpMode {
 	private CarWheels wheels;
 	private Webcam webcam;
+	private Wheel liftMotor;
+	private Servo grabberServo;
 
 	@Override
 	public void initialize() {
 		for (int i = 0; 50 > i; i++) {
 			System.out.print("PLEASE WAIT! ");
 		}
+		this.liftMotor = new Wheel(this.hardwareMap.dcMotor.get("Lift"), 288, 5.5);
+		this.liftMotor.motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+		this.grabberServo = this.hardwareMap.servo.get("Grabber");
 
 		System.out.println();
 
@@ -62,8 +70,13 @@ public class AutonomousMode extends AutonomousOpMode {
 	public void moveLeftSide() {
 		this.wheels.driveOmni(0.5f, 0, 0);
 		sleep(2000);
+		this.liftMotor.drive(0.5);
+		sleep(1000);
+		this.liftMotor.drive(0);
 		this.wheels.driveOmni(0, 0.5f, 0);
-		sleep(2100);
+		sleep(1100);
+		this.grabberServo.setPosition(1);
+		sleep(1000);
 		this.wheels.driveOmni(0, 0, 0);
 	}
 
@@ -76,8 +89,13 @@ public class AutonomousMode extends AutonomousOpMode {
 	public void moveRightSide() {
 		this.wheels.driveOmni(0.5f, 0, 0);
 		sleep(2000);
+		this.liftMotor.drive(0.5);
+		sleep(1000);
+		this.liftMotor.drive(0);
 		this.wheels.driveOmni(0, -0.5f, 0);
-		sleep(2100);
+		sleep(1100);
+		this.grabberServo.setPosition(1);
+		sleep(1000);
 		this.wheels.driveOmni(0, 0, 0);
 	}
 
