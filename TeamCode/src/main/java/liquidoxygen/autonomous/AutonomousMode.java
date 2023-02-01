@@ -21,9 +21,9 @@ public class AutonomousMode extends AutonomousOpMode {
 		for (int i = 0; 50 > i; i++) {
 			System.out.print("PLEASE WAIT! ");
 		}
-		this.liftMotor = new Wheel(this.hardwareMap.dcMotor.get("Lift"), 288, 5.5);
-		this.liftMotor.motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-		this.grabberServo = this.hardwareMap.servo.get("Grabber");
+		//this.liftMotor = new Wheel(this.hardwareMap.dcMotor.get("Lift"), 288, 5.5);
+		//this.liftMotor.motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+		//this.grabberServo = this.hardwareMap.servo.get("Grabber");
 
 		System.out.println();
 
@@ -68,35 +68,31 @@ public class AutonomousMode extends AutonomousOpMode {
 	}
 
 	public void moveLeftSide() {
-		this.wheels.driveOmni(0.5f, 0, 0);
-		sleep(2000);
-		this.liftMotor.drive(0.5);
-		sleep(1000);
-		this.liftMotor.drive(0);
-		this.wheels.driveOmni(0, 0.5f, 0);
-		sleep(1100);
-		this.grabberServo.setPosition(1);
-		sleep(1000);
-		this.wheels.driveOmni(0, 0, 0);
+		this.wheels.drive(-66.04f, false);
+		//this.liftMotor.drive(0.5);
+		sleep(3000);
+		//this.liftMotor.drive(0);
+		this.wheels.drive(-12.7f,true);
+		this.wheels.drive(10.16f,false);
+		//this.grabberServo.setPosition(1);
+		this.wheels.drive(-10.16f,false);
+		this.wheels.drive(-25.4f,true);
 	}
 
 	public void moveMiddle() {
-		this.wheels.driveOmni(0.5f, 0, 0);
-		sleep(2000);
-		this.wheels.driveOmni(0, 0, 0);
+		this.wheels.drive(-75,false);
 	}
 
 	public void moveRightSide() {
-		this.wheels.driveOmni(0.5f, 0, 0);
-		sleep(2000);
-		this.liftMotor.drive(0.5);
-		sleep(1000);
-		this.liftMotor.drive(0);
-		this.wheels.driveOmni(0, -0.5f, 0);
-		sleep(1100);
-		this.grabberServo.setPosition(1);
-		sleep(1000);
-		this.wheels.driveOmni(0, 0, 0);
+		this.wheels.drive(-66.04f, false);
+		//this.liftMotor.drive(0.5);
+		sleep(3000);
+		//this.liftMotor.drive(0);
+		this.wheels.drive(12.7f,true);
+		this.wheels.drive(10.16f,false);
+		//this.grabberServo.setPosition(1);
+		this.wheels.drive(-10.16f,false);
+		this.wheels.drive(25.4f,true);
 	}
 
 	@Override
