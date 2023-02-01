@@ -13,11 +13,8 @@ public class AutonomousMode extends AutonomousOpMode {
 
 	@Override
 	public void initialize() {
-		for (int i = 0; 50 > i; i++) {
-			System.out.print("PLEASE WAIT! ");
-		}
-
-		System.out.println();
+		System.out.println("PLEASE WAIT!");
+		System.out.println("[!!!] The linear slide must be at its bottom position!");
 
 		this.wheels = Shared.createWheels(this.hardwareMap);
 		this.webcam = new Webcam(this.hardwareMap, "Webcam");
