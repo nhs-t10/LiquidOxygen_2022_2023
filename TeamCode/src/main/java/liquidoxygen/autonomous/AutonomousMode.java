@@ -2,14 +2,13 @@ package liquidoxygen.autonomous;
 
 import com.pocolifo.robobase.bootstrap.AutonomousOpMode;
 import com.pocolifo.robobase.motor.CarWheels;
-import com.pocolifo.robobase.motor.Wheel;
 import com.pocolifo.robobase.vision.Webcam;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import liquidoxygen.GrabberThread;
 import liquidoxygen.LinearSlide;
 import liquidoxygen.Shared;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 @Autonomous(name = Shared.AUTONOMOUS_NAME, group = Shared.GROUP, preselectTeleOp = Shared.TELEOP_NAME)
 public class AutonomousMode extends AutonomousOpMode {
@@ -17,6 +16,7 @@ public class AutonomousMode extends AutonomousOpMode {
 	private Webcam webcam;
 	private GrabberThread grabberThread;
 	private LinearSlide linearSlide;
+	private DistanceSensor distance;
 
 	@Override
 	public void initialize() {
@@ -26,8 +26,9 @@ public class AutonomousMode extends AutonomousOpMode {
 		this.wheels = Shared.createWheels(this.hardwareMap);
 		this.webcam = new Webcam(this.hardwareMap, "Webcam");
 		this.webcam.open(new ColorCapturePipeline());
-		this.grabberThread = new GrabberThread(this.hardwareMap.servo.get("Grabber"));
-		this.linearSlide = new LinearSlide(this.hardwareMap.dcMotor.get("Lift"));
+//		this.grabberThread = new GrabberThread(this.hardwareMap.servo.get("Grabber"));
+//		this.linearSlide = new LinearSlide(this.hardwareMap.dcMotor.get("Lift"));
+		this.distance = this.hardwareMap.get(DistanceSensor.class, "Distance Sensor");
 
 		System.out.println("Initialized Autonomous! Ready for take off!");
 	}
@@ -40,6 +41,10 @@ public class AutonomousMode extends AutonomousOpMode {
 			this.webcam.close();
 		} catch (Exception e) {
 			System.out.println("[!!!!!] WEBCAM DID NOT CLOSE PROPERLY! Still running anyway...");
+		}
+
+		while (distance.getDistance(DistanceUnit.CM) > 19.5f) {
+			this.wheels.driveOmni(0, -0.2f, 0);
 		}
 
 		System.out.printf("Detected color: %s%n", color.name());
@@ -64,7 +69,6 @@ public class AutonomousMode extends AutonomousOpMode {
 				break;
 		}
 	}
-
 	public void moveLeftSide() {
 		this.wheels.driveOmni(0.5f, 0, 0);
 		sleep(2000);
@@ -85,11 +89,8 @@ public class AutonomousMode extends AutonomousOpMode {
 	public void moveRightSide() {
 		this.wheels.driveOmni(0.5f, 0, 0);
 		sleep(2000);
-		this.linearSlide.setPosition(LinearSlide.Position.SMALL_POLE);
 		this.wheels.driveOmni(0, -0.5f, 0);
-		sleep(1100);
-		this.grabberThread.openClaw();
-		sleep(1000);
+		sleep(2100);
 		this.wheels.driveOmni(0, 0, 0);
 	}
 
