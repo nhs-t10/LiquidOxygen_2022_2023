@@ -20,8 +20,7 @@ public class AutonomousMode extends AutonomousOpMode {
 
 	@Override
 	public void initialize() {
-		System.out.println("PLEASE WAIT!");
-		System.out.println("[!!!] The linear slide must be at its bottom position!");
+		System.out.print("PLEASE WAIT! ");
 
 		this.wheels = Shared.createWheels(this.hardwareMap);
 		this.webcam = new Webcam(this.hardwareMap, "Webcam");
@@ -70,28 +69,31 @@ public class AutonomousMode extends AutonomousOpMode {
 		}
 	}
 	public void moveLeftSide() {
-		this.wheels.driveOmni(0.5f, 0, 0);
-		sleep(2000);
-		this.linearSlide.setPosition(LinearSlide.Position.SMALL_POLE);
-		this.wheels.driveOmni(0, 0.5f, 0);
-		sleep(3200);
-		this.grabberThread.openClaw();
-		sleep(1000);
-		this.wheels.driveOmni(0, 0, 0);
+		this.wheels.drive(-66.04f, false);
+		//this.liftMotor.drive(0.5);
+		sleep(3000);
+		//this.liftMotor.drive(0);
+		this.wheels.drive(-12.7f,true);
+		this.wheels.drive(10.16f,false);
+		//this.grabberServo.setPosition(1);
+		this.wheels.drive(-10.16f,false);
+		this.wheels.drive(-25.4f,true);
 	}
 
 	public void moveMiddle() {
-		this.wheels.driveOmni(0.5f, 0, 0);
-		sleep(2000);
-		this.wheels.driveOmni(0, 0, 0);
+		this.wheels.drive(-75,false);
 	}
 
 	public void moveRightSide() {
-		this.wheels.driveOmni(0.5f, 0, 0);
-		sleep(2000);
-		this.wheels.driveOmni(0, -0.5f, 0);
-		sleep(2100);
-		this.wheels.driveOmni(0, 0, 0);
+		this.wheels.drive(-66.04f, false);
+		//this.liftMotor.drive(0.5);
+		sleep(3000);
+		//this.liftMotor.drive(0);
+		this.wheels.drive(12.7f,true);
+		this.wheels.drive(10.16f,false);
+		//this.grabberServo.setPosition(1);
+		this.wheels.drive(-10.16f,false);
+		this.wheels.drive(25.4f,true);
 	}
 
 	@Override

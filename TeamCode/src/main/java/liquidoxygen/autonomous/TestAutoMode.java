@@ -27,7 +27,7 @@ public class TestAutoMode extends AutonomousOpMode {
 		sleep(1000L);
 		System.out.println("DRIVE!!");
 
-		wheels.drive(100d, 0.2d);
+		wheels.drive(100d, false);
 
 		/*this.wheels.driveIndividually(0.3d, 0.3d, 0.3d, 0.3d);
 
