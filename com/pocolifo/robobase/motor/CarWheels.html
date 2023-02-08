@@ -272,8 +272,8 @@ implements java.lang.AutoCloseable</pre>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#drive(double,double)">drive</a></span>&#8203;(double&nbsp;centimeters,
-     double&nbsp;power)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#drive(double,boolean)">drive</a></span>&#8203;(double&nbsp;centimeters,
+     boolean&nbsp;horizontal)</code></th>
 <td class="colLast">
 <div class="block">Drive the motors forward or backward.</div>
 </td>
@@ -491,22 +491,20 @@ implements java.lang.AutoCloseable</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="drive(double,double)">
+<a id="drive(double,boolean)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>drive</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;drive&#8203;(double&nbsp;centimeters,
-                  double&nbsp;power)</pre>
+                  boolean&nbsp;horizontal)</pre>
 <div class="block">Drive the motors forward or backward.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>centimeters</code> - The number of centimeters to move. This should be negative to move backwards, and positive to
                     move forwards. If <code>power</code> is negative, this should be too.</dd>
-<dd><code>power</code> - The power to drive the motors at. Valid values are from <code>-1.0</code> to <code>1.0</code>, inclusive.
-              This should be negative to move backwards, and positive to move forwards. If <code>centimeters</code> is
-              negative, this should be too.</dd>
+<dd><code>horizontal</code> - Whether the robot moves vertically or horizontally.</dd>
 </dl>
 </li>
 </ul>
