@@ -47,9 +47,9 @@ public class Wheel extends Motor {
 	 */
 	public void setDriveTarget(double centimeters) {
 		double rotations = centimeters / this.circumferenceCm;
-		int encoderTarget = (int) rotations * this.tickCount;
+		this.targetPosition = (int) rotations * this.tickCount;
 
-		this.targetPosition += encoderTarget;
+		this.motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 		this.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 	}
 }

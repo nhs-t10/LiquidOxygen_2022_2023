@@ -121,9 +121,7 @@ public class CarWheels implements AutoCloseable {
 	 *
 	 * @param centimeters The number of centimeters to move. This should be negative to move backwards, and positive to
 	 *                    move forwards. If {@code power} is negative, this should be too.
-	 * @param power The power to drive the motors at. Valid values are from {@code -1.0} to {@code 1.0}, inclusive.
-	 *              This should be negative to move backwards, and positive to move forwards. If {@code centimeters} is
-	 *              negative, this should be too.
+	 * @param horizontal Whether the robot moves vertically or horizontally.
 	 * @author youngermax
 	 */
 	public void drive(double centimeters, boolean horizontal) {
@@ -131,7 +129,7 @@ public class CarWheels implements AutoCloseable {
 		this.setDriveTarget(centimeters);
 		System.out.println("DRIVE");
 		if (centimeters>=0 & !horizontal) {
-		this.driveIndividually(0.5, -0.5, 0.5, -0.5);
+			this.driveIndividually(0.5, -0.5, 0.5, -0.5);
 		} else if (!horizontal) {
 			this.driveIndividually(-0.5, 0.5, -0.5, 0.5);
 		} else if (centimeters>=0) {
@@ -221,7 +219,6 @@ public class CarWheels implements AutoCloseable {
 	private void waitForWheelsThenStop() {
 		// Wait for the SPECIAL WHEEL to stop moving
 		System.out.println("position = " + this.specialWheel.motor.getCurrentPosition());
-		System.out.println("PRE LOOP");
 
 		if (this.specialWheel.targetPosition - this.specialWheel.motor.getCurrentPosition() >= 0) {
 			while (this.specialWheel.targetPosition > -this.specialWheel.motor.getCurrentPosition()) {
@@ -252,6 +249,9 @@ public class CarWheels implements AutoCloseable {
 	public void driveOmni(float verticalPower, float horizontalPower, float rotationalPower) {
 		// Drive the wheels to match the controller input
 		// TODO: Add explanation here -- even I don't know how this works
+		horizontalPower *= -1;
+		verticalPower *= -1;
+		rotationalPower *= -1;
 		float[] vals = new float[] {
 			verticalPower - horizontalPower - rotationalPower,
 			verticalPower + rotationalPower + horizontalPower,
