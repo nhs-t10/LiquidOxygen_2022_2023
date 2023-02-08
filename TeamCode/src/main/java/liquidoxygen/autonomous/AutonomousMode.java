@@ -2,34 +2,32 @@ package liquidoxygen.autonomous;
 
 import com.pocolifo.robobase.bootstrap.AutonomousOpMode;
 import com.pocolifo.robobase.motor.CarWheels;
-import com.pocolifo.robobase.motor.Wheel;
 import com.pocolifo.robobase.vision.Webcam;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import liquidoxygen.GrabberThread;
+import liquidoxygen.LinearSlide;
 import liquidoxygen.Shared;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 @Autonomous(name = Shared.AUTONOMOUS_NAME, group = Shared.GROUP, preselectTeleOp = Shared.TELEOP_NAME)
 public class AutonomousMode extends AutonomousOpMode {
 	private CarWheels wheels;
 	private Webcam webcam;
-	private Wheel liftMotor;
-	private Servo grabberServo;
+	private GrabberThread grabberThread;
+	private LinearSlide linearSlide;
+	private DistanceSensor distance;
 
 	@Override
 	public void initialize() {
-		for (int i = 0; 50 > i; i++) {
-			System.out.print("PLEASE WAIT! ");
-		}
-		//this.liftMotor = new Wheel(this.hardwareMap.dcMotor.get("Lift"), 288, 5.5);
-		//this.liftMotor.motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-		//this.grabberServo = this.hardwareMap.servo.get("Grabber");
-
-		System.out.println();
+		System.out.print("PLEASE WAIT! ");
 
 		this.wheels = Shared.createWheels(this.hardwareMap);
 		this.webcam = new Webcam(this.hardwareMap, "Webcam");
 		this.webcam.open(new ColorCapturePipeline());
+//		this.grabberThread = new GrabberThread(this.hardwareMap.servo.get("Grabber"));
+//		this.linearSlide = new LinearSlide(this.hardwareMap.dcMotor.get("Lift"));
+		this.distance = this.hardwareMap.get(DistanceSensor.class, "Distance Sensor");
 
 		System.out.println("Initialized Autonomous! Ready for take off!");
 	}
@@ -42,6 +40,10 @@ public class AutonomousMode extends AutonomousOpMode {
 			this.webcam.close();
 		} catch (Exception e) {
 			System.out.println("[!!!!!] WEBCAM DID NOT CLOSE PROPERLY! Still running anyway...");
+		}
+
+		while (distance.getDistance(DistanceUnit.CM) > 19.5f) {
+			this.wheels.driveOmni(0, -0.2f, 0);
 		}
 
 		System.out.printf("Detected color: %s%n", color.name());
@@ -66,7 +68,6 @@ public class AutonomousMode extends AutonomousOpMode {
 				break;
 		}
 	}
-
 	public void moveLeftSide() {
 		this.wheels.drive(-66.04f, false);
 		//this.liftMotor.drive(0.5);
