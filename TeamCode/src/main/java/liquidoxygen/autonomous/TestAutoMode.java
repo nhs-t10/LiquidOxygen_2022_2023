@@ -9,7 +9,7 @@ import liquidoxygen.Shared;
 @Autonomous
 public class TestAutoMode extends AutonomousOpMode {
 	private CarWheels wheels;
-
+	//Used for the testing of encoders.
 	@Override
 	public void initialize() {
 		this.wheels = Shared.createWheels(this.hardwareMap);

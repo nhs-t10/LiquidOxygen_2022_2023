@@ -45,12 +45,14 @@ public class GrabberThread extends Thread implements AutoCloseable {
 		}
 	}
 
+	//opens claw of robot
 	public void openClaw() {
 		if (this.currentAction == GrabberAction.NOT_ACTIVE) {
 			this.currentAction = GrabberAction.OPENING_CLAW;
 		}
 	}
 
+	//closes claw of robot
 	public void closeClaw() {
 		if (this.currentAction == GrabberAction.NOT_ACTIVE) {
 			this.currentAction = GrabberAction.CLOSING_CLAW;

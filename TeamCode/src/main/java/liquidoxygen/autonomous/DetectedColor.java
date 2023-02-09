@@ -8,7 +8,7 @@ public enum DetectedColor {
 	BLUE(new Scalar(0, 0, 255));
 
 	/**
-	 * The RGB color associated with this {@link DetectedColor}.
+	 * The RGB color associated with this {@link ColorCapturePipeline}.
 	 */
 	public final Scalar color;
 
