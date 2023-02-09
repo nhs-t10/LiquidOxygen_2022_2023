@@ -2,20 +2,20 @@ package liquidoxygen.teleop;
 
 import com.pocolifo.robobase.bootstrap.TeleOpOpMode;
 import com.pocolifo.robobase.control.GamepadCarWheels;
+import com.pocolifo.robobase.control.Pressable;
+import com.pocolifo.robobase.control.Toggleable;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Servo;
 import liquidoxygen.GrabberThread;
 import liquidoxygen.LinearSlide;
 import liquidoxygen.Shared;
 
-@TeleOp(name = Shared.TELEOP_NAME, group = Shared.GROUP)
+@TeleOp(name = "[A] " + Shared.TELEOP_NAME, group = Shared.GROUP)
 public class TeleOpMode extends TeleOpOpMode {
 	private GamepadCarWheels wheels;
-	private long lastSlidePressed;
-	private long lastClawPressed;
-	private long xtime;
-	private boolean x = true;
 	private LinearSlide linearSlide;
-	private GrabberThread grabberThread;
+	private Toggleable microMovementState;
+	private Servo claw;
 
 	@Override
 	public void initialize() {
@@ -23,9 +23,11 @@ public class TeleOpMode extends TeleOpOpMode {
 
 		this.wheels = new GamepadCarWheels(Shared.createWheels(this.hardwareMap), this.gamepad1);
 		this.linearSlide = new LinearSlide(this.hardwareMap.dcMotor.get("Lift"));
-		this.grabberThread = new GrabberThread(this.hardwareMap.servo.get("Grabber"));
-		lastSlidePressed = System.currentTimeMillis();
-		xtime = System.currentTimeMillis();
+		this.claw = this.hardwareMap.servo.get("Grabber");
+
+		this.microMovementState = new Toggleable(() -> this.gamepad1.x);
+//		this.linearSlidePreciseState = new Toggleable(() -> this.gamepad1.y);
+//		this.clawState = new Toggleable(() -> this.gamepad1.a);
 
 		System.out.println("Successfully initialized.");
 	}
@@ -34,36 +36,26 @@ public class TeleOpMode extends TeleOpOpMode {
 	public void loop() {
 		// Gamepad controls
 		// Wheels
-		x = x ^ (this.gamepad1.x && System.currentTimeMillis()-xtime>=1000);
-		xtime=(this.gamepad1.x && System.currentTimeMillis()-xtime>=1000)?System.currentTimeMillis():xtime;
-
-		//x=this.gamepad1.x
-
-		this.wheels.update(x);
+		this.wheels.update(this.microMovementState.get());
 		this.linearSlide.update();
 
 		// Lift
 		// Allow state change once every 100ms
-		if (System.currentTimeMillis() - this.lastSlidePressed > 100) {
-			if (this.gamepad1.dpad_up) {
-				this.lastSlidePressed = System.currentTimeMillis();
-				this.linearSlide.up();
-			} else if (this.gamepad1.dpad_down) {
-				this.lastSlidePressed = System.currentTimeMillis();
-				this.linearSlide.down();
-			}
+		if (this.gamepad1.dpad_up) {
+			this.linearSlide.driveUp();
+		} else if (this.gamepad1.dpad_down) {
+			this.linearSlide.driveDown();
+		} else {
+			this.linearSlide.stopDriving();
 		}
 
-		// Grabber
-		// Allow control of the grabber once every 500ms so the servo doesn't get overloaded
-		if (System.currentTimeMillis() - this.lastClawPressed > 500) {
-			if (this.gamepad1.a) {
-				this.lastClawPressed = System.currentTimeMillis();
-				this.grabberThread.openClaw();
-			} else if (this.gamepad1.b) {
-				this.lastClawPressed = System.currentTimeMillis();
-				this.grabberThread.closeClaw();
-			}
+		// Claw
+		if (this.gamepad1.a) {
+			this.claw.getController().pwmEnable();
+			this.claw.setPosition(1);
+		} else if (this.gamepad1.b) {
+			this.claw.setPosition(0);
+			this.claw.getController().pwmDisable();
 		}
 	}
 
@@ -71,6 +63,5 @@ public class TeleOpMode extends TeleOpOpMode {
 	public void stop() {
 		this.wheels.close();
 		this.linearSlide.close();
-		this.grabberThread.close();
 	}
 }

@@ -1,6 +1,5 @@
 package liquidoxygen;
 
-import android.os.SystemClock;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class GrabberThread extends Thread implements AutoCloseable {
@@ -17,6 +16,8 @@ public class GrabberThread extends Thread implements AutoCloseable {
 	public GrabberThread(Servo servo) {
 		this.servo = servo;
 		this.currentAction = GrabberAction.NOT_ACTIVE;
+
+		this.start();
 	}
 
 	@Override
@@ -45,13 +46,15 @@ public class GrabberThread extends Thread implements AutoCloseable {
 	}
 
 	public void openClaw() {
-		if (this.currentAction == GrabberAction.NOT_ACTIVE)
+		if (this.currentAction == GrabberAction.NOT_ACTIVE) {
 			this.currentAction = GrabberAction.OPENING_CLAW;
+		}
 	}
 
 	public void closeClaw() {
-		if (this.currentAction == GrabberAction.NOT_ACTIVE)
+		if (this.currentAction == GrabberAction.NOT_ACTIVE) {
 			this.currentAction = GrabberAction.CLOSING_CLAW;
+		}
 	}
 
 	@Override

@@ -10,8 +10,8 @@ import liquidoxygen.LinearSlide;
 import liquidoxygen.Shared;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@Autonomous(name = "[A] " + Shared.AUTONOMOUS_NAME, group = Shared.GROUP, preselectTeleOp = Shared.TELEOP_NAME)
-public class AutonomousMode extends AutonomousOpMode {
+@Autonomous(name = "[B] " + Shared.AUTONOMOUS_NAME, group = Shared.GROUP, preselectTeleOp = Shared.TELEOP_NAME)
+public class AutonomousModeB extends AutonomousOpMode {
 	private CarWheels wheels;
 	private Webcam webcam;
 	private GrabberThread grabberThread;
@@ -27,7 +27,7 @@ public class AutonomousMode extends AutonomousOpMode {
 		this.webcam.open(new ColorCapturePipeline());
 //		this.grabberThread = new GrabberThread(this.hardwareMap.servo.get("Grabber"));
 //		this.linearSlide = new LinearSlide(this.hardwareMap.dcMotor.get("Lift"));
-		this.distance = this.hardwareMap.get(DistanceSensor.class, "Distance Sensor");
+//		this.distance = this.hardwareMap.get(DistanceSensor.class, "Distance Sensor");
 
 		System.out.println("Initialized Autonomous! Ready for take off!");
 	}
@@ -40,10 +40,6 @@ public class AutonomousMode extends AutonomousOpMode {
 			this.webcam.close();
 		} catch (Exception e) {
 			System.out.println("[!!!!!] WEBCAM DID NOT CLOSE PROPERLY! Still running anyway...");
-		}
-
-		while (distance.getDistance(DistanceUnit.CM) > 19.5f) {
-			this.wheels.driveOmni(0, -0.2f, 0);
 		}
 
 		System.out.printf("Detected color: %s%n", color.name());
@@ -69,31 +65,25 @@ public class AutonomousMode extends AutonomousOpMode {
 		}
 	}
 	public void moveLeftSide() {
-		this.wheels.drive(-66.04f, false);
-		//this.liftMotor.drive(0.5);
-		sleep(3000);
-		//this.liftMotor.drive(0);
-		this.wheels.drive(-12.7f,true);
-		this.wheels.drive(10.16f,false);
-		//this.grabberServo.setPosition(1);
-		this.wheels.drive(-10.16f,false);
-		this.wheels.drive(-25.4f,true);
+		this.wheels.driveOmni(0.5f, 0, 0);
+		sleep(2000);
+		this.wheels.driveOmni(0, 0.5f, 0);
+		sleep(2100);
+		this.wheels.driveOmni(0, 0, 0);
 	}
 
 	public void moveMiddle() {
-		this.wheels.drive(-75,false);
+		this.wheels.driveOmni(0.5f, 0, 0);
+		sleep(2000);
+		this.wheels.driveOmni(0, 0, 0);
 	}
 
 	public void moveRightSide() {
-		this.wheels.drive(-66.04f, false);
-		//this.liftMotor.drive(0.5);
-		sleep(3000);
-		//this.liftMotor.drive(0);
-		this.wheels.drive(12.7f,true);
-		this.wheels.drive(10.16f,false);
-		//this.grabberServo.setPosition(1);
-		this.wheels.drive(-10.16f,false);
-		this.wheels.drive(25.4f,true);
+		this.wheels.driveOmni(0.5f, 0, 0);
+		sleep(2000);
+		this.wheels.driveOmni(0, -0.5f, 0);
+		sleep(2100);
+		this.wheels.driveOmni(0, 0, 0);
 	}
 
 	@Override

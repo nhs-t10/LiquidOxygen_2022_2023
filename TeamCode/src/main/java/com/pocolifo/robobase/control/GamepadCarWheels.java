@@ -83,8 +83,14 @@ public class GamepadCarWheels implements AutoCloseable {
 	 * Left stick - movement: forward, backward, left and right without turning
 	 * Right tick - rotation: clockwise and counterclockwise</p>
 	 */
-	public void update(boolean x) {
-		this.wheels.driveOmni(this.gamepad.left_stick_y/(x?1:2), this.gamepad.left_stick_x/(x?1:2), this.gamepad.right_stick_x/(x?1:2));
+	public void update(boolean useMicroMovement) {
+		int microMovementValue = useMicroMovement ? 1 : 2;
+
+		this.wheels.driveOmni(
+			this.gamepad.left_stick_y / microMovementValue,
+			this.gamepad.left_stick_x / microMovementValue,
+			this.gamepad.right_stick_x / microMovementValue
+		);
 	}
 
 	/**

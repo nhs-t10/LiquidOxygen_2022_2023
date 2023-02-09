@@ -60,8 +60,8 @@ public class Motor implements AutoCloseable {
 	 * @author youngermax
 	 */
 	public void stopMoving() {
-		this.motor.setPower(0);
 		this.motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+		this.motor.setPower(0);
 	}
 
 	/**
