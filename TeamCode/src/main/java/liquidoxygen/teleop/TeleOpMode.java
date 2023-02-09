@@ -9,6 +9,8 @@ import liquidoxygen.Shared;
 
 @TeleOp(name = Shared.TELEOP_NAME, group = Shared.GROUP)
 public class TeleOpMode extends TeleOpOpMode {
+
+	//Create variables
 	private GamepadCarWheels wheels;
 	private long lastSlidePressed;
 	private long lastClawPressed;
@@ -21,6 +23,7 @@ public class TeleOpMode extends TeleOpOpMode {
 	public void initialize() {
 		System.out.println("[!!!] The linear slide must be at its bottom position!");
 
+		//Initialize variables
 		this.wheels = new GamepadCarWheels(Shared.createWheels(this.hardwareMap), this.gamepad1);
 		this.linearSlide = new LinearSlide(this.hardwareMap.dcMotor.get("Lift"));
 		this.grabberThread = new GrabberThread(this.hardwareMap.servo.get("Grabber"));
@@ -36,8 +39,6 @@ public class TeleOpMode extends TeleOpOpMode {
 		// Wheels
 		x = x ^ (this.gamepad1.x && System.currentTimeMillis()-xtime>=1000);
 		xtime=(this.gamepad1.x && System.currentTimeMillis()-xtime>=1000)?System.currentTimeMillis():xtime;
-
-		//x=this.gamepad1.x
 
 		this.wheels.update(x);
 		this.linearSlide.update();
@@ -69,6 +70,7 @@ public class TeleOpMode extends TeleOpOpMode {
 
 	@Override
 	public void stop() {
+		//Closes all threads
 		this.wheels.close();
 		this.linearSlide.close();
 		this.grabberThread.close();
