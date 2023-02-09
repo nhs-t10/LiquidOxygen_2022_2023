@@ -27,6 +27,12 @@
     catch(err) {
     }
 //-->
+var data = {"i0":2,"i1":2,"i2":1,"i3":2,"i4":2,"i5":2,"i6":2,"i7":2,"i8":2,"i9":2,"i10":2,"i11":2,"i12":2,"i13":2};
+var tabs = {65535:["t0","All Classes"],1:["t1","Interface Summary"],2:["t2","Class Summary"]};
+var altColor = "altColor";
+var rowColor = "rowColor";
+var tableTab = "tableTab";
+var activeTableTab = "activeTableTab";
 var pathtoroot = "./";
 var useModuleDirectories = true;
 loadScripts(document, 'script');</script>
@@ -99,7 +105,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <table class="typeSummary">
-<caption><span>Class Summary</span><span class="tabEnd">&nbsp;</span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Classes</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Interface Summary</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Class Summary</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Class</th>
 <th class="colLast" scope="col">Description</th>
@@ -117,54 +123,68 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </th>
 </tr>
 <tr id="i2" class="altColor">
+<td class="colFirst"><a href="com/pocolifo/robobase/control/BoolSupplier.html" title="interface in com.pocolifo.robobase.control">BoolSupplier</a></td>
+<th class="colLast" scope="row">Deprecated.
+<div class="deprecationComment">Temporary</div>
+</th>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><a href="com/pocolifo/robobase/bootstrap/BootstrappedOpMode.html" title="class in com.pocolifo.robobase.bootstrap">BootstrappedOpMode</a></td>
 <th class="colLast" scope="row">
 <div class="block">"Bootstrapping" is the preparing another program to initialize.</div>
 </th>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><a href="com/pocolifo/robobase/motor/CarWheels.html" title="class in com.pocolifo.robobase.motor">CarWheels</a></td>
 <th class="colLast" scope="row">
 <div class="block">Contains functions to move the robot very intuitively.</div>
 </th>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><a href="com/pocolifo/robobase/control/GamepadCarWheels.html" title="class in com.pocolifo.robobase.control">GamepadCarWheels</a></td>
 <th class="colLast" scope="row">
 <div class="block">Utility class which implements Omni-Drive.</div>
 </th>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><a href="com/pocolifo/robobase/motor/Motor.html" title="class in com.pocolifo.robobase.motor">Motor</a></td>
 <th class="colLast" scope="row">
 <div class="block">Represents a motor.</div>
 </th>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
+<td class="colFirst"><a href="com/pocolifo/robobase/control/Pressable.html" title="class in com.pocolifo.robobase.control">Pressable</a></td>
+<th class="colLast" scope="row">&nbsp;</th>
+</tr>
+<tr id="i8" class="altColor">
 <td class="colFirst"><a href="com/pocolifo/robobase/Robot.html" title="class in com.pocolifo.robobase">Robot</a></td>
 <th class="colLast" scope="row">
 <div class="block">Data and other information about the robot.</div>
 </th>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><a href="com/pocolifo/robobase/bootstrap/RobotDebugPrintStream.html" title="class in com.pocolifo.robobase.bootstrap">RobotDebugPrintStream</a></td>
 <th class="colLast" scope="row">
 <div class="block">An implementation of PrintStream which is used as the implementation of System.out and System.err.</div>
 </th>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><a href="com/pocolifo/robobase/bootstrap/TeleOpOpMode.html" title="class in com.pocolifo.robobase.bootstrap">TeleOpOpMode</a></td>
 <th class="colLast" scope="row">
 <div class="block">Base class for TeleOp code to go.</div>
 </th>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i11" class="rowColor">
+<td class="colFirst"><a href="com/pocolifo/robobase/control/Toggleable.html" title="class in com.pocolifo.robobase.control">Toggleable</a></td>
+<th class="colLast" scope="row">&nbsp;</th>
+</tr>
+<tr id="i12" class="altColor">
 <td class="colFirst"><a href="com/pocolifo/robobase/vision/Webcam.html" title="class in com.pocolifo.robobase.vision">Webcam</a></td>
 <th class="colLast" scope="row">
 <div class="block">Abstracts away certain parts of <code>OpenCvCamera</code>.</div>
 </th>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><a href="com/pocolifo/robobase/motor/Wheel.html" title="class in com.pocolifo.robobase.motor">Wheel</a></td>
 <th class="colLast" scope="row">
 <div class="block">Represents a single wheel on the robot.</div>
