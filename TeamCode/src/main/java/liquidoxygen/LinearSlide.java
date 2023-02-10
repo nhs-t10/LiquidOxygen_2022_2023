@@ -114,12 +114,12 @@ public class LinearSlide implements AutoCloseable {
 		this.liftMotor.setPower(0);
 	}
 
-	public void driveDown() {
-		this.liftMotor.setPower(-SPEED);
+	public void driveDown(boolean micromovement) {
+		this.liftMotor.setPower(-SPEED / (micromovement?1:2));
 	}
 
-	public void driveUp() {
-		this.liftMotor.setPower(SPEED);
+	public void driveUp(boolean micromovement) {
+		this.liftMotor.setPower(SPEED / (micromovement?1:2));
 	}
 
 	@Override

@@ -46,9 +46,9 @@ public class TeleOpMode extends TeleOpOpMode {
 		// Lift
 		// Allow state change once every 100ms
 		if (this.gamepad1.dpad_up) {
-			this.linearSlide.driveUp();
+			this.linearSlide.driveUp(this.microMovementState.get());
 		} else if (this.gamepad1.dpad_down) {
-			this.linearSlide.driveDown();
+			this.linearSlide.driveDown(this.microMovementState.get());
 		} else {
 			this.linearSlide.stopDriving();
 		}
