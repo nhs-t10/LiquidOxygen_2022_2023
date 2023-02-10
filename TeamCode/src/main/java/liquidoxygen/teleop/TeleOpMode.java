@@ -18,6 +18,7 @@ public class TeleOpMode extends TeleOpOpMode {
 	private LinearSlide linearSlide;
 	private Toggleable microMovementState;
 	private Servo claw;
+	private long timesincegrab;
 
 	@Override
 	public void initialize() {
@@ -31,7 +32,7 @@ public class TeleOpMode extends TeleOpOpMode {
 		this.microMovementState = new Toggleable(() -> this.gamepad1.x);
 //		this.linearSlidePreciseState = new Toggleable(() -> this.gamepad1.y);
 //		this.clawState = new Toggleable(() -> this.gamepad1.a);
-
+		this.timesincegrab = System.currentTimeMillis();
 		System.out.println("Successfully initialized.");
 	}
 
@@ -53,12 +54,15 @@ public class TeleOpMode extends TeleOpOpMode {
 		}
 
 		// Claw
-		if (this.gamepad1.a) {
-			this.claw.getController().pwmEnable();
-			this.claw.setPosition(1);
-		} else if (this.gamepad1.b) {
-			this.claw.setPosition(0);
-			this.claw.getController().pwmDisable();
+		if (this.gamepad1.a && System.currentTimeMillis()-this.timesincegrab>=500) {
+			this.timesincegrab = System.currentTimeMillis();
+			if (this.claw.getPosition() >= 0.5) {
+				this.claw.setPosition(0);
+				this.claw.getController().pwmDisable();
+			} else {
+				this.claw.getController().pwmEnable();
+				this.claw.setPosition(1);
+			}
 		}
 	}
 
