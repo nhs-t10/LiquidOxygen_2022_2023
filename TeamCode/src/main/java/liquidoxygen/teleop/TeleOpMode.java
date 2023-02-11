@@ -17,8 +17,8 @@ public class TeleOpMode extends TeleOpOpMode {
 	private GamepadCarWheels wheels;
 	private LinearSlide linearSlide;
 	private Toggleable microMovementState;
+	private Toggleable clawState;
 	private Servo claw;
-	private long timesincegrab;
 
 	@Override
 	public void initialize() {
@@ -27,12 +27,11 @@ public class TeleOpMode extends TeleOpOpMode {
 		//Initialize variables
 		this.wheels = new GamepadCarWheels(Shared.createWheels(this.hardwareMap), this.gamepad1);
 		this.linearSlide = new LinearSlide(this.hardwareMap.dcMotor.get("Lift"));
-		this.claw = this.hardwareMap.servo.get("Grabber");
+		this.claw = this.hardwareMap.servo.get("Claw");
 
 		this.microMovementState = new Toggleable(() -> this.gamepad1.x);
-//		this.linearSlidePreciseState = new Toggleable(() -> this.gamepad1.y);
-//		this.clawState = new Toggleable(() -> this.gamepad1.a);
-		this.timesincegrab = System.currentTimeMillis();
+		this.clawState = new Toggleable(() -> this.gamepad1.a);
+
 		System.out.println("Successfully initialized.");
 	}
 
@@ -54,16 +53,14 @@ public class TeleOpMode extends TeleOpOpMode {
 		}
 
 		// Claw
-		if (this.gamepad1.a && System.currentTimeMillis()-this.timesincegrab>=500) {
-			this.timesincegrab = System.currentTimeMillis();
-			if (this.claw.getPosition() >= 0.5) {
-				this.claw.setPosition(0);
-				this.claw.getController().pwmDisable();
-			} else {
-				this.claw.getController().pwmEnable();
-				this.claw.setPosition(1);
-			}
-		}
+		this.clawState.processUpdates()
+		.onToggleOn(() -> {
+			this.claw.getController().pwmEnable();
+			this.claw.setPosition(1);
+		}).onToggleOff(() -> {
+			this.claw.setPosition(0);
+			this.claw.getController().pwmDisable();
+		});
 	}
 
 	@Override

@@ -4,7 +4,8 @@ package com.pocolifo.robobase.control;
 public class Toggleable {
 	private final BoolSupplier currentState;
 	private boolean lastState;
-	private boolean thisToggledState;
+	private boolean state;
+	private boolean toggledLastUpdate;
 
 	/**
 	 * Creates a {@link Toggleable}.
@@ -21,14 +22,52 @@ public class Toggleable {
 	 * @return The toggled state of this {@link Toggleable}
 	 */
 	public boolean get() {
-		boolean current = this.currentState.get();
+		return this.state;
+	}
 
-		if (current && !this.lastState) {
-			this.thisToggledState = !this.thisToggledState;
+	/**
+	 * Updates this Toggleable. <strong>Should be called ONCE as frequent as possible or in the main loop!</strong>
+	 *
+	 * @return This {@link Toggleable} instance.
+	 */
+	public Toggleable processUpdates() {
+		boolean current = this.currentState.get();
+		this.toggledLastUpdate = current && !this.lastState;
+
+		if (this.toggledLastUpdate) {
+			this.state = !this.state;
 		}
 
 		this.lastState = current;
 
-		return this.thisToggledState;
+		return this;
+	}
+
+	/**
+	 * Run code when this {@link Toggleable} is toggled ON.
+	 *
+	 * @param runnable A {@link Runnable} that is executed when this toggleable is toggled ON.
+	 * @return This {@link Toggleable} instance.
+	 */
+	public Toggleable onToggleOn(Runnable runnable) {
+		if (this.toggledLastUpdate && this.state) {
+			runnable.run();
+		}
+
+		return this;
+	}
+
+	/**
+	 * Run code when this {@link Toggleable} is toggled OFF.
+	 *
+	 * @param runnable A {@link Runnable} that is executed when this toggleable is toggled OFF.
+	 * @return This {@link Toggleable} instance.
+	 */
+	public Toggleable onToggleOff(Runnable runnable) {
+		if (this.toggledLastUpdate && !this.state) {
+			runnable.run();
+		}
+
+		return this;
 	}
 }
