@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -183,6 +183,27 @@ extends java.lang.Object</pre>
 <div class="block">Get the current toggled state.</div>
 </td>
 </tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code><a href="Toggleable.html" title="class in com.pocolifo.robobase.control">Toggleable</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onToggleOff(java.lang.Runnable)">onToggleOff</a></span>&#8203;(java.lang.Runnable&nbsp;runnable)</code></th>
+<td class="colLast">
+<div class="block">Run code when this <a href="Toggleable.html" title="class in com.pocolifo.robobase.control"><code>Toggleable</code></a> is toggled OFF.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code><a href="Toggleable.html" title="class in com.pocolifo.robobase.control">Toggleable</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onToggleOn(java.lang.Runnable)">onToggleOn</a></span>&#8203;(java.lang.Runnable&nbsp;runnable)</code></th>
+<td class="colLast">
+<div class="block">Run code when this <a href="Toggleable.html" title="class in com.pocolifo.robobase.control"><code>Toggleable</code></a> is toggled ON.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code><a href="Toggleable.html" title="class in com.pocolifo.robobase.control">Toggleable</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#processUpdates()">processUpdates</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Updates this Toggleable.</div>
+</td>
+</tr>
 </table>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
@@ -234,7 +255,7 @@ extends java.lang.Object</pre>
 <a id="get()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>get</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;get()</pre>
@@ -242,6 +263,52 @@ extends java.lang.Object</pre>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The toggled state of this <a href="Toggleable.html" title="class in com.pocolifo.robobase.control"><code>Toggleable</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="processUpdates()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>processUpdates</h4>
+<pre class="methodSignature">public&nbsp;<a href="Toggleable.html" title="class in com.pocolifo.robobase.control">Toggleable</a>&nbsp;processUpdates()</pre>
+<div class="block">Updates this Toggleable. <strong>Should be called ONCE as frequent as possible or in the main loop!</strong></div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>This <a href="Toggleable.html" title="class in com.pocolifo.robobase.control"><code>Toggleable</code></a> instance.</dd>
+</dl>
+</li>
+</ul>
+<a id="onToggleOn(java.lang.Runnable)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>onToggleOn</h4>
+<pre class="methodSignature">public&nbsp;<a href="Toggleable.html" title="class in com.pocolifo.robobase.control">Toggleable</a>&nbsp;onToggleOn&#8203;(java.lang.Runnable&nbsp;runnable)</pre>
+<div class="block">Run code when this <a href="Toggleable.html" title="class in com.pocolifo.robobase.control"><code>Toggleable</code></a> is toggled ON.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>runnable</code> - A <code>Runnable</code> that is executed when this toggleable is toggled ON.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>This <a href="Toggleable.html" title="class in com.pocolifo.robobase.control"><code>Toggleable</code></a> instance.</dd>
+</dl>
+</li>
+</ul>
+<a id="onToggleOff(java.lang.Runnable)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>onToggleOff</h4>
+<pre class="methodSignature">public&nbsp;<a href="Toggleable.html" title="class in com.pocolifo.robobase.control">Toggleable</a>&nbsp;onToggleOff&#8203;(java.lang.Runnable&nbsp;runnable)</pre>
+<div class="block">Run code when this <a href="Toggleable.html" title="class in com.pocolifo.robobase.control"><code>Toggleable</code></a> is toggled OFF.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>runnable</code> - A <code>Runnable</code> that is executed when this toggleable is toggled OFF.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>This <a href="Toggleable.html" title="class in com.pocolifo.robobase.control"><code>Toggleable</code></a> instance.</dd>
 </dl>
 </li>
 </ul>
