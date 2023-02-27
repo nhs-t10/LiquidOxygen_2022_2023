@@ -38,22 +38,19 @@ public class LinearSlide implements AutoCloseable {
 
 	public void calibrate() {
 		this.liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-		this.liftMotor.setPower(1);
-		this.liftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+		this.driveDown();
 
-		int lastEncoderPos = 0;
+		// Keep moving down until the encoder stops changing
+		for (int lastEncoderPos = Integer.MAX_VALUE; lastEncoderPos > this.liftMotor.getTargetPosition(); lastEncoderPos = this.liftMotor.getTargetPosition());
 
-		while (lastEncoderPos != this.liftMotor.getTargetPosition()) {
-			lastEncoderPos = this.liftMotor.getTargetPosition();
-		}
-
-		// At top
-		this.currentPosition = Position.LARGE_POLE;
+		// At bottom
+		this.liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+		this.currentPosition = Position.BOTTOM;
 	}
 
 	public void setPosition(Position position) {
 		this.liftMotor.setTargetPosition((int) Math.ceil(position.cmFromBottom - this.currentPosition.cmFromBottom));
-		this.liftMotor.setPower(1);
+		this.liftMotor.setPower(SPEED);
 		this.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 		this.currentPosition = position;
 
@@ -114,12 +111,12 @@ public class LinearSlide implements AutoCloseable {
 		this.liftMotor.setPower(0);
 	}
 
-	public void driveDown(boolean micromovement) {
-		this.liftMotor.setPower(-SPEED / (micromovement?1:2));
+	public void driveDown() {
+		this.liftMotor.setPower(-SPEED);
 	}
 
-	public void driveUp(boolean micromovement) {
-		this.liftMotor.setPower(SPEED / (micromovement?1:2));
+	public void driveUp() {
+		this.liftMotor.setPower(SPEED);
 	}
 
 	@Override
