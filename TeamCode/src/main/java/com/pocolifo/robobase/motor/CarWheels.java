@@ -126,13 +126,14 @@ public class CarWheels implements AutoCloseable {
 	 */
 	public void drive(double centimeters, boolean horizontal) {
 		System.out.println("TARGET");
+		centimeters *= -1;
 		this.setDriveTarget(centimeters);
 		System.out.println("DRIVE");
-		if (centimeters>=0 & !horizontal) {
+		if (centimeters>=0 && !horizontal) {
 			this.driveIndividually(0.5, -0.5, 0.5, -0.5);
 		} else if (!horizontal) {
 			this.driveIndividually(-0.5, 0.5, -0.5, 0.5);
-		} else if (centimeters>=0) {
+		} else if (centimeters<=0) {
 			this.driveIndividually(-0.5, -0.5, 0.5, 0.5);
 		} else {
 			this.driveIndividually(0.5, 0.5, -0.5, -0.5);
@@ -221,12 +222,12 @@ public class CarWheels implements AutoCloseable {
 		System.out.println("position = " + this.specialWheel.motor.getCurrentPosition());
 
 		if (this.specialWheel.targetPosition - this.specialWheel.motor.getCurrentPosition() >= 0) {
-			while (this.specialWheel.targetPosition > -this.specialWheel.motor.getCurrentPosition()) {
-				System.out.printf("tp %d pos %d ", this.specialWheel.targetPosition, -this.specialWheel.motor.getCurrentPosition());
+			while (this.specialWheel.targetPosition > this.specialWheel.motor.getCurrentPosition()) {
+				System.out.printf("tp %d pos %d ", this.specialWheel.targetPosition, this.specialWheel.motor.getCurrentPosition());
 			}
 		} else {
-			while (this.specialWheel.targetPosition < -this.specialWheel.motor.getCurrentPosition()) {
-				System.out.printf("tp %d pos %d", this.specialWheel.targetPosition, -this.specialWheel.motor.getCurrentPosition());
+			while (this.specialWheel.targetPosition < this.specialWheel.motor.getCurrentPosition()) {
+				System.out.printf("tp %d pos %d", this.specialWheel.targetPosition, this.specialWheel.motor.getCurrentPosition());
 			}
 		}
 

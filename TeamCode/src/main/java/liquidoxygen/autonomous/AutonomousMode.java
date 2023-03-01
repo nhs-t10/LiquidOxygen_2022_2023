@@ -1,5 +1,6 @@
 package liquidoxygen.autonomous;
 
+import static liquidoxygen.Shared.DISTANCE_TO_CENTER_CM;
 import com.pocolifo.robobase.bootstrap.AutonomousOpMode;
 import com.pocolifo.robobase.motor.CarWheels;
 import com.pocolifo.robobase.vision.Webcam;
@@ -10,13 +11,17 @@ import liquidoxygen.LinearSlide;
 import liquidoxygen.Shared;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@Autonomous(name = "[A] " + Shared.AUTONOMOUS_NAME, group = Shared.GROUP, preselectTeleOp = Shared.TELEOP_NAME)
 public class AutonomousMode extends AutonomousOpMode {
 	private CarWheels wheels;
 	private Webcam webcam;
 	private GrabberThread grabberThread;
 	private LinearSlide linearSlide;
 	private DistanceSensor distance;
+	private boolean isLeft;
+
+	public AutonomousMode(boolean isLeft) {
+		this.isLeft = isLeft;
+	}
 
 	@Override
 	public void initialize() {
@@ -43,9 +48,20 @@ public class AutonomousMode extends AutonomousOpMode {
 		}
 
 		while (distance.getDistance(DistanceUnit.CM) > 19.5f) {
-			this.wheels.driveOmni(0, -0.2f, 0);
+			this.wheels.driveOmni(0, isLeft ? 0.2f : -0.2f, 0);
 		}
+		this.wheels.drive(-DISTANCE_TO_CENTER_CM, true);
 
+		linearSlide.driveUp();
+		sleep(500);
+		linearSlide.stopDriving();
+
+		this.wheels.drive(17.78, false);
+
+		this.grabberThread.openClaw();
+
+		this.wheels.drive(-17.78,false);
+		this.wheels.drive(isLeft ? -29.21 : 29.21, true);
 		System.out.printf("Detected color: %s%n", color.name());
 
 		switch (color) {
@@ -68,32 +84,19 @@ public class AutonomousMode extends AutonomousOpMode {
 				break;
 		}
 	}
+
 	public void moveLeftSide() {
-		this.wheels.drive(-66.04f, false);
-		//this.liftMotor.drive(0.5);
-		sleep(3000);
-		//this.liftMotor.drive(0);
-		this.wheels.drive(-12.7f,true);
-		this.wheels.drive(10.16f,false);
-		//this.grabberServo.setPosition(1);
-		this.wheels.drive(-10.16f,false);
-		this.wheels.drive(-25.4f,true);
+		this.wheels.drive(60.96, false);
+		this.wheels.drive(-60.96,true);
 	}
 
 	public void moveMiddle() {
-		this.wheels.drive(-75,false);
+		this.wheels.drive(60.96,false);
 	}
 
 	public void moveRightSide() {
-		this.wheels.drive(-66.04f, false);
-		//this.liftMotor.drive(0.5);
-		sleep(3000);
-		//this.liftMotor.drive(0);
-		this.wheels.drive(12.7f,true);
-		this.wheels.drive(10.16f,false);
-		//this.grabberServo.setPosition(1);
-		this.wheels.drive(-10.16f,false);
-		this.wheels.drive(25.4f,true);
+		this.wheels.drive(60.96, false);
+		this.wheels.drive(60.96,true);
 	}
 
 	@Override

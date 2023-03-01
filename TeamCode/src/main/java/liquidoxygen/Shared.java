@@ -11,6 +11,11 @@ public class Shared {
 	public static final Robot ROBOT = new Robot(43, 29, 27, 9326, "Robot", true);
 	public static final int MOTOR_TICK_COUNT = 1120;
 
+	/**
+	 * Distance in centimeters from the distance sensor to the center of the robot.
+	 */
+	public static final float DISTANCE_TO_CENTER_CM = 6.35f;
+
 	/*
 	Cycles per revolution (motor shaft): 7
 	Cycles per revolution (output shaft): 280

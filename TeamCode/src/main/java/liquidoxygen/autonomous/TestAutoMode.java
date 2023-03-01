@@ -34,9 +34,9 @@ public class TestAutoMode extends AutonomousOpMode {
 
 		/*this.wheels.driveIndividually(0.3d, 0.3d, 0.3d, 0.3d);
 
-		sleep(2500L);
+		sleep(2500L);*/
 
-		this.wheels.driveIndividually(0, 0, 0, 0);*/
+		this.wheels.driveIndividually(0, 0, 0, 0);
 
 		System.out.println("All done!");
 	}
