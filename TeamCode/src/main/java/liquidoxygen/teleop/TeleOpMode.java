@@ -2,12 +2,9 @@ package liquidoxygen.teleop;
 
 import com.pocolifo.robobase.bootstrap.TeleOpOpMode;
 import com.pocolifo.robobase.control.GamepadCarWheels;
-import com.pocolifo.robobase.control.Pressable;
 import com.pocolifo.robobase.control.Toggleable;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
-import liquidoxygen.GrabberThread;
+import liquidoxygen.Claw;
 import liquidoxygen.LinearSlide;
 import liquidoxygen.Shared;
 
@@ -18,8 +15,7 @@ public class TeleOpMode extends TeleOpOpMode {
 	private GamepadCarWheels wheels;
 	private LinearSlide linearSlide;
 	private Toggleable microMovementState;
-	private Toggleable clawState;
-	private Servo claw;
+	private Claw claw;
 
 	@Override
 	public void initialize() {
@@ -29,10 +25,9 @@ public class TeleOpMode extends TeleOpOpMode {
 		this.wheels = new GamepadCarWheels(Shared.createWheels(this.hardwareMap), this.gamepad1);
 
 		this.linearSlide = new LinearSlide(this.hardwareMap.dcMotor.get("Linear Slide"));
-		this.claw = this.hardwareMap.servo.get("Claw");
+		this.claw = new Claw(this.hardwareMap.servo.get("Claw"));
 
 		this.microMovementState = new Toggleable(() -> this.gamepad1.x);
-		this.clawState = new Toggleable(() -> this.gamepad1.a || this.gamepad1.b);
 
 		System.out.println("Successfully initialized.");
 	}
@@ -41,7 +36,7 @@ public class TeleOpMode extends TeleOpOpMode {
 	public void loop() {
 		// Gamepad controls
 		// Wheels
-		this.wheels.update(this.microMovementState.get());
+		this.wheels.update(this.microMovementState.processUpdates().get());
 		this.linearSlide.update();
 
 		// Lift
@@ -55,14 +50,11 @@ public class TeleOpMode extends TeleOpOpMode {
 		}
 
 		// Claw
-		this.clawState.processUpdates()
-		.onToggleOn(() -> {
-			this.claw.getController().pwmEnable();
-			this.claw.setPosition(1);
-		}).onToggleOff(() -> {
-			this.claw.setPosition(0);
-			this.claw.getController().pwmDisable();
-		});
+		if (this.gamepad1.left_bumper) {
+			this.claw.openClaw();
+		} else if (this.gamepad1.right_bumper) {
+			this.claw.closeClaw();
+		}
 	}
 
 	@Override

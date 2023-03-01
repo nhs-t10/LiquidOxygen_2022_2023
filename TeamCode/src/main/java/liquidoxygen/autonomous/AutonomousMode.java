@@ -4,9 +4,8 @@ import static liquidoxygen.Shared.DISTANCE_TO_CENTER_CM;
 import com.pocolifo.robobase.bootstrap.AutonomousOpMode;
 import com.pocolifo.robobase.motor.CarWheels;
 import com.pocolifo.robobase.vision.Webcam;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
-import liquidoxygen.GrabberThread;
+import liquidoxygen.Claw;
 import liquidoxygen.LinearSlide;
 import liquidoxygen.Shared;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -14,10 +13,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 public class AutonomousMode extends AutonomousOpMode {
 	private CarWheels wheels;
 	private Webcam webcam;
-	private GrabberThread grabberThread;
 	private LinearSlide linearSlide;
 	private DistanceSensor distance;
 	private boolean isLeft;
+	private Claw claw;
 
 	public AutonomousMode(boolean isLeft) {
 		this.isLeft = isLeft;
@@ -30,8 +29,8 @@ public class AutonomousMode extends AutonomousOpMode {
 		this.wheels = Shared.createWheels(this.hardwareMap);
 		this.webcam = new Webcam(this.hardwareMap, "Webcam");
 		this.webcam.open(new ColorCapturePipeline());
-//		this.grabberThread = new GrabberThread(this.hardwareMap.servo.get("Grabber"));
-//		this.linearSlide = new LinearSlide(this.hardwareMap.dcMotor.get("Lift"));
+		this.claw = new Claw(this.hardwareMap.servo.get("Claw"));
+		this.linearSlide = new LinearSlide(this.hardwareMap.dcMotor.get("Lift"));
 		this.distance = this.hardwareMap.get(DistanceSensor.class, "Distance Sensor");
 
 		System.out.println("Initialized Autonomous! Ready for take off!");
@@ -58,7 +57,7 @@ public class AutonomousMode extends AutonomousOpMode {
 
 		this.wheels.drive(17.78, false);
 
-		this.grabberThread.openClaw();
+		this.claw.openClaw();
 
 		this.wheels.drive(-17.78,false);
 		this.wheels.drive(isLeft ? -29.21 : 29.21, true);

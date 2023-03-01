@@ -5,16 +5,15 @@ import com.pocolifo.robobase.motor.CarWheels;
 import com.pocolifo.robobase.vision.Webcam;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
-import liquidoxygen.GrabberThread;
+import liquidoxygen.Claw;
 import liquidoxygen.LinearSlide;
 import liquidoxygen.Shared;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 @Autonomous(name = "[B] " + Shared.AUTONOMOUS_NAME, group = Shared.GROUP, preselectTeleOp = Shared.TELEOP_NAME)
 public class AutonomousModeB extends AutonomousOpMode {
 	private CarWheels wheels;
 	private Webcam webcam;
-	private GrabberThread grabberThread;
+	private Claw grabberThread;
 	private LinearSlide linearSlide;
 	private DistanceSensor distance;
 
@@ -25,7 +24,7 @@ public class AutonomousModeB extends AutonomousOpMode {
 		this.wheels = Shared.createWheels(this.hardwareMap);
 		this.webcam = new Webcam(this.hardwareMap, "Webcam");
 		this.webcam.open(new ColorCapturePipeline());
-//		this.grabberThread = new GrabberThread(this.hardwareMap.servo.get("Grabber"));
+//		this.grabberThread = new GrabberThread(this.hardwareMap.servo.get("Claw"));
 //		this.linearSlide = new LinearSlide(this.hardwareMap.dcMotor.get("Lift"));
 //		this.distance = this.hardwareMap.get(DistanceSensor.class, "Distance Sensor");
 
