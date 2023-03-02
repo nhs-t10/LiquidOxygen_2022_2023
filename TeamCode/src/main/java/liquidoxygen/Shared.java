@@ -14,7 +14,7 @@ public class Shared {
 	/**
 	 * Distance in centimeters from the distance sensor to the center of the robot.
 	 */
-	public static final float DISTANCE_TO_CENTER_CM = 6.35f;
+	public static final float DISTANCE_TO_CENTER_CM = 8.89f;
 
 	/*
 	Cycles per revolution (motor shaft): 7
