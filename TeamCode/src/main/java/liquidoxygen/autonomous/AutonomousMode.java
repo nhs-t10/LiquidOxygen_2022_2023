@@ -46,8 +46,9 @@ public class AutonomousMode extends AutonomousOpMode {
 			System.out.println("[!!!!!] WEBCAM DID NOT CLOSE PROPERLY! Still running anyway...");
 		}
 
-		while (distance.getDistance(DistanceUnit.CM) > 19.5f) {
-			this.wheels.driveOmni(0, isLeft ? 0.2f : -0.2f, 0);
+		while (distance.getDistance(DistanceUnit.CM) > 31f) {
+			this.wheels.driveOmni(0, isLeft ? 0.35f : -0.35f, 0);
+			System.out.println(distance.getDistance(DistanceUnit.CM));
 		}
 		this.wheels.drive(-DISTANCE_TO_CENTER_CM, true);
 
@@ -55,11 +56,11 @@ public class AutonomousMode extends AutonomousOpMode {
 		sleep(500);
 		linearSlide.stopDriving();
 
-		this.wheels.drive(17.78, false);
+		this.wheels.drive(15.24, false);
 
 		this.claw.openClaw();
-
-		this.wheels.drive(-17.78,false);
+		sleep(2000);
+		this.wheels.drive(-15.24,false);
 		this.wheels.drive(isLeft ? -29.21 : 29.21, true);
 		System.out.printf("Detected color: %s%n", color.name());
 
