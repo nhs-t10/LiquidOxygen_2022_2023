@@ -38,6 +38,7 @@ public class AutonomousMode extends AutonomousOpMode {
 
 	@Override
 	public void run() {
+		// this goes tothebiggest poles so the robot moves forward then right, all values are guessed especially the leftside function//
 		DetectedColor color = (DetectedColor) webcam.getPipeline().getResult();
 
 		try {
@@ -45,15 +46,15 @@ public class AutonomousMode extends AutonomousOpMode {
 		} catch (Exception e) {
 			System.out.println("[!!!!!] WEBCAM DID NOT CLOSE PROPERLY! Still running anyway...");
 		}
-
+		this.wheels.drive(60.96, false);
 		while (distance.getDistance(DistanceUnit.CM) > 31f) {
-			this.wheels.driveOmni(0, isLeft ? 0.35f : -0.35f, 0);
+			this.wheels.driveOmni(0, isLeft ? -0.35f : 0.35f, 0);
 			System.out.println(distance.getDistance(DistanceUnit.CM));
 		}
 		this.wheels.drive(-DISTANCE_TO_CENTER_CM, true);
 
 		linearSlide.driveUp();
-		sleep(500);
+		sleep(1500);
 		linearSlide.stopDriving();
 
 		this.wheels.drive(15.24, false);
@@ -86,17 +87,15 @@ public class AutonomousMode extends AutonomousOpMode {
 	}
 
 	public void moveLeftSide() {
-		this.wheels.drive(60.96, false);
-		this.wheels.drive(-60.96,true);
+		this.wheels.drive(-105.96,true);
 	}
 
 	public void moveMiddle() {
-		this.wheels.drive(60.96,false);
+
 	}
 
 	public void moveRightSide() {
-		this.wheels.drive(60.96, false);
-		this.wheels.drive(60.96,true);
+		this.wheels.drive(20,true);
 	}
 
 	@Override
