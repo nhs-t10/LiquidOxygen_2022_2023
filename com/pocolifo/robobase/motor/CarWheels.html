@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -280,6 +280,15 @@ implements java.lang.AutoCloseable</pre>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#drive(double,double,boolean)">drive</a></span>&#8203;(double&nbsp;centimeters,
+     double&nbsp;speed,
+     boolean&nbsp;horizontal)</code></th>
+<td class="colLast">
+<div class="block">Drive the motors forward or backward at a certain speed.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#driveIndividually(double,double,double,double)">driveIndividually</a></span>&#8203;(double&nbsp;frontLeft,
                  double&nbsp;frontRight,
                  double&nbsp;backLeft,
@@ -288,7 +297,7 @@ implements java.lang.AutoCloseable</pre>
 <div class="block">Sets the motor speed of each wheel individually.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#driveOmni(float,float,float)">driveOmni</a></span>&#8203;(float&nbsp;verticalPower,
          float&nbsp;horizontalPower,
@@ -297,7 +306,7 @@ implements java.lang.AutoCloseable</pre>
 <div class="block">Drive the robot with omni-drive.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rotate(double,double)">rotate</a></span>&#8203;(double&nbsp;degrees,
       double&nbsp;power)</code></th>
@@ -305,7 +314,7 @@ implements java.lang.AutoCloseable</pre>
 <div class="block">Rotates the robot.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rotateClockwise(double,double)">rotateClockwise</a></span>&#8203;(double&nbsp;degrees,
                double&nbsp;power)</code></th>
@@ -313,7 +322,7 @@ implements java.lang.AutoCloseable</pre>
 <div class="block">Rotates the robot clockwise.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rotateCounterclockwise(double,double)">rotateCounterclockwise</a></span>&#8203;(double&nbsp;degrees,
                       double&nbsp;power)</code></th>
@@ -321,7 +330,7 @@ implements java.lang.AutoCloseable</pre>
 <div class="block">Rotates the robot counterclockwise.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDriveTarget(double)">setDriveTarget</a></span>&#8203;(double&nbsp;centimeters)</code></th>
 <td class="colLast">
@@ -504,6 +513,25 @@ implements java.lang.AutoCloseable</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>centimeters</code> - The number of centimeters to move. This should be negative to move backwards, and positive to
                     move forwards. If <code>power</code> is negative, this should be too.</dd>
+<dd><code>horizontal</code> - Whether the robot moves vertically or horizontally.</dd>
+</dl>
+</li>
+</ul>
+<a id="drive(double,double,boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>drive</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;drive&#8203;(double&nbsp;centimeters,
+                  double&nbsp;speed,
+                  boolean&nbsp;horizontal)</pre>
+<div class="block">Drive the motors forward or backward at a certain speed.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>centimeters</code> - The number of centimeters to move. This should be negative to move backwards, and positive to
+                    move forwards. If <code>power</code> is negative, this should be too.</dd>
+<dd><code>speed</code> - The speed at which the robot should move. Should be [0, 1].</dd>
 <dd><code>horizontal</code> - Whether the robot moves vertically or horizontally.</dd>
 </dl>
 </li>
