@@ -125,21 +125,32 @@ public class CarWheels implements AutoCloseable {
 	 * @author youngermax
 	 */
 	public void drive(double centimeters, boolean horizontal) {
-		System.out.println("TARGET");
+		this.drive(centimeters, 0.5, horizontal);
+	}
+
+	/**
+	 * Drive the motors forward or backward at a certain speed.
+	 *
+	 * @param centimeters The number of centimeters to move. This should be negative to move backwards, and positive to
+	 *                    move forwards. If {@code power} is negative, this should be too.
+	 * @param speed The speed at which the robot should move. Should be [0, 1].
+	 * @param horizontal Whether the robot moves vertically or horizontally.
+	 * @author youngermax
+	 */
+	public void drive(double centimeters, double speed, boolean horizontal) {
 		centimeters *= -1;
 		this.setDriveTarget(centimeters);
-		System.out.println("DRIVE");
+
 		if (centimeters>=0 && !horizontal) {
-			this.driveIndividually(0.5, -0.5, 0.5, -0.5);
+			this.driveIndividually(speed, -speed, speed, -speed);
 		} else if (!horizontal) {
-			this.driveIndividually(-0.5, 0.5, -0.5, 0.5);
+			this.driveIndividually(-speed, speed, -speed, speed);
 		} else if (centimeters<=0) {
-			this.driveIndividually(-0.5, -0.5, 0.5, 0.5);
+			this.driveIndividually(-speed, -speed, speed, speed);
 		} else {
-			this.driveIndividually(0.5, 0.5, -0.5, -0.5);
+			this.driveIndividually(speed, speed, -speed, -speed);
 		}
 
-		System.out.println("WAIT");
 		this.waitForWheelsThenStop();
 	}
 
