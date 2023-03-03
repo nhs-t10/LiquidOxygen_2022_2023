@@ -2,6 +2,7 @@ package liquidoxygen.autonomous;
 
 import static liquidoxygen.Shared.DISTANCE_TO_CENTER_CM;
 import com.pocolifo.robobase.bootstrap.AutonomousOpMode;
+import com.pocolifo.robobase.control.EncoderTracker;
 import com.pocolifo.robobase.motor.CarWheels;
 import com.pocolifo.robobase.vision.Webcam;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
@@ -30,7 +31,7 @@ public class AutonomousMode extends AutonomousOpMode {
 		this.webcam = new Webcam(this.hardwareMap, "Webcam");
 		this.webcam.open(new ColorCapturePipeline());
 		this.claw = new Claw(this.hardwareMap.servo.get("Claw"));
-		this.linearSlide = new LinearSlide(this.hardwareMap.dcMotor.get("Lift"));
+		this.linearSlide = new LinearSlide(this.hardwareMap.dcMotor.get("Linear Slide"));
 		this.distance = this.hardwareMap.get(DistanceSensor.class, "Distance Sensor");
 
 		System.out.println("Initialized Autonomous! Ready for take off!");
@@ -46,22 +47,6 @@ public class AutonomousMode extends AutonomousOpMode {
 			System.out.println("[!!!!!] WEBCAM DID NOT CLOSE PROPERLY! Still running anyway...");
 		}
 
-		while (distance.getDistance(DistanceUnit.CM) > 31f) {
-			this.wheels.driveOmni(0, isLeft ? 0.35f : -0.35f, 0);
-			System.out.println(distance.getDistance(DistanceUnit.CM));
-		}
-		this.wheels.drive(-DISTANCE_TO_CENTER_CM, true);
-
-		linearSlide.driveUp();
-		sleep(500);
-		linearSlide.stopDriving();
-
-		this.wheels.drive(15.24, false);
-
-		this.claw.openClaw();
-		sleep(2000);
-		this.wheels.drive(-15.24,false);
-		this.wheels.drive(isLeft ? -29.21 : 29.21, true);
 		System.out.printf("Detected color: %s%n", color.name());
 
 		switch (color) {
@@ -83,19 +68,19 @@ public class AutonomousMode extends AutonomousOpMode {
 				this.moveRightSide();
 				break;
 		}
+
+		this.wheels.drive(-60.96, false);
 	}
 
 	public void moveLeftSide() {
-		this.wheels.drive(60.96, false);
 		this.wheels.drive(-60.96,true);
 	}
 
 	public void moveMiddle() {
-		this.wheels.drive(60.96,false);
+
 	}
 
 	public void moveRightSide() {
-		this.wheels.drive(60.96, false);
 		this.wheels.drive(60.96,true);
 	}
 

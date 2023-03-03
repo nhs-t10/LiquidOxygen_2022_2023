@@ -64,24 +64,24 @@ public class AutonomousModeB extends AutonomousOpMode {
 		}
 	}
 	public void moveLeftSide() {
-		this.wheels.driveOmni(0.5f, 0, 0);
-		sleep(900);
-		this.wheels.driveOmni(0, 0.5f, 0);
-		sleep(1250);
+		this.wheels.driveOmni(-0.5f, 0, 0);
+		sleep(1100);
+		this.wheels.driveOmni(0, -0.5f, 0);
+		sleep(1300);
 		this.wheels.driveOmni(0, 0, 0);
 	}
 
 	public void moveMiddle() {
-		this.wheels.driveOmni(0.5f, 0, 0);
-		sleep(900);
+		this.wheels.driveOmni(-0.5f, 0, 0);
+		sleep(1100);
 		this.wheels.driveOmni(0, 0, 0);
 	}
 
 	public void moveRightSide() {
-		this.wheels.driveOmni(0.5f, 0, 0);
-		sleep(900);
-		this.wheels.driveOmni(0, -0.5f, 0);
-		sleep(1250);
+		this.wheels.driveOmni(-0.5f, 0, 0);
+		sleep(1100);
+		this.wheels.driveOmni(0, 0.5f, 0);
+		sleep(1300);
 		this.wheels.driveOmni(0, 0, 0);
 	}
 
